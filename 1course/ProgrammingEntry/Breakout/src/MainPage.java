@@ -10,7 +10,7 @@ import javax.swing.JButton;
 import acm.graphics.GImage;
 import acm.graphics.GObject;
 import acm.util.SoundClip;
-
+// sYN4
 public class MainPage extends BreakoutMain{
 	
 	/**
