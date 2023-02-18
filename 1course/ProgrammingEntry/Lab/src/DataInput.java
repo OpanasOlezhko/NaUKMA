@@ -31,7 +31,7 @@ public final class DataInput {
         return s.charAt(0);
     }
 
-    public static double getDouble(String wr) throws IOException {
+    public static double getDouble(String wr){
         writeText(wr);
         double value = 0;
         try {

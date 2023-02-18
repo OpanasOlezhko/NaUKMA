@@ -10,6 +10,12 @@ public class Teacher {
         this.status = status;
     }
 
+    public Teacher(){
+        this.name = DataInput.getStr("Name: ");
+        this.status = DataInput.getStr("Status: ");
+        this.chair = TeacherList.chairName;
+    }
+
     public String getName() {
         return name;
     }

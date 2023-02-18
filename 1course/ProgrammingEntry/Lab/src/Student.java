@@ -5,14 +5,13 @@ import java.io.IOException;
 public class Student {
 
     String name;
-
     double grade;
+    String chair;
 
-    public Student() throws IOException {
-        System.out.println("Enter the name of a student:");
-        this.name = DataInput.getString();
+    public Student() {
+        this.name = DataInput.getStr("Enter the name of a student: ");
         this.grade = DataInput.getDouble("Enter the average grade of the "+this.name+":");
-
+        this.chair = TeacherList.chairName;
     }
 
     public Student(String name, double grade) throws IOException {

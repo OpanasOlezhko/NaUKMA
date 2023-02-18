@@ -9,27 +9,18 @@ import static javax.swing.UIManager.getString;
  * @author Max Loshak
  */
 public class StudentList {
-    private Student[] students;
+    public String groupName;
+    Student[] students;
     /**
      * пустий конструктор з вводом з консолі
      */
-    public StudentList() throws IOException {
+    public StudentList() {
+        this.groupName = DataInput.getStr("Enter the name of the group: ");
         int numStudents = DataInput.getInt("Enter the number of students: ");
         students = new Student[numStudents];
         for (int i=0; i<numStudents;i++){
             students[i]=new Student();
         }
-//        faculty = new String[numStudents];
-//        age = new int[numStudents];
-
-//        for (int i = 0; i < numStudents; i++) {
-//            System.out.print("Enter the name of a student " + (i + 1) + ": ");
-//            students[i] = DataInput.getString();
-//            averageGrades[i] = DataInput.getDouble("Enter the average grade of student " + (i + 1) + ": ");
-////            System.out.print("Enter the faculty of student " + (i + 1) + ": ");
-////            faculty[i] = DataInput.getString();
-////            age[i] = DataInput.getInt("Enter the age of student " + (i + 1) + ": ");
-//        }
     }
 
     /**
