@@ -8,7 +8,7 @@ import static javax.swing.UIManager.getString;
  * виводить на екран всіх студентів які починаються на вказану літеру (літеру прочитати з клавіатури)
  * @author Max Loshak
  */
-public class StudentList {
+public class StudentList extends TeacherList{
     public String groupName;
     Student[] students;
     /**

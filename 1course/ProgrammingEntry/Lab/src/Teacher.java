@@ -1,5 +1,5 @@
 
-public class Teacher {
+public class Teacher extends TeacherList{
     private String name;
     private String chair;
     private String status;
@@ -13,7 +13,7 @@ public class Teacher {
     public Teacher(){
         this.name = DataInput.getStr("Name: ");
         this.status = DataInput.getStr("Status: ");
-        this.chair = TeacherList.chairName;
+        this.chair = super.chairName;
     }
 
     public String getName() {

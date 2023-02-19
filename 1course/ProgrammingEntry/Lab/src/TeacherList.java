@@ -1,15 +1,17 @@
 import java.io.IOException;
 
-public class TeacherList {
-    public static int teachersCount;
-    public static int groupsCount;
-    public static String chairName;
+public class TeacherList extends Faculty{
+    public int teachersCount;
+    public int groupsCount;
+    public String chairName;
+    public String faculty;
 
     Teacher[] teachers;
     StudentList[] groups;
 
     public TeacherList(){
         this.chairName = DataInput.getStr("Enter the name of chair: ");
+        this.faculty = super.facultyName;
         this.teachersCount = DataInput.getInt("Enter the amount of teachers in "+chairName+" chair: ");
         this.teachersCount = DataInput.getInt("Enter the amount of students in "+chairName+" chair: ");
         this.teachers = new Teacher[teachersCount];
@@ -17,7 +19,7 @@ public class TeacherList {
         addTeachers();
         addStudents();
     }
-    public void addTeachers(){
+    private void addTeachers(){
         for (int i=0; i<teachersCount; i++){
             System.out.print("Creating teacher "+i);
                 Teacher teacher = new Teacher();
@@ -25,7 +27,7 @@ public class TeacherList {
         }
     }
 
-    public void addStudents(){
+    private void addStudents(){
         for (int i=0; i<groupsCount; i++){
             System.out.print("Creating group "+i);
                 StudentList group = new StudentList();

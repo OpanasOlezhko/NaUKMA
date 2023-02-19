@@ -2,16 +2,18 @@
 import javax.xml.crypto.Data;
 import java.io.IOException;
 
-public class Student {
+public class Student extends StudentList{
 
     String name;
     double grade;
+    String group;
     String chair;
 
     public Student() {
         this.name = DataInput.getStr("Enter the name of a student: ");
         this.grade = DataInput.getDouble("Enter the average grade of the "+this.name+":");
-        this.chair = TeacherList.chairName;
+        this.group = super.groupName;
+        this.chair = super.chairName;
     }
 
     public Student(String name, double grade) throws IOException {
