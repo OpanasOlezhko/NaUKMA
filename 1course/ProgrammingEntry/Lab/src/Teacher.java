@@ -4,12 +4,6 @@ public class Teacher extends TeacherList{
     private String chair;
     private String status;
 
-    public Teacher(String name, String chair, String status) {
-        this.name = name;
-        this.chair = chair;
-        this.status = status;
-    }
-
     public Teacher(){
         this.name = DataInput.getStr("Name: ");
         this.status = DataInput.getStr("Status: ");
