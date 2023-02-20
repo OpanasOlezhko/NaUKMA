@@ -58,6 +58,10 @@ public final class DataInput {
             System.out.println("Invalid input, enter an integer value.");
             value=getInt(wr);
         }
+        if(value<0){
+            System.out.println("Invalid input, enter correct value.");
+            value=getInt(wr);
+        }
         return value;
     }
 

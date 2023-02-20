@@ -1,4 +1,4 @@
-public class Faculty {
+public class Faculty extends University{
 
     public String facultyName;
     public int chairCount;
@@ -24,5 +24,9 @@ public class Faculty {
         for (int i=0; i<chairCount; i++){
             arr[i] = chairs[i];
         }
+    }
+
+    public void editName(){
+        this.facultyName = DataInput.getStr("Enter the new name of the faculty '"+facultyName+"' :");
     }
 }
