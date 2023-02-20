@@ -37,6 +37,14 @@ public class Student extends StudentList{
         return this.grade;
     }
 
+    public String getGroup() {
+        return group;
+    }
+
+    public String getChair() {
+        return chair;
+    }
+
     public String toString(){
         String s =this.name+"---(average grade: "+this.grade+")\n";
         return s;

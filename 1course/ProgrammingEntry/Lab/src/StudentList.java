@@ -11,12 +11,23 @@ import static javax.swing.UIManager.getString;
 public class StudentList extends TeacherList{
     public String groupName;
     Student[] students;
+    public int course;
+
+    public String getGroupName() {
+        return groupName;
+    }
+
+    public int getCourse() {
+        return course;
+    }
+
     /**
      * пустий конструктор з вводом з консолі
      */
     public StudentList() {
         this.groupName = DataInput.getStr("Enter the name of the group: ");
         int numStudents = DataInput.getInt("Enter the number of students: ");
+        this.course = DataInput.getInt("Enter the course of the group: ");
         students = new Student[numStudents];
         for (int i=0; i<numStudents;i++){
             students[i]=new Student();
