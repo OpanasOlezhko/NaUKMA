@@ -138,10 +138,10 @@ public class TeacherList {
         }
         Student[] studentsWithSpecifiedCourse = new Student[length];
         int ind = 0;
-        for(int j = 0; j < studentsWithSpecifiedCourse.length; j++) {
-//            for(int l = 0; l < studentsWithSpecifiedCourse[j].length; l++) {
-//                studentsWithSpecifiedCourse[ind++] = studentsWithSpecifiedCourse[j].students[l];
-//            }
+        for(int j = 0; j < groupWithSpecifiedCourse.length; j++) {
+            for(int l = 0; l < groupWithSpecifiedCourse[j].students.length; l++) {
+                studentsWithSpecifiedCourse[ind++] = groupWithSpecifiedCourse[j].students[l];
+            }
         }
         System.out.println("Students in the "+curCourse+" course: ");
         return studentsToString(studentsWithSpecifiedCourse);
@@ -206,10 +206,10 @@ public class TeacherList {
         }
         Student[] studentsWithSpecifiedCourse = new Student[length];
         int ind = 0;
-        for(int j = 0; j < studentsWithSpecifiedCourse.length; j++) {
-//            for(int l = 0; l < studentsWithSpecifiedCourse[j].students.length; l++) {
-//                studentsWithSpecifiedCourse[ind++] = studentsWithSpecifiedCourse[j].students[l];
-//            }
+        for(int j = 0; j < groupWithSpecifiedCourse.length; j++) {
+            for(int l = 0; l < groupWithSpecifiedCourse[j].students.length; l++) {
+                studentsWithSpecifiedCourse[ind++] = groupWithSpecifiedCourse[j].students[l];
+            }
         }
         return studentsWithSpecifiedCourse;
     }
