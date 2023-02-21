@@ -8,10 +8,11 @@ import static javax.swing.UIManager.getString;
  * виводить на екран всіх студентів які починаються на вказану літеру (літеру прочитати з клавіатури)
  * @author Max Loshak
  */
-public class StudentList extends TeacherList{
+public class StudentList {
     public String groupName;
     Student[] students;
     public int course;
+    public  String chair;
 
     public String getGroupName() {
         return groupName;
@@ -24,13 +25,14 @@ public class StudentList extends TeacherList{
     /**
      * пустий конструктор з вводом з консолі
      */
-    public StudentList() {
+    public StudentList(TeacherList chair) {
         this.groupName = DataInput.getStr("Enter the name of the group: ");
         int numStudents = DataInput.getInt("Enter the number of students: ");
         this.course = DataInput.getInt("Enter the course of the group: ");
+        this.chair = chair.chairName;
         students = new Student[numStudents];
         for (int i=0; i<numStudents;i++){
-            students[i]=new Student();
+            students[i]=new Student(this);
         }
     }
 

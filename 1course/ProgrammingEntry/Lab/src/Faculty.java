@@ -1,4 +1,4 @@
-public class Faculty extends University{
+ public class Faculty {
     public String facultyName;
     public int chairCount;
     TeacherList[] chairs;
@@ -129,7 +129,7 @@ public class Faculty extends University{
         str.append("[");
         for (int i = 0; i < studentsHere.length; i++) {
             str.append(studentsHere[i].getName()+" - "+ studentsHere[i].getChair()
-                    +" - "+studentsHere[i].getGroup()+" - "+ studentsHere[i].getGrade());
+                    +" - "+studentsHere[i].getGroupName()+" - "+ studentsHere[i].getGrade());
             if (i < studentsHere.length -1) {
                 str.append(", ");
             }
@@ -142,13 +142,13 @@ public class Faculty extends University{
 
     private void addChairs() {
         for (int i=0; i<chairCount; i++){
-            TeacherList chair = new TeacherList();
+            TeacherList chair = new TeacherList(this);
             this.chairs[i] = chair;
         }
     }
 
     public void addChair(){
-        TeacherList chair = new TeacherList();
+        TeacherList chair = new TeacherList(this);
         TeacherList[] arr = new TeacherList[chairCount+1];
         for (int i=0; i<chairCount; i++){
             arr[i] = chairs[i];

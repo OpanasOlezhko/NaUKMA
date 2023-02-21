@@ -1,13 +1,13 @@
 
-public class Teacher extends TeacherList{
+public class Teacher {
     private String name;
     private String chair;
     private String status;
 
-    public Teacher(){
+    public Teacher(TeacherList chair){
         this.name = DataInput.getStr("Name: ");
         this.status = DataInput.getStr("Status: ");
-        this.chair = super.chairName;
+        this.chair = chair.chairName;
     }
 
     public String getName() {

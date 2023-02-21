@@ -1,25 +1,21 @@
-
-import javax.xml.crypto.Data;
-import java.io.IOException;
-
-public class Student extends StudentList{
+public class Student {
 
     String name;
     double grade;
-    String group;
+    String groupName;
     String chair;
 
-    public Student() {
+    public Student(StudentList group) {
         this.name = DataInput.getStr("Enter the name of a student: ");
         this.grade = DataInput.getDouble("Enter the average grade of the "+this.name+":");
-        this.group = super.groupName;
-        this.chair = super.chairName;
+        this.groupName = group.groupName;
+        this.chair = group.chair;
     }
 
-    public Student(String name, double grade) throws IOException {
-        this.name=name;
-        this.grade=grade;
-    }
+//    public Student(String name, double grade) throws IOException {
+//        this.name=name;
+//        this.grade=grade;
+//    }
 
     public void setName(String name){
         this.name=name;
@@ -37,8 +33,8 @@ public class Student extends StudentList{
         return this.grade;
     }
 
-    public String getGroup() {
-        return group;
+    public String getGroupName() {
+        return groupName;
     }
 
     public String getChair() {

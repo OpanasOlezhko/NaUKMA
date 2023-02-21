@@ -1,4 +1,4 @@
-public class TeacherList extends Faculty{
+public class TeacherList {
     public int teachersCount;
     public int groupsCount;
     public String chairName;
@@ -7,11 +7,11 @@ public class TeacherList extends Faculty{
     Teacher[] teachers;
     StudentList[] groups;
 
-    public TeacherList(){
+    public TeacherList(Faculty faculty){
         this.chairName = DataInput.getStr("Enter the name of chair: ");
-        this.faculty = super.facultyName;
+        this.faculty = faculty.facultyName;
         this.teachersCount = DataInput.getInt("Enter the amount of teachers in "+chairName+" chair: ");
-        this.teachersCount = DataInput.getInt("Enter the amount of students in "+chairName+" chair: ");
+        this.groupsCount = DataInput.getInt("Enter the amount of student groups in "+chairName+" chair: ");
         this.teachers = new Teacher[teachersCount];
         this.groups = new StudentList[groupsCount];
         addTeachers();
@@ -139,9 +139,9 @@ public class TeacherList extends Faculty{
         Student[] studentsWithSpecifiedCourse = new Student[length];
         int ind = 0;
         for(int j = 0; j < studentsWithSpecifiedCourse.length; j++) {
-            for(int l = 0; l < studentsWithSpecifiedCourse[j].students.length; l++) {
-                studentsWithSpecifiedCourse[ind++] = studentsWithSpecifiedCourse[j].students[l];
-            }
+//            for(int l = 0; l < studentsWithSpecifiedCourse[j].length; l++) {
+//                studentsWithSpecifiedCourse[ind++] = studentsWithSpecifiedCourse[j].students[l];
+//            }
         }
         System.out.println("Students in the "+curCourse+" course: ");
         return studentsToString(studentsWithSpecifiedCourse);
@@ -172,7 +172,7 @@ public class TeacherList extends Faculty{
         str.append("[");
         for (int i = 0; i < student.length; i++) {
             str.append(student[i].getName()+" - "+ student[i].getChair()
-                    +" - "+student[i].getGroup());
+                    +" - "+student[i].getGroupName());
             if (i < student.length -1) {
                 str.append(", ");
             }
@@ -207,30 +207,30 @@ public class TeacherList extends Faculty{
         Student[] studentsWithSpecifiedCourse = new Student[length];
         int ind = 0;
         for(int j = 0; j < studentsWithSpecifiedCourse.length; j++) {
-            for(int l = 0; l < studentsWithSpecifiedCourse[j].students.length; l++) {
-                studentsWithSpecifiedCourse[ind++] = studentsWithSpecifiedCourse[j].students[l];
-            }
+//            for(int l = 0; l < studentsWithSpecifiedCourse[j].students.length; l++) {
+//                studentsWithSpecifiedCourse[ind++] = studentsWithSpecifiedCourse[j].students[l];
+//            }
         }
         return studentsWithSpecifiedCourse;
     }
     private void addTeachers(){
         for (int i=0; i<teachersCount; i++){
-            System.out.print("Creating teacher "+i);
-                Teacher teacher = new Teacher();
+            System.out.println("Creating teacher "+(i+1));
+                Teacher teacher = new Teacher(this);
                 teachers[i] = teacher;
         }
     }
 
     private void addStudents(){
         for (int i=0; i<groupsCount; i++){
-            System.out.print("Creating group "+i);
-                StudentList group = new StudentList();
+            System.out.println("Creating group "+(i+1));
+                StudentList group = new StudentList(this);
                 groups[i] = group;
         }
     }
 
     public void addTeacher(){
-        Teacher teacher = new Teacher();
+        Teacher teacher = new Teacher(this);
         Teacher[] arr = new Teacher[teachersCount+1];
         for (int i=0; i<teachersCount; i++){
             arr[i] = teachers[i];
@@ -240,7 +240,7 @@ public class TeacherList extends Faculty{
     }
 
     public void addGroup(){
-        StudentList group = new StudentList();
+        StudentList group = new StudentList(this);
         StudentList[] arr = new StudentList[groupsCount+1];
         for (int i=0; i<groupsCount; i++){
             arr[i] = groups[i];

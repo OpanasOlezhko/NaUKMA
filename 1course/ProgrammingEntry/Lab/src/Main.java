@@ -1,13 +1,14 @@
 public class Main {
     private static Screen screen;
-    private static University university = new University();
+
 
     public static void main(String[] args) {
         //var a=university.faculties[1].chairs[1].groups[1].students[1];
+        University university = new University();
     }
 
 
-    private static void action() {
+    private static void action(University university) {
         int ans = 0;
         switch (screen) {
             case Main -> {
@@ -23,7 +24,7 @@ public class Main {
                     screen = Screen.Teacher;
                 else if (ans == 4)
                     screen = Screen.Student;
-                action();
+                action(university);
             }
             case Faculty -> {
                 ans = DataInput.getInt("How would you like to interact with faculty?\n0-----Add\n1-----Remove" +
@@ -33,7 +34,7 @@ public class Main {
                 else if (ans == 1)
                     university.removeFaculty();
                 else if (ans == 2)
-                    editFaculty();
+                    editFaculty(university);
             }
             case Chair -> {
 
@@ -41,7 +42,7 @@ public class Main {
         }
     }
 
-    private static void editFaculty() {
+    private static void editFaculty(University university) {
         String names ="";
         for (int i=0; i< university.facultiesCount; i++){
             names+=i+"-----"+university.faculties[i].facultyName+"\n";
