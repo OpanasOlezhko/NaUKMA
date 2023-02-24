@@ -51,7 +51,7 @@
         StringBuilder str = new StringBuilder();
         str.append("[");
         for (int i = 0; i < teachers.length; i++) {
-            str.append(teachers[i].getName()+" - "+ teachers[i].getChair()
+            str.append(teachers[i].getName()+" - "+ teachers[i].getChairName()
                     +" - "+teachers[i].getStatus());
             if (i < teachers.length -1) {
                 str.append(", ");
@@ -155,7 +155,50 @@
         }
     }
 
-    public void editName(){
+    public void removeChair(){
+        TeacherList chair = chooseChair();
+        TeacherList[] arr = new TeacherList[chairCount-1];
+        for (int i=0; i<chairCount; i++){
+            if(chairs[i]!=chair)
+                arr[i] = chairs[i];
+        }
+        chairs=arr;
+    }
+
+    public void changeChairName(){
+        TeacherList chair = chooseChair();
+        chair.setChairName();
+    }
+
+    public void setFacultyName(){
         this.facultyName = DataInput.getStr("Enter the new name of the faculty '"+facultyName+"' :");
     }
+
+     public TeacherList chooseChair(){
+         String names ="";
+         for (int i=0; i< chairCount; i++){
+             names+=i+"-----"+chairs[i].chairName+"\n";
+         }
+         int ans = DataInput.getInt("Choose the faculty:\n"+names);
+         return chairs[ans];
+     }
+
+     public void editTeacher(){
+         TeacherList chair = chooseChair();
+         Teacher teacher = chair.chooseTeacher();
+         int ans = DataInput.getInt("What to change about "+teacher.name+"?\n0-----Name\n1-----Status\n2-----Chair");
+         if(ans ==0){
+             String name = DataInput.getStr("Enter new name: ");
+             teacher.setName(name);
+         }
+         else if (ans ==1){
+             String status = DataInput.getStr("Enter new status: ");
+             teacher.setStatus(status);
+         }
+         else if (ans ==2){
+             System.out.println("Choose new chair: ");
+             chair = chooseChair();
+             teacher.changeChair(chair);
+         }
+     }
 }

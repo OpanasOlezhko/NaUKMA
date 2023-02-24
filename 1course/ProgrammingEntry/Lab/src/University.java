@@ -25,12 +25,28 @@ public class University {
         faculties=arr;
     }
 
+    public void changeFacultyName(){
+        Faculty faculty = chooseFaculty();
+        faculty.setFacultyName();
+    }
+
     public void removeFaculty(){
+        Faculty faculty = chooseFaculty();
         Faculty[] arr = new Faculty[facultiesCount-1];
-        for (int i=0; i<facultiesCount-1; i++){
-            arr[i] = faculties[i];
+        for (int i=0; i<facultiesCount; i++){
+            if(faculties[i]!=faculty)
+                arr[i] = faculties[i];
         }
         faculties=arr;
+    }
+
+    public Faculty chooseFaculty(){
+        String names ="";
+        for (int i=0; i< facultiesCount; i++){
+            names+=i+"-----"+faculties[i].facultyName+"\n";
+        }
+        int ans = DataInput.getInt("Choose the faculty:\n"+names);
+        return faculties[ans];
     }
 
 

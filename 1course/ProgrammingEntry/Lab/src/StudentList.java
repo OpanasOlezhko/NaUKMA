@@ -153,11 +153,36 @@ public class StudentList {
         return true;
     }
 
-//    public void printStudents(){
-//        for (int i = 0; i < students.length; i++) {
-//            System.out.print(students[i] + " (average grade: " + averageGrades[i]+ ")\n");
-//        }
-//    }
+    public void removeStudent(Student student){
+        Student[] arr = new Student[students.length-1];
+        for (int i=0; i<students.length; i++){
+            if(students[i]!=student)
+                arr[i] = students[i];
+        }
+        students=arr;
+    }
+
+    public void addStudent(Student student){
+        Student[] arr = new Student[students.length+1];
+        for (int i=0; i<students.length; i++){
+            arr[i] = students[i];
+        }
+        arr[students.length]=student;
+        students=arr;
+    }
+    public Student chooseStudent(){
+        String names ="";
+        for (int i=0; i< students.length; i++){
+            names+=i+"-----"+students[i]+"\n";
+        }
+        int ans = DataInput.getInt("Choose the student:\n"+names);
+        return students[ans];
+    }
+
+    public void setGroupName(){
+        this.groupName = DataInput.getStr("Enter the new name of the group '"+groupName+"' :");
+    }
+
     /**
      * Вивід інформації про всіх студентів в консоль
      * @return toString

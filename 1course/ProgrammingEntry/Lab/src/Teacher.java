@@ -1,13 +1,17 @@
 
 public class Teacher {
-    private String name;
-    private String chair;
-    private String status;
+    TeacherList chair;
+    String name;
+    String chairName;
+    String status;
+
+    String facultyName;
 
     public Teacher(TeacherList chair){
         this.name = DataInput.getStr("Name: ");
         this.status = DataInput.getStr("Status: ");
-        this.chair = chair.chairName;
+        this.chairName = chair.chairName;
+        this.facultyName = chair.faculty;
     }
 
     public String getName() {
@@ -18,13 +22,15 @@ public class Teacher {
         this.name = name;
     }
 
-    // треба буде перероблювати в майбутньому це полу і робити клас Chair
-    public String getChair() {
-        return chair;
+    public String getChairName() {
+        return chairName;
     }
 
-    public void setChair(String chair) {
-        this.chair = chair;
+    public void changeChair(TeacherList chairNew) {
+        chair.removeTeacher(this);
+        chairNew.addTeacher(this);
+        this.chairName = chairNew.chairName;
+        this.facultyName = chairNew.faculty;
     }
 
     public String getStatus() {
@@ -33,5 +39,9 @@ public class Teacher {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String toString() {
+        return "Teacher(name='" + name + "', chair='" + chairName + "', status='" + status + "')";
     }
 }

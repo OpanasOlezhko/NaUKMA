@@ -36,7 +36,7 @@ public class TeacherList {
         StringBuilder str = new StringBuilder();
         str.append("[");
         for (int i = 0; i < teachers.length; i++) {
-            str.append(teachers[i].getName()+" - "+ teachers[i].getChair()
+            str.append(teachers[i].getName()+" - "+ teachers[i].getChairName()
                     +" - "+teachers[i].getStatus());
             if (i < teachers.length -1) {
                 str.append(", ");
@@ -139,9 +139,9 @@ public class TeacherList {
         Student[] studentsWithSpecifiedCourse = new Student[length];
         int ind = 0;
         for(int j = 0; j < studentsWithSpecifiedCourse.length; j++) {
-//            for(int l = 0; l < studentsWithSpecifiedCourse[j].length; l++) {
-//                studentsWithSpecifiedCourse[ind++] = studentsWithSpecifiedCourse[j].students[l];
-//            }
+            for(int l = 0; l < groupWithSpecifiedCourse[j].students.length; l++) {
+                studentsWithSpecifiedCourse[ind++] = groupWithSpecifiedCourse[j].students[l];
+            }
         }
         System.out.println("Students in the "+curCourse+" course: ");
         return studentsToString(studentsWithSpecifiedCourse);
@@ -207,9 +207,9 @@ public class TeacherList {
         Student[] studentsWithSpecifiedCourse = new Student[length];
         int ind = 0;
         for(int j = 0; j < studentsWithSpecifiedCourse.length; j++) {
-//            for(int l = 0; l < studentsWithSpecifiedCourse[j].students.length; l++) {
-//                studentsWithSpecifiedCourse[ind++] = studentsWithSpecifiedCourse[j].students[l];
-//            }
+            for(int l = 0; l < groupWithSpecifiedCourse[j].students.length; l++) {
+                studentsWithSpecifiedCourse[ind++] = groupWithSpecifiedCourse[j].students[l];
+            }
         }
         return studentsWithSpecifiedCourse;
     }
@@ -229,8 +229,7 @@ public class TeacherList {
         }
     }
 
-    public void addTeacher(){
-        Teacher teacher = new Teacher(this);
+    public void addTeacher(Teacher teacher){
         Teacher[] arr = new Teacher[teachersCount+1];
         for (int i=0; i<teachersCount; i++){
             arr[i] = teachers[i];
@@ -239,13 +238,80 @@ public class TeacherList {
         teachers=arr;
     }
 
-    public void addGroup(){
-        StudentList group = new StudentList(this);
+    public void removeTeacher(Teacher teacher){
+        Teacher[] arr = new Teacher[teachersCount-1];
+        for (int i=0; i<teachersCount; i++){
+            if(teachers[i]!=teacher)
+                arr[i] = teachers[i];
+        }
+        teachers=arr;
+    }
+
+    public void addGroup(StudentList group){
         StudentList[] arr = new StudentList[groupsCount+1];
         for (int i=0; i<groupsCount; i++){
             arr[i] = groups[i];
         }
         arr[groupsCount]=group;
         groups=arr;
+    }
+
+    public void removeGroup(){
+        StudentList group = chooseGroup();
+        StudentList[] arr = new StudentList[groupsCount-1];
+        for (int i=0; i<groupsCount; i++){
+            if(groups[i]!=group)
+                arr[i] = groups[i];
+        }
+        groups=arr;
+    }
+    public void editStudent(){
+        StudentList group = chooseGroup();
+        Student student = group.chooseStudent();
+        int ans = DataInput.getInt("What to change about "+student.name+"?\n0-----Name\n1-----Grade\n2-----Group");
+        if (ans == 0){
+            String name = DataInput.getStr("Enter new name: ");
+                    student.setName(name);
+        }
+        else if (ans == 1) {
+            double grade = DataInput.getDouble("Enter new average grade: ");
+            student.setGrade(grade);
+        }
+        else if (ans ==2){
+            System.out.println("Choose new group:");
+            group = chooseGroup();
+            student.changeGroup(group);
+        }
+    }
+
+    public StudentList chooseGroup(){
+        String names ="";
+        for (int i=0; i< groups.length; i++){
+            names+=i+"-----"+groups[i].groupName+"\n";
+        }
+        int ans = DataInput.getInt("Choose the group:\n"+names);
+        return groups[ans];
+    }
+    public Teacher chooseTeacher(){
+        String names ="";
+        for (int i=0; i< teachersCount; i++){
+            names+=i+"-----"+teachers[i]+"\n";
+        }
+        int ans = DataInput.getInt("Choose the teacher:\n"+names);
+        return teachers[ans];
+    }
+
+    public void changeGroupName(){
+        StudentList group = chooseGroup();
+        group.setGroupName();
+    }
+
+    public void changeTeacherName(){
+        Teacher teacher = chooseTeacher();
+        String name = DataInput.getStr("Enter new name of "+teacher.name+": ");
+        teacher.setName(name);
+    }
+    public void setChairName(){
+        this.chairName = DataInput.getStr("Enter the new name of the faculty '"+chairName+"' :");
     }
 }
