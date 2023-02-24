@@ -138,7 +138,7 @@ public class TeacherList {
         }
         Student[] studentsWithSpecifiedCourse = new Student[length];
         int ind = 0;
-        for(int j = 0; j < studentsWithSpecifiedCourse.length; j++) {
+        for(int j = 0; j < groupWithSpecifiedCourse.length; j++) {
             for(int l = 0; l < groupWithSpecifiedCourse[j].students.length; l++) {
                 studentsWithSpecifiedCourse[ind++] = groupWithSpecifiedCourse[j].students[l];
             }
@@ -206,7 +206,7 @@ public class TeacherList {
         }
         Student[] studentsWithSpecifiedCourse = new Student[length];
         int ind = 0;
-        for(int j = 0; j < studentsWithSpecifiedCourse.length; j++) {
+        for(int j = 0; j < groupWithSpecifiedCourse.length; j++) {
             for(int l = 0; l < groupWithSpecifiedCourse[j].students.length; l++) {
                 studentsWithSpecifiedCourse[ind++] = groupWithSpecifiedCourse[j].students[l];
             }
