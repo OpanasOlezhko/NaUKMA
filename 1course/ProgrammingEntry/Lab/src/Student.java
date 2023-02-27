@@ -15,6 +15,15 @@ public class Student {
         this.group = group;
     }
 
+    public Student(StudentList group, String name, double grade) {
+        this.name = name;
+        this.grade = grade;
+        this.groupName = group.groupName;
+        this.chair = group.chair;
+        this.course = group.course;
+        this.group = group;
+    }
+
     public void setName(String name){
         this.name = name;
     }
@@ -33,14 +42,23 @@ public class Student {
     }
 
     public String spellingCheck(String name){
+        boolean state = true;
         String str = "";
-        if(name.charAt(0)>=97&&name.charAt(0)<=122) {
-            str += (char) (name.charAt(0) - 32);
-            for (int i = 1; i < name.length(); i++)
+        for (int i = 1; i < name.length(); i++) {
+            if(!state) {
+                if (name.charAt(i) == 32)
+                    state = true;
                 str += name.charAt(i);
-            return str;
+            }
+            if(state){
+                if(name.charAt(i)>=97&&name.charAt(i)<=122)
+                    str += (char) (name.charAt(i) - 32);
+                else
+                    str += name.charAt(i);
+                state = false;
+            }
         }
-        return name;
+        return str;
     }
 
     public String getName(){

@@ -37,6 +37,14 @@ public class StudentList {
         }
     }
 
+    public StudentList(TeacherList chair, Student[] students, int course, String groupName) {
+        this.groupName = groupName;
+        int numStudents = students.length;
+        this.students = students;
+        this.chair = chair.chairName;
+        this.course = course;
+    }
+
     /**
      * Повний конструктор
      * @param students

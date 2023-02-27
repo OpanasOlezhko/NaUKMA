@@ -83,19 +83,23 @@ public class Main {
                     screen = Screen.Main;
                 else {
                     Faculty faculty = university.chooseFaculty();
-                    TeacherList chair = faculty.chooseChair();
+                    TeacherList chair;
                     if (ans == 0) {
+                        chair = faculty.chooseChair();
                         Teacher teacher = new Teacher(chair);
                         chair.addTeacher(teacher);
                     } else if (ans == 1) {
+                        chair = faculty.chooseChair();
                         Teacher teacher = chair.chooseTeacher();
                         chair.removeTeacher(teacher);
                     } else if (ans == 2)
                         faculty.editTeacher();
                     else if (ans == 3)
                         faculty.allTeachersFromFacultySorted();
-                    else if (ans == 4)
+                    else if (ans == 4){
+                        chair = faculty.chooseChair();
                         chair.allTeachersOfChairSorted();
+                    }
                 }
                 action();
             }

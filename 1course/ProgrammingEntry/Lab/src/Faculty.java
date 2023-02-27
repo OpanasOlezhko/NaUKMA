@@ -10,6 +10,12 @@
         addChairs();
     }
 
+     public Faculty(TeacherList[] chairs, String name) {
+         this.facultyName = name;
+         this.chairCount = chairs.length;
+         this.chairs = chairs;
+     }
+
     // 6 завдання
     private Teacher[] teachers = new Teacher[1000];
 

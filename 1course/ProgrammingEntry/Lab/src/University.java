@@ -8,6 +8,11 @@ public class University {
         addFaculties();
     }
 
+    public University(Faculty[] faculties) {
+        this.facultiesCount = faculties.length;
+        this.faculties = faculties;
+    }
+
     private void addFaculties(){
         for (int i=0; i<facultiesCount; i++){
             Faculty faculty = new Faculty();

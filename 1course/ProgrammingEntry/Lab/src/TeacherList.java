@@ -18,6 +18,15 @@ public class TeacherList {
         addStudents();
     }
 
+    public TeacherList(Faculty faculty, Teacher[] teachers, StudentList[] groups, String chairName){
+        this.chairName = chairName;
+        this.faculty = faculty.facultyName;
+        this.teachersCount = teachers.length;
+        this.groupsCount = groups.length;
+        this.teachers = teachers;
+        this.groups = groups;
+    }
+
     // 8 завдання
     public String allTeachersOfChairSorted() {
         for(int j = 0; j < teachers.length - 1; j++) {
