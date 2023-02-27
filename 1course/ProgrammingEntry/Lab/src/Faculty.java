@@ -141,9 +141,10 @@
 
 
     private void addChairs() {
-        for (int i=0; i<chairCount; i++){
+        for (int i=1; i<=chairCount; i++){
+            System.out.println("Creating chair "+i+":");
             TeacherList chair = new TeacherList(this);
-            this.chairs[i] = chair;
+            this.chairs[i-1] = chair;
         }
     }
 
@@ -179,7 +180,7 @@
          for (int i=0; i< chairCount; i++){
              names+=i+"-----"+chairs[i].chairName+"\n";
          }
-         int ans = DataInput.getInt("Choose the faculty:\n"+names);
+         int ans = DataInput.getInt("Choose the chair:\n"+names);
          return chairs[ans];
      }
 

@@ -31,8 +31,9 @@ public class StudentList {
         this.course = DataInput.getInt("Enter the course of the group: ");
         this.chair = chair.chairName;
         students = new Student[numStudents];
-        for (int i=0; i<numStudents;i++){
-            students[i]=new Student(this);
+        for (int i=1; i<=numStudents;i++){
+            System.out.println("Student "+i+":");
+            students[i-1]=new Student(this);
         }
     }
 
@@ -63,9 +64,17 @@ public class StudentList {
         }
         if(counter== students.length)
             System.out.println("There are no students starting with: "+searchLetter);
+        answer();
+    }
+
+    private void answer() throws IOException {
         int answer=DataInput.getInt("Try again?\n1----Yes\n0----No");
         if(answer==1)
             searchByFirstLetter();
+        else if(answer>1||answer<0){
+            System.out.println("Enter correct value");
+            answer();
+        }
     }
 
     private void swap(int a, int b) {
