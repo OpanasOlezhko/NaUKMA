@@ -1,3 +1,5 @@
+import java.sql.SQLOutput;
+
 public class Main {
     private static Screen screen;
     static University university = new University();
@@ -83,23 +85,19 @@ public class Main {
                     screen = Screen.Main;
                 else {
                     Faculty faculty = university.chooseFaculty();
-                    TeacherList chair;
+                    TeacherList chair = faculty.chooseChair();
                     if (ans == 0) {
-                        chair = faculty.chooseChair();
                         Teacher teacher = new Teacher(chair);
                         chair.addTeacher(teacher);
                     } else if (ans == 1) {
-                        chair = faculty.chooseChair();
                         Teacher teacher = chair.chooseTeacher();
                         chair.removeTeacher(teacher);
                     } else if (ans == 2)
                         faculty.editTeacher();
                     else if (ans == 3)
                         faculty.allTeachersFromFacultySorted();
-                    else if (ans == 4){
-                        chair = faculty.chooseChair();
+                    else if (ans == 4)
                         chair.allTeachersOfChairSorted();
-                    }
                 }
                 action();
             }
@@ -109,7 +107,6 @@ public class Main {
                         "\n5-----Display all students of chair by courses\n6-----Display all students of chair alphabetically" +
                         "\n7-----Display all students of chair of certain course\n8-----Display all students of chair of certain course alphabetically" +
                         "\n9-----Back");
-
                 if (ans == 9)
                     screen = Screen.Main;
                 else {
@@ -128,7 +125,7 @@ public class Main {
                             group.removeStudent(student);
                         }
                     }
-                    else if(ans >2&&ans<4){
+                    else if(ans > 2 &&ans <= 4){
                             faculty = university.chooseFaculty();
                             if (ans == 3)
                                 faculty.allStudentsFromFacultySortedByCourses();
