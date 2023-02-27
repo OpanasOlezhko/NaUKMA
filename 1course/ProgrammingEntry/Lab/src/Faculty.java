@@ -23,7 +23,7 @@
     private void gatherAllTheTeachers() {
         int p = 0;
         for(int k = 0; k < chairs.length; k++) {
-            for(int l = 0; l < teachers.length; l++) {
+            for(int l = 0; l < chairs[k].teachers.length; l++) {
                 teachers[p++] = chairs[k].teachers[l];
             }
         }
