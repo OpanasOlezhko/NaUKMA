@@ -3,9 +3,67 @@ import java.util.Random;
 
 public class Main {
     static Screen screen;
-    private static final int MIN_LENGTH = 5;
-    private static final String LETTERS = "abcdefghijklmnopqrstuvwxyz";
-    private static final Random RANDOM = new Random();
+    public static final String[] SURNAMES = {
+            "Андрушко",
+            "Барановський",
+            "Бойко",
+            "Бондаренко",
+            "Борисенко",
+            "Бутко",
+            "Василенко",
+            "Гаврилюк",
+            "Гончаренко",
+            "Гордієнко",
+            "Даниленко",
+            "Дем'яненко",
+            "Дерев'янко",
+            "Захарчук",
+            "Захаренко",
+            "Коваленко",
+            "Ковальчук",
+            "Корнієнко",
+            "Кравченко",
+            "Кузьменко",
+            "Лисенко",
+            "Лисиченко",
+            "Мельниченко",
+            "Остапчук",
+            "Петренко",
+            "Поліщук",
+            "Пономаренко",
+            "Романенко",
+            "Савченко",
+            "Сидоренко",
+            "Соломко",
+            "Тарасенко",
+            "Ткаченко",
+            "Федоренко",
+            "Харченко",
+            "Шевченко"
+    };
+    public static final String[] NAMES = {
+            "Андрій",
+            "Анжеліка",
+            "Богдан",
+            "Валерій",
+            "Василь",
+            "Віктор",
+            "Галина",
+            "Ганна",
+            "Дар'я",
+            "Іван",
+            "Ірина",
+            "Катерина",
+            "Костянтин",
+            "Любов",
+            "Мар'яна",
+            "Марина",
+            "Микола",
+            "Наталія",
+            "Оксана",
+            "Олександр",
+    };
+    public static final Random RANDOM = new Random();
     static University university = setup();
 
     public static void main(String[] args) {
@@ -190,35 +248,29 @@ public class Main {
         String name;
         University university = new University(2);
         for(int i=0; i<university.facultiesCount; i++){
-            if(i==0)
-                name = "Informatics";
-            else name = "Computer science";
-            university.faculties[i]=new Faculty(2, name);
+            if(i==0) name = "Informatics";
+            else name = "Math";
+            university.faculties[i]=new Faculty(1, name);
             for(int j = 0; j<university.faculties[i].chairCount; j++){
-                university.faculties[i].chairs[j]= new TeacherList(university.faculties[i], randomName(), randomNumber(1, 3), randomNumber(1,2));
+                if(i==0) name = "Software Engineering";
+                else name = "Applied Math";
+                university.faculties[i].chairs[j]= new TeacherList(university.faculties[i], name, randomNumber(2, 4), 50);
                 for(int l = 0; l<university.faculties[i].chairs[j].teachersCount; l++){
                     university.faculties[i].chairs[j].teachers[l]= new Teacher(university.faculties[i].chairs[j], randomName(), randomName());
                 }
-                for (int f=0; f<university.faculties[i].chairs[j].groupsCount; f++){
-                    university.faculties[i].chairs[j].groups[f] = new StudentList(university.faculties[i].chairs[j], randomNumber(5, 10), randomNumber(1, 4), randomName());
-                    for (int t=0; t<university.faculties[i].chairs[j].groups[f].students.length; t++){
-                        university.faculties[i].chairs[j].groups[f].students[t]= new Student(university.faculties[i].chairs[j].groups[f], randomName(), randomNumber(60, 100));
-                    }
-                }
+                university.faculties[i].chairs[j].students = new StudentList(university.faculties[i].chairs[j], university.faculties[i].chairs[j].studentsCount, randomNumber(1, 4), "Група");
+                for (int k=0; k<university.faculties[i].chairs[j].studentsCount; k++)
+                    university.faculties[i].chairs[j].students.students[k] = new Student(university.faculties[i].chairs[j].students, randomName(), randomNumber(60, 100));
+                university.faculties[i].chairs[j].arrangeIntoGroups();
             }
         }
         return university;
     }
     public static String randomName() {
-        int length = RANDOM.nextInt(6) + MIN_LENGTH;
-        StringBuilder sb = new StringBuilder(length);
-
-        for (int i = 0; i < length; i++) {
-            int index = RANDOM.nextInt(LETTERS.length());
-            char randomChar = LETTERS.charAt(index);
-            sb.append(randomChar);
-        }
-        return sb.toString();
+        String randomSurname = SURNAMES[RANDOM.nextInt(35)];
+        String randomName = NAMES[RANDOM.nextInt(20)];
+        String res = randomSurname + " " + randomName;
+        return res;
     }
     public static int randomNumber(int min, int max) {
         return RANDOM.nextInt(max - min + 1) + min;

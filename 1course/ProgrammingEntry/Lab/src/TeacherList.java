@@ -1,33 +1,58 @@
 import java.io.IOException;
+import java.util.Random;
 
 public class TeacherList {
     public int teachersCount;
+    public int studentsCount;
     public int groupsCount;
     public String chairName;
     public String faculty;
 
     Teacher[] teachers;
+    StudentList students;
     StudentList[] groups;
+    public static final Random RANDOM = new Random();
+
 
     public TeacherList(Faculty faculty){
         this.chairName = DataInput.getStr("Enter the name of chair: ");
         this.faculty = faculty.facultyName;
         this.teachersCount = DataInput.getInt("Enter the amount of teachers in "+chairName+" chair: ");
-        this.groupsCount = DataInput.getInt("Enter the amount of student groups in "+chairName+" chair: ");
+        this.groupsCount = 5;//DataInput.getInt("Enter the amount of student groups in "+chairName+" chair: ");
         this.teachers = new Teacher[teachersCount];
         this.groups = new StudentList[groupsCount];
         addTeachers();
         addStudents();
     }
 
-    public TeacherList(Faculty faculty, String chairName, int teachersCount, int groupsCount){
+    public TeacherList(Faculty faculty, String chairName, int teachersCount, int studentsCount){
         this.chairName = chairName;
         this.faculty = faculty.facultyName;
         this.teachersCount = teachersCount;
-        this.groupsCount = groupsCount;
+        this.groupsCount = 5;
+        this.studentsCount = studentsCount;
         this.teachers = new Teacher[teachersCount];
         this.groups = new StudentList[groupsCount];
     }
+
+    public void arrangeIntoGroups() {
+        students.quickSortNames(0, students.students.length - 1);
+        int capacity = students.students.length / 5;
+        for (int i = 0; i < 4; i++) {
+            groups[i] = new StudentList(this, capacity, 1 + RANDOM.nextInt(3), "Группа " + (i + 1));
+            for (int j = 0; j < capacity; j++) {
+                groups[i].addStudent(students.students[i * capacity + j]);
+                students.students[i * capacity + j].groupName = groups[i].groupName;
+            }
+        }
+        groups[4] = new StudentList(this, students.students.length-capacity*4, 1, "Група 5");
+        for (int i = capacity * 4; i < students.students.length; i++) {
+            groups[4].addStudent(students.students[i]);
+            students.students[i].groupName = "Група 5";
+        }
+    }
+
+
 
     // 8 завдання
     public String allTeachersOfChairSorted() {
