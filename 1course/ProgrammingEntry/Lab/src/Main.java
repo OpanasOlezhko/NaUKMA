@@ -1,9 +1,12 @@
 import java.sql.SQLOutput;
+import java.util.Random;
 
 public class Main {
-    private static Screen screen;
-    static University university = new University();
-
+    static Screen screen;
+    private static final int MIN_LENGTH = 5;
+    private static final String LETTERS = "abcdefghijklmnopqrstuvwxyz";
+    private static final Random RANDOM = new Random();
+    static University university = setup();
 
     public static void main(String[] args) {
         screen = Screen.Main;
@@ -11,7 +14,7 @@ public class Main {
     }
 
 
-    private static void action() {
+    static void action() {
         int ans = 0;
         switch (screen) {
             case Main -> {
@@ -80,24 +83,34 @@ public class Main {
             case Teacher -> {
                 ans = DataInput.getInt("How would you like to interact with teacher?\n0-----Add\n1-----Remove" +
                         "\n2-----Edit\n3-----Display all teachers of a faculty alphabetically" +
-                        "\n4-----Display all teachers of certain chair alphabetically\n5-----Back");
-                if (ans == 5)
+                        "\n4-----Display all teachers of certain chair alphabetically\n5-----Search teacher by his full name" +
+                        "\n6-----Back");
+                if (ans == 6)
                     screen = Screen.Main;
+                else if(ans == 5){
+                    if(university.searchTeacher()!=null)
+                        System.out.println(university.searchTeacher());
+                    else System.out.println("There are no teachers with such name");
+                }
                 else {
                     Faculty faculty = university.chooseFaculty();
-                    TeacherList chair = faculty.chooseChair();
+                    TeacherList chair;
                     if (ans == 0) {
+                        chair = faculty.chooseChair();
                         Teacher teacher = new Teacher(chair);
                         chair.addTeacher(teacher);
                     } else if (ans == 1) {
+                        chair = faculty.chooseChair();
                         Teacher teacher = chair.chooseTeacher();
                         chair.removeTeacher(teacher);
                     } else if (ans == 2)
                         faculty.editTeacher();
                     else if (ans == 3)
-                        faculty.allTeachersFromFacultySorted();
-                    else if (ans == 4)
-                        chair.allTeachersOfChairSorted();
+                        System.out.println(faculty.allTeachersFromFacultySorted());
+                    else if (ans == 4) {
+                        chair  = faculty.chooseChair();
+                        System.out.println(chair.allTeachersOfChairSorted());
+                    }
                 }
                 action();
             }
@@ -106,14 +119,14 @@ public class Main {
                         "\n2-----Edit\n3-----Display all students by courses\n4-----Display all students of a faculty alphabetically" +
                         "\n5-----Display all students of chair by courses\n6-----Display all students of chair alphabetically" +
                         "\n7-----Display all students of chair of certain course\n8-----Display all students of chair of certain course alphabetically" +
-                        "\n9-----Back");
-                if (ans == 9)
+                        "\n9-----Search student by his full name\n10-----Search student by course\n11-----Search student by group\n12-----Back");
+                if (ans == 12)
                     screen = Screen.Main;
                 else {
                     Faculty faculty;
                     TeacherList chair;
                     StudentList group;
-                    if(ans<2){
+                    if(ans<2&&ans==11){
                         faculty = university.chooseFaculty();
                         chair = faculty.chooseChair();
                         group = chair.chooseGroup();
@@ -123,28 +136,37 @@ public class Main {
                         } else if (ans == 1) {
                             Student student = group.chooseStudent();
                             group.removeStudent(student);
+                        } else if (ans == 11) {
+                            for (int i=0; i<group.students.length; i++)
+                                System.out.println(group.students[i]);
                         }
                     }
-                    else if(ans > 2 &&ans <= 4){
+                    else if(ans > 2 &&ans < 5){
                             faculty = university.chooseFaculty();
                             if (ans == 3)
-                                faculty.allStudentsFromFacultySortedByCourses();
+                                System.out.println(faculty.allStudentsFromFacultySortedByCourses());
                             else if (ans == 4)
-                                faculty.allStudentsFromFacultySorted();
+                                System.out.println(faculty.allStudentsFromFacultySorted());
                         }
-                    else{
+                    else if (ans == 9){
+                        if(university.searchStudent()!=null)
+                            System.out.println(university.searchStudent());
+                        else System.out.println("There are no students with such name");
+                    } else if (ans == 10) {
+                        university.searchStudentByCourse();
+                    } else{
                         faculty = university.chooseFaculty();
                         chair = faculty.chooseChair();
                             if (ans == 2)
                                 chair.editStudent();
                             else if (ans == 5)
-                                chair.allStudentsOfChairSortedByCourses();
+                                System.out.println(chair.allStudentsOfChairSortedByCourses());
                             else if (ans == 6)
-                                chair.allStudentsFromChairSorted();
+                                System.out.println(chair.allStudentsFromChairSorted());
                             else if (ans == 7)
-                                chair.allStudentsOfChairOfSpecifiedCourse();
+                                System.out.println(chair.allStudentsOfChairOfSpecifiedCourse());
                             else if (ans == 8)
-                                chair.allSortedStudentsOfChairOfSpecifiedCourse();
+                                System.out.println(chair.allSortedStudentsOfChairOfSpecifiedCourse());
                         }
                     }
                 action();
@@ -163,11 +185,43 @@ public class Main {
         Student
     }
 
-    enum Choice {
-        None,
-        Create,
-        Add,
-        Edit,
-        Remove
+
+    public static University setup(){
+        String name;
+        University university = new University(2);
+        for(int i=0; i<university.facultiesCount; i++){
+            if(i==0)
+                name = "Informatics";
+            else name = "Computer science";
+            university.faculties[i]=new Faculty(2, name);
+            for(int j = 0; j<university.faculties[i].chairCount; j++){
+                university.faculties[i].chairs[j]= new TeacherList(university.faculties[i], randomName(), randomNumber(1, 3), randomNumber(1,2));
+                for(int l = 0; l<university.faculties[i].chairs[j].teachersCount; l++){
+                    university.faculties[i].chairs[j].teachers[l]= new Teacher(university.faculties[i].chairs[j], randomName(), randomName());
+                }
+                for (int f=0; f<university.faculties[i].chairs[j].groupsCount; f++){
+                    university.faculties[i].chairs[j].groups[f] = new StudentList(university.faculties[i].chairs[j], randomNumber(5, 10), randomNumber(1, 4), randomName());
+                    for (int t=0; t<university.faculties[i].chairs[j].groups[f].students.length; t++){
+                        university.faculties[i].chairs[j].groups[f].students[t]= new Student(university.faculties[i].chairs[j].groups[f], randomName(), randomNumber(60, 100));
+                    }
+                }
+            }
+        }
+        return university;
+    }
+    public static String randomName() {
+        int length = RANDOM.nextInt(6) + MIN_LENGTH;
+        StringBuilder sb = new StringBuilder(length);
+
+        for (int i = 0; i < length; i++) {
+            int index = RANDOM.nextInt(LETTERS.length());
+            char randomChar = LETTERS.charAt(index);
+            sb.append(randomChar);
+        }
+        return sb.toString();
+    }
+    public static int randomNumber(int min, int max) {
+        return RANDOM.nextInt(max - min + 1) + min;
     }
 }
+

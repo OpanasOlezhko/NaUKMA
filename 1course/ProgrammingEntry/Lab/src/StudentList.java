@@ -37,10 +37,10 @@ public class StudentList {
         }
     }
 
-    public StudentList(TeacherList chair, Student[] students, int course, String groupName) {
+    public StudentList(TeacherList chair, int students, int course, String groupName) {
         this.groupName = groupName;
-        int numStudents = students.length;
-        this.students = students;
+        int numStudents = students;
+        this.students = new Student[numStudents];
         this.chair = chair.chairName;
         this.course = course;
     }
@@ -64,26 +64,25 @@ public class StudentList {
         char searchLetter = DataInput.getChar();
         System.out.println("The students in the group with names starting with '" + searchLetter + "' are: ");
         for (int i = 0; i < students.length; i++) {
-            if (students[i].name.charAt(0) == searchLetter|| students[i].name.charAt(0)+32 == searchLetter || students[i].name.charAt(0)-32 == searchLetter) {
-                System.out.println(students[i] + " (average grade: " + students[i].grade+ ")");// + ", faculty: " + faculty[i] + ", age: " + age[i] + ")");
+            if (students[i].name.charAt(0) == searchLetter|| students[i].name.charAt(0)+32 == searchLetter){
+                System.out.println(students[i]);
             }
             else if(students[i].name.charAt(0) != searchLetter)
                 counter++;
         }
-        if(counter== students.length)
-            System.out.println("There are no students starting with: "+searchLetter);
-        answer();
+        if(counter == students.length)
+            System.out.println("There are no students starting with first letter: "+searchLetter);
     }
 
-    private void answer() throws IOException {
-        int answer=DataInput.getInt("Try again?\n1----Yes\n0----No");
-        if(answer==1)
-            searchByFirstLetter();
-        else if(answer>1||answer<0){
-            System.out.println("Enter correct value");
-            answer();
-        }
-    }
+//    private void answer() throws IOException {
+//        int answer=DataInput.getInt("Try again?\n1----Yes\n0----No");
+//        if(answer==1)
+//            searchByFirstLetter();
+//        else if(answer>1||answer<0){
+//            System.out.println("Enter correct value");
+//            answer();
+//        }
+//    }
 
     private void swap(int a, int b) {
         Student temp = this.students[a];

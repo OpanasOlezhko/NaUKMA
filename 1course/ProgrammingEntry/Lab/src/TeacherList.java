@@ -1,3 +1,5 @@
+import java.io.IOException;
+
 public class TeacherList {
     public int teachersCount;
     public int groupsCount;
@@ -18,13 +20,13 @@ public class TeacherList {
         addStudents();
     }
 
-    public TeacherList(Faculty faculty, Teacher[] teachers, StudentList[] groups, String chairName){
+    public TeacherList(Faculty faculty, String chairName, int teachersCount, int groupsCount){
         this.chairName = chairName;
         this.faculty = faculty.facultyName;
-        this.teachersCount = teachers.length;
-        this.groupsCount = groups.length;
-        this.teachers = teachers;
-        this.groups = groups;
+        this.teachersCount = teachersCount;
+        this.groupsCount = groupsCount;
+        this.teachers = new Teacher[teachersCount];
+        this.groups = new StudentList[groupsCount];
     }
 
     // 8 завдання
@@ -291,6 +293,22 @@ public class TeacherList {
             group = chooseGroup();
             student.changeGroup(group);
         }
+    }
+
+    public void searchByFirstLetter() throws IOException {
+        int counter = 0;
+        System.out.println("What letter would you like to search for?");
+        char searchLetter = DataInput.getChar();
+        System.out.println("The students in the group with names starting with '" + searchLetter + "' are: ");
+        for (int i = 0; i < teachers.length; i++) {
+            if (teachers[i].name.charAt(0) == searchLetter|| teachers[i].name.charAt(0)+32 == searchLetter){
+                System.out.println(teachers[i]);
+            }
+            else if(teachers[i].name.charAt(0) != searchLetter)
+                counter++;
+        }
+        if(counter == teachers.length)
+            System.out.println("There are no students starting with first letter: "+searchLetter);
     }
 
     public StudentList chooseGroup(){

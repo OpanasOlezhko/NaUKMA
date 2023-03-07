@@ -10,10 +10,10 @@
         addChairs();
     }
 
-     public Faculty(TeacherList[] chairs, String name) {
+     public Faculty(int chairs, String name) {
          this.facultyName = name;
-         this.chairCount = chairs.length;
-         this.chairs = chairs;
+         this.chairCount = chairs;
+         this.chairs = new TeacherList[chairs];
      }
 
     // 6 завдання
@@ -24,7 +24,7 @@
         int p = 0;
         for(int k = 0; k < chairs.length; k++) {
             for(int l = 0; l < chairs[k].teachers.length; l++) {
-                teachers[p++] = chairs[k].teachers[l];
+                  teachers[p++] = chairs[k].teachers[l];
             }
         }
         Teacher[] withoutNull = new Teacher[p];
