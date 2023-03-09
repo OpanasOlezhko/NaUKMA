@@ -69,6 +69,6 @@ public class Teacher {
     }
 
     public String toString() {
-        return "Teacher(name='" + name + "', chair='" + chairName + "', status='" + status + "')";
+        return "Teacher(name='" + name + "', chair='" + chairName + "', status='" + status + "')\n";
     }
 }

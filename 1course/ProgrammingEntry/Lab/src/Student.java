@@ -61,6 +61,10 @@ public class Student {
         return str;
     }
 
+    public int getCourse() {
+        return course;
+    }
+
     public String getName(){
         return this.name;
     }

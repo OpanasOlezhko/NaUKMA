@@ -141,11 +141,13 @@ public class StudentList {
         return j;
     }
 
-    public void reverse(){
-        for(int i=0; i<this.students.length/2; i++){
-            swap(i,this.students.length-1-i);
+    public Student[] reverse(Student[] students){
+        for(int i=0; i<students.length/2; i++){
+            swap(i,students.length-1-i);
         }
+        return students;
     }
+
 
     private boolean compare(String pivot, String word){
         String comp="";
