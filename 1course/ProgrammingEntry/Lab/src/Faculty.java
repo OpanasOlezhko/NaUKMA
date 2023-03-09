@@ -1,4 +1,4 @@
- public class Faculty {
+public class Faculty {
     public String facultyName;
     public int chairCount;
     TeacherList[] chairs;
@@ -17,64 +17,72 @@
      }
 
     // 6 завдання
-    private Teacher[] teachers = new Teacher[1000];
+    private Teacher[] teachersHere = new Teacher[1000];
 
 
     private void gatherAllTheTeachers() {
         int p = 0;
         for(int k = 0; k < chairs.length; k++) {
             for(int l = 0; l < chairs[k].teachers.length; l++) {
-                  teachers[p++] = chairs[k].teachers[l];
+                  teachersHere[p++] = chairs[k].teachers[l];
             }
         }
         Teacher[] withoutNull = new Teacher[p];
         int index = 0;
-        for(int i = 0; i < teachers.length; i++) {
-            if(teachers[i] != null) {
-                withoutNull[index++] = teachers[i];
+        for(int i = 0; i < teachersHere.length; i++) {
+            if(teachersHere[i] != null) {
+                withoutNull[index++] = teachersHere[i];
             } else {
                 break;
             }
         }
-        teachers = withoutNull;
+        teachersHere = withoutNull;
     }
 
     public String allTeachersFromFacultySorted() {
         gatherAllTheTeachers();
-        for(int j = 0; j < teachers.length - 1; j++) {
-            for(int i = j + 1; i < teachers.length; i++) {
-                if(teachers[j].getName().compareTo(teachers[i].getName()) < 0) {
-                    Teacher temp = teachers[j];
-                    teachers[j] = teachers[i];
-                    teachers[i] = temp;
+        for(int j = 0; j < teachersHere.length - 1; j++) {
+            for(int i = j + 1; i < teachersHere.length; i++) {
+                if(teachersHere[j].getName().compareTo(teachersHere[i].getName()) > 0) {
+                    Teacher temp = teachersHere[j];
+                    teachersHere[j] = teachersHere[i];
+                    teachersHere[i] = temp;
                 }
             }
         }
         return teachersToString();
     }
 
+
     private String teachersToString() {
         StringBuilder str = new StringBuilder();
-        str.append("[");
-        for (int i = 0; i < teachers.length; i++) {
-            str.append(teachers[i].getName()+" - "+ teachers[i].getChairName()
-                    +" - "+teachers[i].getStatus());
-            if (i < teachers.length -1) {
-                str.append(", ");
-            }
+//        reverse(teachersHere);
+        for(Teacher s: teachersHere) {
+            str.append(s.toString());
         }
-        str.append("]");
         return str.toString();
     }
+
+    public Teacher[] reverse(Teacher[] teachers){
+        for(int i=0; i<teachers.length/2; i++){
+            swapT(i,teachers.length-1-i);
+        }
+        return teachers;
+    }
+
+    private void swapT(int a, int b) {
+        Teacher temp = teachersHere[a];
+        teachersHere[a] = teachersHere[b];
+        teachersHere[b]=temp;
+    }
+
 
     boolean alreadyTogether = false;
     private void gatherAllTheStudents() {
         int p = 0;
         for(int i = 0; i < chairs.length; i++) {
-            for(int j = 0; j < chairs[i].groups.length; j++) {
-                for(int k = 0; k <chairs[i].groups[j].students.length; k++) {
-                    studentsHere[p++] = chairs[i].groups[j].students[k];
-                }
+            for(int j = 0; j < chairs[i].students.students.length; j++) {
+                studentsHere[p++] = chairs[i].students.students[j];
             }
         }
         Student[] withoutNull = new Student[p];
@@ -99,7 +107,7 @@
         }
         for(int j = 0; j < studentsHere.length - 1; j++) {
             for(int i = j + 1; i < studentsHere.length; i++) {
-                if(studentsHere[j].getName().compareTo(studentsHere[i].getName()) < 0) {
+                if(studentsHere[j].getName().compareTo(studentsHere[i].getName()) > 0) {
                     Student temp = studentsHere[j];
                     studentsHere[j] = studentsHere[i];
                     studentsHere[i] = temp;
@@ -132,19 +140,25 @@
 
     private String studentsToString() {
         StringBuilder str = new StringBuilder();
-        str.append("[");
-        for (int i = 0; i < studentsHere.length; i++) {
-            str.append(studentsHere[i].getName()+" - "+ studentsHere[i].getChair()
-                    +" - "+studentsHere[i].getGroupName()+" - "+ studentsHere[i].getGrade());
-            if (i < studentsHere.length -1) {
-                str.append(", ");
-            }
+//        reverse(studentsHere);
+        for(Student s: studentsHere) {
+            str.append(s.toString());
         }
-        str.append("]");
         return str.toString();
     }
 
+     public Student[] reverse(Student[] students){
+         for(int i=0; i<students.length/2; i++){
+             swapS(i,students.length-1-i);
+         }
+         return students;
+     }
 
+     private void swapS(int a, int b) {
+         Student temp = studentsHere[a];
+         studentsHere[a] = studentsHere[b];
+         studentsHere[b]=temp;
+     }
 
     private void addChairs() {
         for (int i=1; i<=chairCount; i++){

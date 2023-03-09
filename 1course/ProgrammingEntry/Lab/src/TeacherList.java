@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Random;
 
 public class TeacherList {
@@ -58,7 +59,7 @@ public class TeacherList {
     public String allTeachersOfChairSorted() {
         for(int j = 0; j < teachers.length - 1; j++) {
             for(int i = j + 1; i < teachers.length; i++) {
-                if(teachers[j].getName().compareTo(teachers[i].getName()) < 0) {
+                if(teachers[j].getName().compareTo(teachers[i].getName()) > 0) {
                     Teacher temp = teachers[j];
                     teachers[j] = teachers[i];
                     teachers[i] = temp;
@@ -70,78 +71,43 @@ public class TeacherList {
 
     private String teachersToString() {
         StringBuilder str = new StringBuilder();
-        str.append("[");
-        for (int i = 0; i < teachers.length; i++) {
-            str.append(teachers[i].getName()+" - "+ teachers[i].getChairName()
-                    +" - "+teachers[i].getStatus());
-            if (i < teachers.length -1) {
-                str.append(", ");
-            }
+        for(Teacher t: teachers) {
+            str.append(t.toString());
         }
-        str.append("]");
         return str.toString();
     }
 
 
     // 8 завдання
-    private Student[] studentsHere = new Student[1000];
-
-    boolean alreadyTogether = false;
-    private void gatherAllTheStudents() {
-        int p = 0;
-        for(int i = 0; i < groups.length; i++) {
-            for(int j = 0; j < groups[i].students.length; j++) {
-                studentsHere[p++] = groups[i].students[j];
-            }
-        }
-        Student[] withoutNull = new Student[p];
-        int index = 0;
-        for(int i = 0; i < studentsHere.length; i++) {
-            if(studentsHere[i] != null) {
-                withoutNull[index++] = studentsHere[i];
-            } else {
-                 break;
-            }
-        }
-        studentsHere = withoutNull;
-        alreadyTogether = true;
-    }
-
     public String allStudentsFromChairSorted() {
-        if(!alreadyTogether) {
-            gatherAllTheStudents();
-        }
-        for(int j = 0; j < studentsHere.length - 1; j++) {
-            for(int i = j + 1; i < studentsHere.length; i++) {
-                if(studentsHere[j].getName().compareTo(studentsHere[i].getName()) < 0) {
-                    Student temp = studentsHere[j];
-                    studentsHere[j] = studentsHere[i];
-                    studentsHere[i] = temp;
+        for (int j = 0; j < students.students.length - 1; j++) {
+            for (int i = j + 1; i < students.students.length; i++) {
+                if (students.students[j].getName().compareTo(students.students[i].getName()) > 0) {
+                    Student temp = students.students[j];
+                    students.students[j] = students.students[i];
+                    students.students[i] = temp;
                 }
             }
         }
-        return studentsToString(studentsHere);
+        return studentsToString(students.students);
     }
 
     // 7 завдання
     public String allStudentsOfChairSortedByCourses() {
-        if(!alreadyTogether) {
-            gatherAllTheStudents();
-        }
         boolean isFinished = false;
         while(!isFinished) {
             isFinished = true;
-            for (int i = 1; i < studentsHere.length; i++) {
-                if (studentsHere[i].getGrade() <
-                        studentsHere[i - 1].getGrade()) {
-                    Student temp = studentsHere[i];
-                    studentsHere[i] = studentsHere[i - 1];
-                    studentsHere[i - 1] = temp;
+            for (int i = 1; i < students.students.length; i++) {
+                if (students.students[i].getCourse() <
+                        students.students[i - 1].getCourse()) {
+                    Student temp = students.students[i];
+                    students.students[i] = students.students[i - 1];
+                    students.students[i - 1] = temp;
                     isFinished = false;
                 }
             }
         }
-        return studentsToString(studentsHere);
+        return studentsToString(students.students);
     }
 
     // 9 завдання
@@ -149,39 +115,32 @@ public class TeacherList {
         int curCourse;
         do {
             curCourse = DataInput.getInt("Enter the course from which" +
-                    "you want to receive students of the chair: ");
+                    " you want to receive students of the chair: ");
         } while(curCourse < 1 || curCourse > 4);
-        StudentList[] groupWithSpecifiedCourse = new StudentList[1000];
+        Student[] studentsWithSpecifiedCourse = new Student[1000];
         int i = 0;
-        for(StudentList group : groups) {
-            if(group.getCourse() == curCourse) {
-                groupWithSpecifiedCourse[i++] = group;
+        for(Student ss : students.students) {
+            if(ss.getCourse() == curCourse) {
+                studentsWithSpecifiedCourse[i++] = ss;
             }
         }
-        StudentList[] withoutNull = new StudentList[i];
+        if(studentsWithSpecifiedCourse[0] == null) {
+            return "There are no students with this course\n";
+        }
+        Student[] withoutNull = new Student[i];
         int index = 0;
-        for(int k = 0; k < groupWithSpecifiedCourse.length; k++) {
-            if(groupWithSpecifiedCourse[k] != null) {
-                withoutNull[index++] = groupWithSpecifiedCourse[k];
+        for(int k = 0; k < studentsWithSpecifiedCourse.length; k++) {
+            if(studentsWithSpecifiedCourse[k] != null) {
+                withoutNull[index++] = studentsWithSpecifiedCourse[k];
             } else {
                 break;
             }
         }
-        groupWithSpecifiedCourse = withoutNull;
-        int length = 0;
-        for(StudentList group : groupWithSpecifiedCourse) {
-            length += group.students.length;
-        }
-        Student[] studentsWithSpecifiedCourse = new Student[length];
-        int ind = 0;
-        for(int j = 0; j < groupWithSpecifiedCourse.length; j++) {
-            for(int l = 0; l < groupWithSpecifiedCourse[j].students.length; l++) {
-                studentsWithSpecifiedCourse[ind++] = groupWithSpecifiedCourse[j].students[l];
-            }
-        }
+        studentsWithSpecifiedCourse = withoutNull;
         System.out.println("Students in the "+curCourse+" course: ");
         return studentsToString(studentsWithSpecifiedCourse);
     }
+
 
     // 10 завдання
     public String allSortedStudentsOfChairOfSpecifiedCourse() {
@@ -190,65 +149,47 @@ public class TeacherList {
             curCourse = DataInput.getInt("Enter the course from which" +
                     "you want to receive students of the chair: ");
         } while(curCourse < 1 || curCourse > 4);
-        Student[] ourStudents = allStudentsOfChairOfSpecifiedCourse(curCourse);
-        for(int j = 0; j < ourStudents.length - 1; j++) {
-            for(int i = j + 1; i < ourStudents.length; i++) {
-                if(ourStudents[j].getName().compareTo(ourStudents[i].getName()) < 0) {
-                    Student temp = ourStudents[j];
-                    ourStudents[j] = ourStudents[i];
-                    ourStudents[i] = temp;
-                }
-            }
-        }
-        return studentsToString(ourStudents);
-    }
-
-    private String studentsToString(Student[] student) {
-        StringBuilder str = new StringBuilder();
-        str.append("[");
-        for (int i = 0; i < student.length; i++) {
-            str.append(student[i].getName()+" - "+ student[i].getChair()
-                    +" - "+student[i].getGroupName());
-            if (i < student.length -1) {
-                str.append(", ");
-            }
-        }
-        str.append("]");
-        return str.toString();
-    }
-
-
-    private Student[] allStudentsOfChairOfSpecifiedCourse(int curCourse) {
-        StudentList[] groupWithSpecifiedCourse = new StudentList[1000];
+        Student[] studentsWithSpecifiedCourse = new Student[1000];
         int i = 0;
-        for(StudentList group : groups) {
-            if(group.getCourse() == curCourse) {
-                groupWithSpecifiedCourse[i++] = group;
+        for(Student ss : students.students) {
+            if(ss.getCourse() == curCourse) {
+                studentsWithSpecifiedCourse[i++] = ss;
             }
         }
-        StudentList[] withoutNull = new StudentList[i];
+        if(studentsWithSpecifiedCourse[0] == null) {
+            return "There are no students with this course\n";
+        }
+        Student[] withoutNull = new Student[i];
         int index = 0;
-        for(int k = 0; k < groupWithSpecifiedCourse.length; k++) {
-            if(groupWithSpecifiedCourse[k] != null) {
-                withoutNull[index++] = groupWithSpecifiedCourse[k];
+        for(int k = 0; k < studentsWithSpecifiedCourse.length; k++) {
+            if(studentsWithSpecifiedCourse[k] != null) {
+                withoutNull[index++] = studentsWithSpecifiedCourse[k];
             } else {
                 break;
             }
         }
-        groupWithSpecifiedCourse = withoutNull;
-        int length = 0;
-        for(StudentList group : groupWithSpecifiedCourse) {
-            length += group.students.length;
-        }
-        Student[] studentsWithSpecifiedCourse = new Student[length];
-        int ind = 0;
-        for(int j = 0; j < groupWithSpecifiedCourse.length; j++) {
-            for(int l = 0; l < groupWithSpecifiedCourse[j].students.length; l++) {
-                studentsWithSpecifiedCourse[ind++] = groupWithSpecifiedCourse[j].students[l];
+        studentsWithSpecifiedCourse = withoutNull;
+        for(int j = 0; j < studentsWithSpecifiedCourse.length - 1; j++) {
+            for(int k = j + 1; k < studentsWithSpecifiedCourse.length; k++) {
+                if(studentsWithSpecifiedCourse[j].getName().
+                        compareTo(studentsWithSpecifiedCourse[k].getName()) > 0) {
+                    Student temp = studentsWithSpecifiedCourse[j];
+                    studentsWithSpecifiedCourse[j] = studentsWithSpecifiedCourse[k];
+                    studentsWithSpecifiedCourse[k] = temp;
+                }
             }
         }
-        return studentsWithSpecifiedCourse;
+        return studentsToString(studentsWithSpecifiedCourse);
     }
+
+    private String studentsToString(Student[] student) {
+        StringBuilder sb = new StringBuilder();
+        for(Student s: student) {
+            sb.append(s.toString());
+        }
+        return sb.toString();
+    }
+
     private void addTeachers(){
         for (int i=0; i<teachersCount; i++){
             System.out.println("Creating teacher "+(i+1));
