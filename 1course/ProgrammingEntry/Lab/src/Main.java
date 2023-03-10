@@ -1,8 +1,16 @@
 import java.sql.SQLOutput;
+import java.text.DecimalFormat;
 import java.util.Random;
 
 public class Main {
     static Screen screen;
+    public static final String[] STATUS = {
+            "Head teacher",
+            "Dean",
+            "Practice teacher",
+            "Trainee teacher",
+            "Lector"
+    };
     public static final String[] SURNAMES = {
             "Andrushko",
             "Baranovskyi",
@@ -184,7 +192,7 @@ public class Main {
                     Faculty faculty;
                     TeacherList chair;
                     StudentList group;
-                    if(ans<2&&ans==11){
+                    if(ans<2||ans==11){
                         faculty = university.chooseFaculty();
                         chair = faculty.chooseChair();
                         group = chair.chooseGroup();
@@ -196,7 +204,7 @@ public class Main {
                             group.removeStudent(student);
                         } else if (ans == 11) {
                             for (int i=0; i<group.students.length; i++)
-                                System.out.println(group.students[i]);
+                                System.out.print(group.students[i]);
                         }
                     }
                     else if(ans > 2 &&ans < 5){
@@ -207,11 +215,9 @@ public class Main {
                                 System.out.println(faculty.allStudentsFromFacultySorted());
                         }
                     else if (ans == 9){
-                        if(university.searchStudent()!=null)
-                            System.out.println(university.searchStudent());
-                        else System.out.println("There are no students with such name");
+                        System.out.println(university.searchStudent());
                     } else if (ans == 10) {
-                        university.searchStudentByCourse();
+                        System.out.println(university.searchStudentByCourse());
                     } else{
                         faculty = university.chooseFaculty();
                         chair = faculty.chooseChair();
@@ -256,11 +262,11 @@ public class Main {
                 else name = "Applied Math";
                 university.faculties[i].chairs[j]= new TeacherList(university.faculties[i], name, randomNumber(2, 4), 50);
                 for(int l = 0; l<university.faculties[i].chairs[j].teachersCount; l++){
-                    university.faculties[i].chairs[j].teachers[l]= new Teacher(university.faculties[i].chairs[j], randomName(), randomName());
+                    university.faculties[i].chairs[j].teachers[l]= new Teacher(university.faculties[i].chairs[j], randomStatus(), randomName());
                 }
                 university.faculties[i].chairs[j].students = new StudentList(university.faculties[i].chairs[j], university.faculties[i].chairs[j].studentsCount, randomNumber(1, 4), "Група");
                 for (int k=0; k<university.faculties[i].chairs[j].studentsCount; k++)
-                    university.faculties[i].chairs[j].students.students[k] = new Student(university.faculties[i].chairs[j].students, randomName(), randomNumber(60, 100));
+                    university.faculties[i].chairs[j].students.students[k] = new Student(university.faculties[i].chairs[j].students, randomName(), randomDouble(60, 100));
                 university.faculties[i].chairs[j].arrangeIntoGroups();
             }
         }
@@ -272,8 +278,18 @@ public class Main {
         String res = randomSurname + " " + randomName;
         return res;
     }
+    public static String randomStatus(){
+        return STATUS[RANDOM.nextInt(5)];
+    }
     public static int randomNumber(int min, int max) {
         return RANDOM.nextInt(max - min + 1) + min;
+    }
+    public static double randomDouble(int min, int max) {
+        double value = RANDOM.nextDouble(max-min+1)+min;
+        DecimalFormat df = new DecimalFormat("#.#");
+        String formattedValue = df.format(value);
+        double roundedValue = Double.parseDouble(formattedValue);
+        return roundedValue;
     }
 }
 

@@ -126,8 +126,8 @@ public class Faculty {
         while(!isFinished) {
             isFinished = true;
             for (int i = 1; i < studentsHere.length; i++) {
-                if (studentsHere[i].getGrade() <
-                        studentsHere[i - 1].getGrade()) {
+                if (studentsHere[i].getCourse() <
+                        studentsHere[i - 1].getCourse()) {
                     Student temp = studentsHere[i];
                     studentsHere[i] = studentsHere[i - 1];
                     studentsHere[i - 1] = temp;
@@ -174,16 +174,23 @@ public class Faculty {
         for (int i=0; i<chairCount; i++){
             arr[i] = chairs[i];
         }
+        arr[chairCount]=chair;
+        chairs=arr;
+        chairCount++;
     }
 
     public void removeChair(){
+        int j=0;
         TeacherList chair = chooseChair();
         TeacherList[] arr = new TeacherList[chairCount-1];
         for (int i=0; i<chairCount; i++){
-            if(chairs[i]!=chair)
-                arr[i] = chairs[i];
+            if(chairs[i]==chair)
+                j=1;
+            else
+                arr[i-j] = chairs[i];
         }
         chairs=arr;
+        chairCount--;
     }
 
     public void changeChairName(){
@@ -198,7 +205,9 @@ public class Faculty {
      public TeacherList chooseChair(){
          String names ="";
          for (int i=0; i< chairCount; i++){
-             names+=i+"-----"+chairs[i].chairName+"\n";
+             names+=i+"-----"+chairs[i].chairName;
+             if(i!=chairCount-1)
+                 names+="\n";
          }
          int ans = DataInput.getInt("Choose the chair:\n"+names);
          return chairs[ans];

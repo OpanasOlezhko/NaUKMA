@@ -170,10 +170,13 @@ public class StudentList {
     }
 
     public void removeStudent(Student student){
+        int j=0;
         Student[] arr = new Student[students.length-1];
         for (int i=0; i<students.length; i++){
-            if(students[i]!=student)
-                arr[i] = students[i];
+            if(students[i]==student)
+                j=1;
+            else
+                arr[i-j] = students[i];
         }
         students=arr;
     }
@@ -189,7 +192,9 @@ public class StudentList {
     public Student chooseStudent(){
         String names ="";
         for (int i=0; i< students.length; i++){
-            names+=i+"-----"+students[i]+"\n";
+            names+=i+"-----"+students[i];
+            if(i!=students.length-1)
+                names+="\n";
         }
         int ans = DataInput.getInt("Choose the student:\n"+names);
         return students[ans];
