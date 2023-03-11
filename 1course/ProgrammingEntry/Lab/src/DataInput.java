@@ -15,13 +15,6 @@ public final class DataInput {
         }
 
     }
-
-    public static Long getLong() throws IOException {
-        String s = getString();
-        Long value = Long.valueOf(s);
-        return value;
-    }
-
     public static char getChar() throws IOException {
         String s = getString();
         while (s.length() == 0) {

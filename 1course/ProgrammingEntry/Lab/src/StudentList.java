@@ -34,8 +34,10 @@ public class StudentList {
     }
     private int course(){
         int course = DataInput.getInt("Enter the course of the '" +groupName+"': ");
-        if(course>4||course<1)
+        if(course>4||course<1){
+            System.out.println("The course is [1; 4] only!");
             course();
+        }
         return course;
     }
 
