@@ -256,10 +256,16 @@ public class Main {
         for(int i=0; i<university.facultiesCount; i++){
             if(i==0) name = "Informatics";
             else name = "Math";
-            university.faculties[i]=new Faculty(1, name);
+            university.faculties[i]=new Faculty(2, name);
             for(int j = 0; j<university.faculties[i].chairCount; j++){
-                if(i==0) name = "Software Engineering";
-                else name = "Applied Math";
+                if(i==0) {
+                    if(j==0)name = "Software Engineering";
+                    else if(j==1) name = "Computer science";
+                }
+                else {
+                    if(j==0)name = "Applied Math";
+                    if(j==1)name = "Statistics";
+                }
                 university.faculties[i].chairs[j]= new TeacherList(university.faculties[i], name, randomNumber(2, 4), 50);
                 for(int l = 0; l<university.faculties[i].chairs[j].teachersCount; l++){
                     university.faculties[i].chairs[j].teachers[l]= new Teacher(university.faculties[i].chairs[j], randomStatus(), randomName());
