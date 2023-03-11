@@ -33,7 +33,7 @@ public class Student {
     }
 
     public void changeGroup(StudentList groupNew){
-        group.chair.removeStudent(this, groupNew);
+        group.chair.removeStudent(this, group);
         group.chair.addStudent(this, groupNew);
         this.groupName = groupNew.groupName;
         this.chair = groupNew.chairName;

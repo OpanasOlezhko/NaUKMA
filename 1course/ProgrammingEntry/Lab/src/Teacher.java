@@ -42,13 +42,13 @@ public class Teacher {
     public String spellingCheck(String name){
         boolean state = true;
         String str = "";
-        for (int i = 1; i < name.length(); i++) {
+        for (int i = 0; i < name.length(); i++) {
             if(!state) {
                 if (name.charAt(i) == 32)
                     state = true;
                 str += name.charAt(i);
             }
-            if(state){
+            if(state&&name.charAt(i) != 32){
                 if(name.charAt(i)>=97&&name.charAt(i)<=122)
                     str += (char) (name.charAt(i) - 32);
                 else

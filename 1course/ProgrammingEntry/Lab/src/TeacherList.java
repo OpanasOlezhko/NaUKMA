@@ -70,6 +70,7 @@ public class TeacherList {
     }
     public void removeStudent(Student student, StudentList group){
         int j=0;
+        int f=0;
         Student[] arr = new Student[group.students.length-1];
         Student[] arr1 = new Student[students.students.length-1];
         for (int i=0; i<group.students.length; i++){
@@ -80,9 +81,9 @@ public class TeacherList {
         }
         for (int i=0; i<students.students.length; i++){
             if(students.students[i]==student)
-                j=1;
+                f=1;
             else
-                arr[i-j] = students.students[i];
+                arr1[i-f] = students.students[i];
         }
         group.students=arr;
         students.students = arr1;

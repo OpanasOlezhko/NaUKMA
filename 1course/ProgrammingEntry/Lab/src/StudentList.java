@@ -42,6 +42,7 @@ public class StudentList {
         int numStudents = students;
         this.students = new Student[numStudents];
         this.chairName = chair.chairName;
+        this.chair = chair;
         this.course = course;
     }
 
