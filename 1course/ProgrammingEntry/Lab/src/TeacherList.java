@@ -66,7 +66,26 @@ public class TeacherList {
         arr[group.students.length]=student;
         arr1[students.students.length] = student;
         group.students=arr;
-        students.students = arr;
+        students.students = arr1;
+    }
+    public void removeStudent(Student student, StudentList group){
+        int j=0;
+        Student[] arr = new Student[group.students.length-1];
+        Student[] arr1 = new Student[students.students.length-1];
+        for (int i=0; i<group.students.length; i++){
+            if(group.students[i]==student)
+                j=1;
+            else
+                arr[i-j] = group.students[i];
+        }
+        for (int i=0; i<students.students.length; i++){
+            if(students.students[i]==student)
+                j=1;
+            else
+                arr[i-j] = students.students[i];
+        }
+        group.students=arr;
+        students.students = arr1;
     }
 
     // 8 завдання

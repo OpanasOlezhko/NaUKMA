@@ -201,7 +201,7 @@ public class Main {
                             chair.addStudent(student, group);
                         }if (ans == 1) {
                             Student student = group.chooseStudent();
-                            group.removeStudent(student);
+                            chair.removeStudent(student, group);
                         } else if (ans == 11) {
                             for (int i=0; i<group.students.length; i++)
                                 System.out.print(group.students[i]);

@@ -171,17 +171,7 @@ public class StudentList {
         return true;
     }
 
-    public void removeStudent(Student student){
-        int j=0;
-        Student[] arr = new Student[students.length-1];
-        for (int i=0; i<students.length; i++){
-            if(students[i]==student)
-                j=1;
-            else
-                arr[i-j] = students[i];
-        }
-        students=arr;
-    }
+
 
 
     public Student chooseStudent(){
