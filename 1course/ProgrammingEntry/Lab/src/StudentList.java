@@ -33,7 +33,9 @@ public class StudentList {
         students = new Student[numStudents];
         for (int i=1; i<=numStudents;i++){
             System.out.println("Student "+i+":");
-            students[i-1]=new Student(this);
+            Student student = new Student(this);
+            students[i-1]= student;
+            chair.addStudent(student, chair.students);
         }
     }
 
