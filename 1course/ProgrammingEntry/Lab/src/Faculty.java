@@ -21,6 +21,7 @@ public class Faculty {
 
 
     private void gatherAllTheTeachers() {
+        teachersHere = new Teacher[1000];
         int p = 0;
         for(int k = 0; k < chairs.length; k++) {
             for(int l = 0; l < chairs[k].teachers.length; l++) {
@@ -63,22 +64,9 @@ public class Faculty {
         return str.toString();
     }
 
-    public Teacher[] reverse(Teacher[] teachers){
-        for(int i=0; i<teachers.length/2; i++){
-            swapT(i,teachers.length-1-i);
-        }
-        return teachers;
-    }
-
-    private void swapT(int a, int b) {
-        Teacher temp = teachersHere[a];
-        teachersHere[a] = teachersHere[b];
-        teachersHere[b]=temp;
-    }
-
-
     boolean alreadyTogether = false;
     private void gatherAllTheStudents() {
+        studentsHere = new Student[1000];
         int p = 0;
         for(int i = 0; i < chairs.length; i++) {
             for(int j = 0; j < chairs[i].students.students.length; j++) {
@@ -102,9 +90,7 @@ public class Faculty {
     // 6 завдання
     private Student[] studentsHere = new Student[1000];
     public String allStudentsFromFacultySorted() {
-        if(!alreadyTogether) {
-            gatherAllTheStudents();
-        }
+        gatherAllTheStudents();
         for(int j = 0; j < studentsHere.length - 1; j++) {
             for(int i = j + 1; i < studentsHere.length; i++) {
                 if(studentsHere[j].getName().compareTo(studentsHere[i].getName()) > 0) {
@@ -119,9 +105,7 @@ public class Faculty {
 
     // 5 завдання
     public String allStudentsFromFacultySortedByCourses() {
-        if(!alreadyTogether) {
-            gatherAllTheStudents();
-        }
+        gatherAllTheStudents();
         boolean isFinished = false;
         while(!isFinished) {
             isFinished = true;
@@ -140,25 +124,11 @@ public class Faculty {
 
     private String studentsToString() {
         StringBuilder str = new StringBuilder();
-//        reverse(studentsHere);
         for(Student s: studentsHere) {
             str.append(s.toString());
         }
         return str.toString();
     }
-
-     public Student[] reverse(Student[] students){
-         for(int i=0; i<students.length/2; i++){
-             swapS(i,students.length-1-i);
-         }
-         return students;
-     }
-
-     private void swapS(int a, int b) {
-         Student temp = studentsHere[a];
-         studentsHere[a] = studentsHere[b];
-         studentsHere[b]=temp;
-     }
 
     private void addChairs() {
         for (int i=1; i<=chairCount; i++){
