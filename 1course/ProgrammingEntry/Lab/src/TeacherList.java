@@ -22,6 +22,7 @@ public class TeacherList {
         this.groupsCount = 5;//DataInput.getInt("Enter the amount of student groups in "+chairName+" chair: ");
         this.teachers = new Teacher[teachersCount];
         this.groups = new StudentList[groupsCount];
+        this.students = new StudentList(this, 0, 1, "STUDENTS");
         addTeachers();
         addStudents();
     }
@@ -79,14 +80,15 @@ public class TeacherList {
             else
                 arr[i-j] = group.students[i];
         }
-        for (int i=0; i<students.students.length; i++){
-            if(students.students[i]==student)
-                f=1;
+        for (int i = 0; i < students.students.length; i++) {
+            if (students.students[i] == student)
+                f = 1;
             else
-                arr1[i-f] = students.students[i];
+                arr1[i - f] = students.students[i];
         }
-        group.students=arr;
         students.students = arr1;
+        group.students=arr;
+
     }
 
     // 8 завдання
@@ -275,9 +277,10 @@ public class TeacherList {
     public void removeGroup(){
         int j=0;
         StudentList group = chooseGroup();
+        int k=group.students.length;
         StudentList[] arr = new StudentList[groupsCount-1];
-        for (int i=0; i<group.students.length; i++){
-            removeStudent(group.students[i], group);
+        for (int i=0; i<k; i++){
+            removeStudent(group.students[0], group);
         }
         for (int i=0; i<groupsCount; i++){
             if(groups[i]==group)
