@@ -176,7 +176,6 @@ public class StudentList {
 
 
 
-
     public Student chooseStudent(){
         String names ="";
         for (int i=0; i< students.length; i++){

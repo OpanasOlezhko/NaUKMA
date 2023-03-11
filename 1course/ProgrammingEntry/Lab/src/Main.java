@@ -292,7 +292,7 @@ public class Main {
     }
     public static double randomDouble(int min, int max) {
         double value = RANDOM.nextDouble(max-min+1)+min;
-        DecimalFormat df = new DecimalFormat("#.#");
+        DecimalFormat df = new DecimalFormat("# #");
         String formattedValue = df.format(value);
         double roundedValue = Double.parseDouble(formattedValue);
         return roundedValue;

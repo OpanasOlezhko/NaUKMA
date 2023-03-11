@@ -18,9 +18,9 @@ public class Teacher {
     public Teacher(TeacherList chair, String status, String name) {
         this.name = name;
         this.status = status;
-        this.chair = chair;
         this.chairName = chair.chairName;
         this.facultyName = chair.faculty;
+        this.chair = chair;
     }
 
     public String getName() {
