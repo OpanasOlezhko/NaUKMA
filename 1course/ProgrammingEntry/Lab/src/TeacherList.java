@@ -276,6 +276,9 @@ public class TeacherList {
         int j=0;
         StudentList group = chooseGroup();
         StudentList[] arr = new StudentList[groupsCount-1];
+        for (int i=0; i<group.students.length; i++){
+            removeStudent(group.students[i], group);
+        }
         for (int i=0; i<groupsCount; i++){
             if(groups[i]==group)
                 j=1;
