@@ -198,8 +198,8 @@ public class Main {
                         group = chair.chooseGroup();
                         if (ans == 0) {
                             Student student = new Student(group);
-                            group.addStudent(student);
-                        } else if (ans == 1) {
+                            chair.addStudent(student, group);
+                        }if (ans == 1) {
                             Student student = group.chooseStudent();
                             group.removeStudent(student);
                         } else if (ans == 11) {

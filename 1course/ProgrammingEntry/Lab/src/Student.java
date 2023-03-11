@@ -10,7 +10,7 @@ public class Student {
         this.name = spellingCheck(DataInput.getStr("Enter the name of a student: "));
         this.grade = DataInput.getDouble("Enter the average grade of the "+this.name+":");
         this.groupName = group.groupName;
-        this.chair = group.chair;
+        this.chair = group.chairName;
         this.course = group.course;
         this.group = group;
     }
@@ -19,7 +19,7 @@ public class Student {
         this.name = name;
         this.grade = grade;
         this.groupName = group.groupName;
-        this.chair = group.chair;
+        this.chair = group.chairName;
         this.course = group.course;
         this.group = group;
     }
@@ -34,9 +34,9 @@ public class Student {
 
     public void changeGroup(StudentList groupNew){
         group.removeStudent(this);
-        groupNew.addStudent(this);
+        group.chair.addStudent(this, groupNew);
         this.groupName = groupNew.groupName;
-        this.chair = groupNew.chair;
+        this.chair = groupNew.chairName;
         this.course = groupNew.course;
         this.group = groupNew;
     }

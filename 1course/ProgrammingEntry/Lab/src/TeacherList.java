@@ -55,7 +55,19 @@ public class TeacherList {
         }
     }
 
-
+    public void addStudent(Student student, StudentList group){
+        Student[] arr = new Student[group.students.length+1];
+        Student[] arr1 = new Student[students.students.length+1];
+        for (int i=0; i<group.students.length; i++){
+            arr[i] = group.students[i];
+        }
+        for (int i=0; i<students.students.length; i++)
+            arr1[i] = students.students[i];
+        arr[group.students.length]=student;
+        arr1[students.students.length] = student;
+        group.students=arr;
+        students.students = arr;
+    }
 
     // 8 завдання
     public String allTeachersOfChairSorted() {

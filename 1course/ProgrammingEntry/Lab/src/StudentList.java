@@ -10,7 +10,8 @@ public class StudentList {
     public String groupName;
     Student[] students;
     public int course;
-    public  String chair;
+    public  String chairName;
+    public TeacherList chair;
 
     public String getGroupName() {
         return groupName;
@@ -27,7 +28,8 @@ public class StudentList {
         this.groupName = DataInput.getStr("Enter the name of the group: ");
         int numStudents = DataInput.getInt("Enter the number of students: ");
         this.course = DataInput.getInt("Enter the course of the group: ");
-        this.chair = chair.chairName;
+        this.chair = chair;
+        this.chairName = chair.chairName;
         students = new Student[numStudents];
         for (int i=1; i<=numStudents;i++){
             System.out.println("Student "+i+":");
@@ -39,7 +41,7 @@ public class StudentList {
         this.groupName = groupName;
         int numStudents = students;
         this.students = new Student[numStudents];
-        this.chair = chair.chairName;
+        this.chairName = chair.chairName;
         this.course = course;
     }
 
@@ -181,14 +183,7 @@ public class StudentList {
         students=arr;
     }
 
-    public void addStudent(Student student){
-        Student[] arr = new Student[students.length+1];
-        for (int i=0; i<students.length; i++){
-            arr[i] = students[i];
-        }
-        arr[students.length]=student;
-        students=arr;
-    }
+
     public Student chooseStudent(){
         String names ="";
         for (int i=0; i< students.length; i++){
