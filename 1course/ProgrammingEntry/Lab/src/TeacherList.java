@@ -1,40 +1,46 @@
-import java.io.IOException;
-import java.util.Arrays;
 import java.util.Random;
 
 public class TeacherList {
-    public int teachersCount;
-    public int studentsCount;
-    public int groupsCount;
+    Faculty faculty;
+    public int teachersCount = 0;
+    public int studentsCount = 0;
+    public int groupsCount = 0;
     public String chairName;
-    public String faculty;
+    public String facultyName;
 
     Teacher[] teachers;
     StudentList students;
     StudentList[] groups;
     public static final Random RANDOM = new Random();
 
-
     public TeacherList(Faculty faculty){
-        this.chairName = DataInput.getStr("Enter the name of chair: ");
-        this.faculty = faculty.facultyName;
-        this.teachersCount = DataInput.getInt("Enter the amount of teachers in "+chairName+" chair: ");
-        this.groupsCount = 5;//DataInput.getInt("Enter the amount of student groups in "+chairName+" chair: ");
+        this.faculty = faculty;
+        this.chairName = name();
+        this.facultyName = faculty.facultyName;
         this.teachers = new Teacher[teachersCount];
         this.groups = new StudentList[groupsCount];
-        this.students = new StudentList(this, 0, 1, "STUDENTS");
-        addTeachers();
-        addStudents();
+        this.students = new StudentList(this, 0, 0, "STUDENTS");
     }
 
     public TeacherList(Faculty faculty, String chairName, int teachersCount, int studentsCount){
+        this.faculty = faculty;
         this.chairName = chairName;
-        this.faculty = faculty.facultyName;
+        this.facultyName = faculty.facultyName;
         this.teachersCount = teachersCount;
         this.groupsCount = 5;
         this.studentsCount = studentsCount;
         this.teachers = new Teacher[teachersCount];
         this.groups = new StudentList[groupsCount];
+    }
+    private String name(){
+        String name = DataInput.getStr("Enter the name of chair: ");
+        for (int i = 0; i< faculty.chairCount; i++){
+            if(name.equals(faculty.chairs[i].chairName)){
+                System.out.println("This name is already taken!");
+                name();
+            }
+        }
+        return name;
     }
 
     public void arrangeIntoGroups() {
@@ -112,8 +118,6 @@ public class TeacherList {
         }
         return str.toString();
     }
-
-
     // 8 завдання
     public String allStudentsFromChairSorted() {
         for (int j = 0; j < students.students.length - 1; j++) {
@@ -225,23 +229,6 @@ public class TeacherList {
         }
         return sb.toString();
     }
-
-    private void addTeachers(){
-        for (int i=0; i<teachersCount; i++){
-            System.out.println("Creating teacher "+(i+1));
-                Teacher teacher = new Teacher(this);
-                teachers[i] = teacher;
-        }
-    }
-
-    private void addStudents(){
-        for (int i=0; i<groupsCount; i++){
-            System.out.println("Creating group "+(i+1));
-                StudentList group = new StudentList(this);
-                groups[i] = group;
-        }
-    }
-
     public void addTeacher(Teacher teacher){
         Teacher[] arr = new Teacher[teachersCount+1];
         for (int i=0; i<teachersCount; i++){
@@ -309,23 +296,6 @@ public class TeacherList {
             student.changeGroup(group);
         }
     }
-
-//    public void searchByFirstLetter() throws IOException {
-//        int counter = 0;
-//        System.out.println("What letter would you like to search for?");
-//        char searchLetter = DataInput.getChar();
-//        System.out.println("The students in the group with names starting with '" + searchLetter + "' are: ");
-//        for (int i = 0; i < teachers.length; i++) {
-//            if (teachers[i].name.charAt(0) == searchLetter|| teachers[i].name.charAt(0)+32 == searchLetter){
-//                System.out.println(teachers[i]);
-//            }
-//            else if(teachers[i].name.charAt(0) != searchLetter)
-//                counter++;
-//        }
-//        if(counter == teachers.length)
-//            System.out.println("There are no students starting with first letter: "+searchLetter);
-//    }
-
     public StudentList chooseGroup(){
         String names ="";
         for (int i=0; i< groups.length; i++){
@@ -346,12 +316,10 @@ public class TeacherList {
         int ans = DataInput.getInt("Choose the teacher:\n"+names);
         return teachers[ans];
     }
-
     public void changeGroupName(){
         StudentList group = chooseGroup();
         group.setGroupName();
     }
-
     public void changeTeacherName(){
         Teacher teacher = chooseTeacher();
         String name = DataInput.getStr("Enter new name of "+teacher.name+": ");

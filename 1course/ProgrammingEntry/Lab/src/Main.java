@@ -81,7 +81,7 @@ public class Main {
 
 
     static void action() {
-        int ans = 0;
+        int ans;
         switch (screen) {
             case Main -> {
                 ans = DataInput.getInt("What would you like to work with?\n0-----Faculty\n1-----Chair\n2-----Group" +
@@ -256,7 +256,7 @@ public class Main {
         for(int i=0; i<university.facultiesCount; i++){
             if(i==0) name = "Informatics";
             else name = "Math";
-            university.faculties[i]=new Faculty(2, name);
+            university.faculties[i]=new Faculty(university, 2, name);
             for(int j = 0; j<university.faculties[i].chairCount; j++){
                 if(i==0) {
                     if(j==0)name = "Software Engineering";

@@ -8,7 +8,7 @@ public class Student {
 
     public Student(StudentList group) {
         this.name = spellingCheck(DataInput.getStr("Enter the name of a student: "));
-        this.grade = DataInput.getDouble("Enter the average grade of the "+this.name+":");
+        this.grade = grade();
         this.groupName = group.groupName;
         this.chair = group.chairName;
         this.course = group.course;
@@ -22,6 +22,15 @@ public class Student {
         this.chair = group.chairName;
         this.course = group.course;
         this.group = group;
+    }
+
+    private double grade(){
+        double grade = DataInput.getDouble("Enter the average grade of the "+this.name+":");
+        if(grade>100||grade<0){
+            System.out.println("The grade ca be [0; 100] only!");
+            grade();
+        }
+        return grade;
     }
 
     public void setName(String name){
@@ -68,19 +77,6 @@ public class Student {
     public String getName(){
         return this.name;
     }
-
-    public double getGrade(){
-        return this.grade;
-    }
-
-    public String getGroupName() {
-        return groupName;
-    }
-
-    public String getChair() {
-        return chair;
-    }
-
     public String toString(){
         String s =this.name+"---(average grade: "+this.grade+" group: "+groupName+" chair: "+chair+" course: "+course+")\n";
         return s;

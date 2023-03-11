@@ -11,7 +11,7 @@ public class Teacher {
         this.name = spellingCheck(DataInput.getStr("Enter teacher's name: "));
         this.status = DataInput.getStr("Status: ");
         this.chairName = chair.chairName;
-        this.facultyName = chair.faculty;
+        this.facultyName = chair.facultyName;
         this.chair = chair;
     }
 
@@ -19,7 +19,7 @@ public class Teacher {
         this.name = name;
         this.status = status;
         this.chairName = chair.chairName;
-        this.facultyName = chair.faculty;
+        this.facultyName = chair.facultyName;
         this.chair = chair;
     }
 
@@ -30,16 +30,11 @@ public class Teacher {
     public void setName(String name) {
         this.name = name;
     }
-
-    public String getChairName() {
-        return chairName;
-    }
-
     public void changeChair(TeacherList chairNew) {
         chair.removeTeacher(this);
         chairNew.addTeacher(this);
         this.chairName = chairNew.chairName;
-        this.facultyName = chairNew.faculty;
+        this.facultyName = chairNew.facultyName;
     }
     public String spellingCheck(String name){
         boolean state = true;
@@ -60,12 +55,6 @@ public class Teacher {
         }
         return str;
     }
-
-
-    public String getStatus() {
-        return status;
-    }
-
     public void setStatus(String status) {
         this.status = status;
     }

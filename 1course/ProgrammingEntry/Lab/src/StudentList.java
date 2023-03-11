@@ -1,109 +1,48 @@
-import java.io.IOException;
-import static javax.swing.UIManager.getString;
-/**
- * Написати програму, що: зчитує студентів групи і записує в масив
- * виводить на екран інформацію про студентів
- * виводить на екран всіх студентів які починаються на вказану літеру (літеру прочитати з клавіатури)
- * @author Max Loshak
- */
 public class StudentList {
+    public TeacherList chair;
     public String groupName;
+    public int studentsCount = 0;
     Student[] students;
     public int course;
     public  String chairName;
-    public TeacherList chair;
 
-    public String getGroupName() {
-        return groupName;
-    }
-
-    public int getCourse() {
-        return course;
-    }
-
-    /**
-     * пустий конструктор з вводом з консолі
-     */
     public StudentList(TeacherList chair) {
-        this.groupName = DataInput.getStr("Enter the name of the group: ");
-        int numStudents = DataInput.getInt("Enter the number of students: ");
-        this.course = DataInput.getInt("Enter the course of the group: ");
         this.chair = chair;
+        this.groupName = name();
+        this.course = course();
         this.chairName = chair.chairName;
-        students = new Student[numStudents];
-        for (int i=1; i<=numStudents;i++){
-            System.out.println("Student "+i+":");
-            Student student = new Student(this);
-            students[i-1]= student;
-            chair.addStudent(student, chair.students);
-        }
+        students = new Student[studentsCount];
     }
 
     public StudentList(TeacherList chair, int students, int course, String groupName) {
+        this.chair = chair;
         this.groupName = groupName;
         int numStudents = students;
         this.students = new Student[numStudents];
         this.chairName = chair.chairName;
-        this.chair = chair;
         this.course = course;
     }
-
-    /**
-     * Повний конструктор
-     * @param students
-    //     * @param faculty
-    //     * @param age
-     */
-    public StudentList(Student[] students){
-        this.students = students;
-    }
-
-    /**
-     * пошук студентів за першою літерою
-     */
-    public void searchByFirstLetter() throws IOException {
-        int counter = 0;
-        System.out.println("What letter would you like to search for?");
-        char searchLetter = DataInput.getChar();
-        System.out.println("The students in the group with names starting with '" + searchLetter + "' are: ");
-        for (int i = 0; i < students.length; i++) {
-            if (students[i].name.charAt(0) == searchLetter|| students[i].name.charAt(0)+32 == searchLetter){
-                System.out.println(students[i]);
+    private String name(){
+        String name = DataInput.getStr("Enter the name of group: ");
+        for (int i = 0; i< chair.groupsCount; i++){
+            if(name.equals(chair.groups[i].groupName)){
+                System.out.println("This name is already taken!");
+                name();
             }
-            else if(students[i].name.charAt(0) != searchLetter)
-                counter++;
         }
-        if(counter == students.length)
-            System.out.println("There are no students starting with first letter: "+searchLetter);
+        return name;
     }
-
-//    private void answer() throws IOException {
-//        int answer=DataInput.getInt("Try again?\n1----Yes\n0----No");
-//        if(answer==1)
-//            searchByFirstLetter();
-//        else if(answer>1||answer<0){
-//            System.out.println("Enter correct value");
-//            answer();
-//        }
-//    }
+    private int course(){
+        int course = DataInput.getInt("Enter the course of the '" +groupName+"': ");
+        if(course>4||course<1)
+            course();
+        return course;
+    }
 
     private void swap(int a, int b) {
         Student temp = this.students[a];
         this.students[a]=this.students[b];
         this.students[b]=temp;
-    }
-
-
-    public Student[] getStudents(){
-        return students;
-    }
-
-    public void quickSortGrades(int low, int high){
-        if(low<high){
-            int j= partition(low,high);
-            quickSortGrades(low,j-1);
-            quickSortGrades(j+1,high);
-        }
     }
 
     public void quickSortNames(int low, int high){
@@ -112,22 +51,6 @@ public class StudentList {
             quickSortNames(low,j-1);
             quickSortNames(j+1,high);
         }
-    }
-
-    private int partition(int low, int high){
-        double pivot = this.students[low].grade;
-        int i =low;
-        int j =high;
-        while(i<j) {
-            while(this.students[i].grade<=pivot&&i<this.students.length-1)
-                i++;
-            while(this.students[j].grade>pivot&&j>0)
-                j--;
-            if(i<j)
-                swap(i,j);
-        }
-        swap(low,j);
-        return j;
     }
 
     private int partitionChar(int low, int high){
@@ -145,15 +68,6 @@ public class StudentList {
         swap(low,j);
         return j;
     }
-
-    public Student[] reverse(Student[] students){
-        for(int i=0; i<students.length/2; i++){
-            swap(i,students.length-1-i);
-        }
-        return students;
-    }
-
-
     private boolean compare(String pivot, String word){
         String comp="";
         int res = 0;
@@ -173,9 +87,6 @@ public class StudentList {
         }
         return true;
     }
-
-
-
     public Student chooseStudent(){
         String names ="";
         for (int i=0; i< students.length; i++){
@@ -191,14 +102,10 @@ public class StudentList {
         this.groupName = DataInput.getStr("Enter the new name of the group '"+groupName+"' :");
     }
 
-    /**
-     * Вивід інформації про всіх студентів в консоль
-     * @return toString
-     */
     public String toString() {
         String sb = "";
         for (int i = 0; i < students.length; i++) {
-            sb+=(students[i]);// + ", faculty: " + faculty[i] + ", age: " + age[i] + ")\n");
+            sb+=(students[i]);
         }
         return "The students in the group are: \n"+sb;
     }

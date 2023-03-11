@@ -1,19 +1,32 @@
 public class Faculty {
+    public University university;
     public String facultyName;
     public int chairCount;
     TeacherList[] chairs;
 
-    public Faculty(){
-        this.facultyName = DataInput.getStr("Enter the name of faculty: ");
-        this.chairCount = DataInput.getInt("Enter the amount of chairs on "+ facultyName +" faculty");
+    public Faculty(University university){
+        this.university = university;
+        this.facultyName = name();
+        this.chairCount = 0;
         this.chairs = new TeacherList[chairCount];
-        addChairs();
     }
 
-     public Faculty(int chairs, String name) {
-         this.facultyName = name;
-         this.chairCount = chairs;
-         this.chairs = new TeacherList[chairs];
+     public Faculty(University university, int chairs, String name) {
+        this.university = university;
+        this.facultyName = name;
+        this.chairCount = chairs;
+        this.chairs = new TeacherList[chairs];
+     }
+
+     private String name(){
+        String name = DataInput.getStr("Enter the name of faculty: ");
+        for (int i=0; i<university.facultiesCount; i++){
+            if(name.equals(university.faculties[i].facultyName)){
+                System.out.println("This name is already taken!");
+                name();
+            }
+        }
+        return name;
      }
 
     // 6 завдання
@@ -53,8 +66,6 @@ public class Faculty {
         }
         return teachersToString();
     }
-
-
     private String teachersToString() {
         StringBuilder str = new StringBuilder();
 //        reverse(teachersHere);
@@ -63,7 +74,6 @@ public class Faculty {
         }
         return str.toString();
     }
-
     boolean alreadyTogether = false;
     private void gatherAllTheStudents() {
         studentsHere = new Student[1000];
@@ -85,8 +95,6 @@ public class Faculty {
         studentsHere = withoutNull;
         alreadyTogether = true;
     }
-
-
     // 6 завдання
     private Student[] studentsHere = new Student[1000];
     public String allStudentsFromFacultySorted() {
@@ -129,15 +137,6 @@ public class Faculty {
         }
         return str.toString();
     }
-
-    private void addChairs() {
-        for (int i=1; i<=chairCount; i++){
-            System.out.println("Creating chair "+i+":");
-            TeacherList chair = new TeacherList(this);
-            this.chairs[i-1] = chair;
-        }
-    }
-
     public void addChair(){
         TeacherList chair = new TeacherList(this);
         TeacherList[] arr = new TeacherList[chairCount+1];

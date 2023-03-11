@@ -3,27 +3,13 @@ import javax.xml.crypto.Data;
 public class University {
     public int facultiesCount;
     Faculty[] faculties;
-
-    public University(){
-        this.facultiesCount = DataInput.getInt("Enter the amount of faculties in the university: ");
-        this.faculties = new Faculty[facultiesCount];
-        addFaculties();
-    }
-
     public University(int facultiesCount) {
         this.facultiesCount = facultiesCount;
         this.faculties = new Faculty[facultiesCount];
     }
 
-    private void addFaculties(){
-        for (int i=0; i<facultiesCount; i++){
-            Faculty faculty = new Faculty();
-            faculties[i]=faculty;
-        }
-    }
-
     public void addFaculty(){
-        Faculty faculty = new Faculty();
+        Faculty faculty = new Faculty(this);
         Faculty[] arr = new Faculty[facultiesCount+1];
         for (int i=0; i<facultiesCount; i++){
             arr[i] = faculties[i];
@@ -50,7 +36,6 @@ public class University {
         faculties=arr;
         facultiesCount--;
     }
-
     public String searchStudent(){
         String res ="";
         String request = DataInput.getStr("Enter the name of a student you are looking for: ");

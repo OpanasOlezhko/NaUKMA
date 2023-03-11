@@ -1,7 +1,7 @@
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Scanner;
 
 public final class DataInput {
     public DataInput() {
@@ -64,33 +64,12 @@ public final class DataInput {
         }
         return value;
     }
-
     public static String getStr(String wr){
-        int counter = 0;
-        String finalStr;
-        do {
-            counter = 0;
-            writeText(wr);
-            String s = "";
-            try {
-                s = getString();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            finalStr = s;
-            for(int i = 0; i < finalStr.length(); i++) {
-                if(finalStr.charAt(i) >= '0' && finalStr.charAt(i) <= '9') {
-                    counter++;
-                } else if(finalStr.charAt(i) == '-') {
-                    counter++;
-                }
-            }
-        } while(counter != 0);
-        return finalStr;
-
+            Scanner scanner = new Scanner(System.in);
+            System.out.print(wr);
+            String input = scanner.nextLine();
+            return input;
     }
-
     public static String getString()
             throws IOException {
         InputStreamReader isr = new InputStreamReader(System.in);
