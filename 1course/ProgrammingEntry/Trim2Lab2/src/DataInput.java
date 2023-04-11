@@ -4,9 +4,6 @@ import java.io.InputStreamReader;
 import java.util.Scanner;
 
 public final class DataInput {
-    public DataInput() {
-    }
-
     private static void writeText(String wr) {
         if (wr == null) {
             System.out.print("Введіть дані: ");
@@ -54,10 +51,10 @@ public final class DataInput {
         return value;
     }
     public static String getString(String wr){
-            Scanner scanner = new Scanner(System.in);
-            System.out.print(wr);
-            String input = scanner.nextLine();
-            return input;
+        Scanner scanner = new Scanner(System.in);
+        System.out.print(wr);
+        String input = scanner.nextLine();
+        return input;
     }
     public static String getStringGlyba()
             throws IOException {

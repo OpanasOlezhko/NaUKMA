@@ -8,8 +8,8 @@ public class Teacher {
     String facultyName;
 
     public Teacher(TeacherList chair){
-        this.name = spellingCheck(DataInput.getStr("Enter teacher's name: "));
-        this.status = DataInput.getStr("Status: ");
+        this.name = spellingCheck(DataInput.getString("Enter teacher's name: "));
+        this.status = DataInput.getString("Status: ");
         this.chairName = chair.chairName;
         this.facultyName = chair.facultyName;
         this.chair = chair;

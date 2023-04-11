@@ -1,5 +1,3 @@
-import javax.xml.crypto.Data;
-
 public class University {
     public int facultiesCount;
     Faculty[] faculties;
@@ -38,7 +36,7 @@ public class University {
     }
     public String searchStudent(){
         String res ="";
-        String request = DataInput.getStr("Enter the name of a student you are looking for: ");
+        String request = DataInput.getString("Enter the name of a student you are looking for: ");
         request=spellingCheck(request);
         for (int i=0; i<facultiesCount; i++)
             for (int j=0; j<faculties[i].chairCount; j++)
@@ -52,7 +50,7 @@ public class University {
     }
 
     public Teacher searchTeacher(){
-        String request = DataInput.getStr("Enter the name of a teacher you are looking for: ");
+        String request = DataInput.getString("Enter the name of a teacher you are looking for: ");
         spellingCheck(request);
         for (int i=0; i<facultiesCount; i++)
             for (int j=0; j<faculties[i].chairCount; j++)

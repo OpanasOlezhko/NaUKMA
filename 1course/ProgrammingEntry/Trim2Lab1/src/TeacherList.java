@@ -33,7 +33,7 @@ public class TeacherList {
         this.groups = new StudentList[groupsCount];
     }
     private String name(){
-        String name = DataInput.getStr("Enter the name of chair: ");
+        String name = DataInput.getString("Enter the name of chair: ");
         for (int i = 0; i< faculty.chairCount; i++){
             if(name.equals(faculty.chairs[i].chairName)){
                 System.out.println("This name is already taken!");
@@ -283,7 +283,7 @@ public class TeacherList {
         Student student = group.chooseStudent();
         int ans = DataInput.getInt("What to change about "+student.name+"?\n0-----Name\n1-----Grade\n2-----Group");
         if (ans == 0){
-            String name = DataInput.getStr("Enter new name: ");
+            String name = DataInput.getString("Enter new name: ");
                     student.setName(name);
         }
         else if (ans == 1) {
@@ -322,10 +322,10 @@ public class TeacherList {
     }
     public void changeTeacherName(){
         Teacher teacher = chooseTeacher();
-        String name = DataInput.getStr("Enter new name of "+teacher.name+": ");
+        String name = DataInput.getString("Enter new name of "+teacher.name+": ");
         teacher.setName(name);
     }
     public void setChairName(){
-        this.chairName = DataInput.getStr("Enter the new name of the faculty '"+chairName+"' :");
+        this.chairName = DataInput.getString("Enter the new name of the faculty '"+chairName+"' :");
     }
 }

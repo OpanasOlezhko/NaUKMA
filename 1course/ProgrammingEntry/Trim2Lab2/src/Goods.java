@@ -6,10 +6,15 @@ public class Goods {
     private int amount;
     private double price;
 
+    public Goods(String name, String description, String provider, int amount, double price){
+        this.name = name;
+        this.description = description;
+        this.provider = provider;
+        this.amount = amount;
+        this.price = price;
+    }
 
-    /**
-     * @author MaxLoshak
-     */
+    /** @author MaxLoshak */
     public void setName(String name) {this.name = name;}
     public void setDescription(String description) {this.description = description;}
     public void setProvider(String provider) {this.provider = provider;}

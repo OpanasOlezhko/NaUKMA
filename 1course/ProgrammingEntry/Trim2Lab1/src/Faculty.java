@@ -19,7 +19,7 @@ public class Faculty {
      }
 
      private String name(){
-        String name = DataInput.getStr("Enter the name of faculty: ");
+        String name = DataInput.getString("Enter the name of faculty: ");
         for (int i=0; i<university.facultiesCount; i++){
             if(name.equals(university.faculties[i].facultyName)){
                 System.out.println("This name is already taken!");
@@ -168,7 +168,7 @@ public class Faculty {
     }
 
     public void setFacultyName(){
-        this.facultyName = DataInput.getStr("Enter the new name of the faculty '"+facultyName+"' :");
+        this.facultyName = DataInput.getString("Enter the new name of the faculty '"+facultyName+"' :");
     }
 
      public TeacherList chooseChair(){
@@ -187,11 +187,11 @@ public class Faculty {
          Teacher teacher = chair.chooseTeacher();
          int ans = DataInput.getInt("What to change about "+teacher.name+"?\n0-----Name\n1-----Status\n2-----Chair");
          if(ans ==0){
-             String name = DataInput.getStr("Enter new name: ");
+             String name = DataInput.getString("Enter new name: ");
              teacher.setName(name);
          }
          else if (ans ==1){
-             String status = DataInput.getStr("Enter new status: ");
+             String status = DataInput.getString("Enter new status: ");
              teacher.setStatus(status);
          }
          else if (ans ==2){

@@ -23,7 +23,7 @@ public class StudentList {
         this.course = course;
     }
     private String name(){
-        String name = DataInput.getStr("Enter the name of group: ");
+        String name = DataInput.getString("Enter the name of group: ");
         for (int i = 0; i< chair.groupsCount; i++){
             if(name.equals(chair.groups[i].groupName)){
                 System.out.println("This name is already taken!");
@@ -101,7 +101,7 @@ public class StudentList {
     }
 
     public void setGroupName(){
-        this.groupName = DataInput.getStr("Enter the new name of the group '"+groupName+"' :");
+        this.groupName = DataInput.getString("Enter the new name of the group '"+groupName+"' :");
     }
 
     public String toString() {

@@ -7,7 +7,7 @@ public class Student {
     int course;
 
     public Student(StudentList group) {
-        this.name = spellingCheck(DataInput.getStr("Enter the name of a student: "));
+        this.name = spellingCheck(DataInput.getString("Enter the name of a student: "));
         this.grade = grade();
         this.groupName = group.groupName;
         this.chair = group.chairName;
