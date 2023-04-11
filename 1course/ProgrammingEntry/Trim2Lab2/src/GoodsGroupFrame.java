@@ -1,33 +1,30 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
-public class StartingFrame extends JFrame {
+public class GoodsGroupFrame extends JFrame {
 
     private JComboBox<String> groupComboBox;
     private JButton addGroupButton;
     private JButton submitButton;
     private JButton infoButton;
+    private JButton deleteButton;
     static Warehouse warehouse;
 
     /** @author MaxLoshak */
-    public StartingFrame() {
+    public GoodsGroupFrame() {
         super("Склад");
         setSize(400, 300);
 
         groupComboBox = new JComboBox<>(warehouse.getGoodsGroupsNames());
         addGroupButton = new JButton("Нова Група");
-        submitButton = new JButton("Далі");
+        submitButton = new JButton("Підтвердити");
         infoButton = new JButton("Інформація");
+        deleteButton = new JButton("Видалити");
 
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
 
-        // Add the components to the frame
         gbc.gridx = 0;
         gbc.gridy = 0;
         add(groupComboBox, gbc);
@@ -44,11 +41,15 @@ public class StartingFrame extends JFrame {
         gbc.gridy = 3;
         add(infoButton, gbc);
 
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        add(deleteButton, gbc);
+
 
         infoButton.addActionListener(e -> {
-            String selectedGroup = (String)groupComboBox.getSelectedItem();
+            GoodsGroup selectedGroup = warehouse.getGoodsGroupByName((String)groupComboBox.getSelectedItem());
 
-            JOptionPane.showMessageDialog(StartingFrame.this , warehouse.getGoodsGroupByName(selectedGroup).getDescription());
+            JOptionPane.showMessageDialog(GoodsGroupFrame.this , selectedGroup.getDescription());
         });
 
         addGroupButton.addActionListener(e -> {
@@ -57,20 +58,31 @@ public class StartingFrame extends JFrame {
             frame.setVisible(true);
         });
 
+        submitButton.addActionListener(e ->{
+            // ......
+        });
+
+        deleteButton.addActionListener(e ->{
+            GoodsGroup selectedGroup = warehouse.getGoodsGroupByName((String)groupComboBox.getSelectedItem());
+
+            groupComboBox.removeItem(groupComboBox.getSelectedItem());
+            warehouse.goodsGroups.remove(selectedGroup);
+        });
+
         setLocationRelativeTo(null);
     }
 
 
     public static void main(String[] args) {
         init();
-        StartingFrame frame = new StartingFrame();
+        GoodsGroupFrame frame = new GoodsGroupFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
     }
     /**
-     *                     ^^^^^^
-     *
-     * Це я потім перенесу в class Main (psvm), поки воно тут для зручності
+     *                     ⏫⏫⏫⏫⏫⏫⏫
+     * Це я в подальшому перенесу в class Main (psvm, psvi), поки воно тут для зручності
+     *                      ⏬⏬⏬⏬⏬⏬
      */
 
     public static void init(){
@@ -88,7 +100,7 @@ public class StartingFrame extends JFrame {
         householdGoods.goods.add(soap);
         householdGoods.goods.add(toothbrush);
     }
-
+    /** @author MaxLoshak */
     public void setGroupComboBox(JComboBox<String> groupComboBox) {
         this.groupComboBox = groupComboBox;
     }
@@ -119,5 +131,13 @@ public class StartingFrame extends JFrame {
 
     public JButton getInfoButton() {
         return infoButton;
+    }
+
+    public void setDeleteButton(JButton deleteButton) {
+        this.deleteButton = deleteButton;
+    }
+
+    public JButton getDeleteButton(){
+        return deleteButton;
     }
 }

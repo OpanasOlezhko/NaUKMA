@@ -1,9 +1,9 @@
 public class Main {
     public static void main(String[] args) {
-        // Create
+        // потім psvm перенесу сюди
     }
     public void init(String[] args) {
-        // Create
+        // .....
 
     }
 }

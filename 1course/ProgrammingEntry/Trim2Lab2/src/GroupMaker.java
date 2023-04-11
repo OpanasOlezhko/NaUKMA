@@ -1,7 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class GroupMaker extends JFrame {
 
@@ -11,24 +9,21 @@ public class GroupMaker extends JFrame {
     private JTextField infoField;
     private JButton submitButton;
 
-    public GroupMaker(Warehouse warehouse, StartingFrame frame) {
-        // Set the title and size of the frame
+    /** @author MaxLoshak */
+    public GroupMaker(Warehouse warehouse, GoodsGroupFrame frame) {
         super("Group Maker");
         setSize(400, 300);
 
-        // Create the components
         nameLabel = new JLabel("Назва:");
         nameField = new JTextField(20);
         infoLabel = new JLabel("Інформація:");
         infoField = new JTextField(20);
         submitButton = new JButton("Submit");
 
-        // Set the layout manager to center the components
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
 
-        // Add the components to the frame
         gbc.gridx = 0;
         gbc.gridy = 0;
         add(nameLabel, gbc);
@@ -51,20 +46,19 @@ public class GroupMaker extends JFrame {
         gbc.fill = GridBagConstraints.CENTER;
         add(submitButton, gbc);
 
-        // Add an ActionListener to the submit button
-        submitButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // Get the values from the text fields
-                String name = nameField.getText();
-                String info = infoField.getText();
-                GoodsGroup group = new GoodsGroup(name, info);
-                warehouse.goodsGroups.add(group);
-                frame.getGroupComboBox().addItem(warehouse.goodsGroups.get(warehouse.goodsGroups.size()-1).getName());
-                dispose();
+        submitButton.addActionListener(e -> {
+            String name = nameField.getText();
+            String info = infoField.getText();
+            if (warehouse.getGoodsGroupByName(name) != null) {
+                JOptionPane.showMessageDialog(GroupMaker.this , "There is already a group with that name");
+                nameField.setBorder(BorderFactory.createLineBorder(Color.RED));
             }
+            GoodsGroup group = new GoodsGroup(name, info);
+            warehouse.goodsGroups.add(group);
+            frame.getGroupComboBox().addItem(warehouse.goodsGroups.get(warehouse.goodsGroups.size()-1).getName());
+            dispose();
         });
 
-        // Center the frame on the screen
         setLocationRelativeTo(null);
     }
 
