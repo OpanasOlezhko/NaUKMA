@@ -24,4 +24,15 @@ public class Warehouse {
         }
         return null;
     }
+
+    public boolean isTaken(String str) {
+        str = str.replaceAll("\\d", "");
+        for (int i = 0; i < goodsGroups.size(); i++) {
+            if (goodsGroups.get(i).getName().equalsIgnoreCase(str)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

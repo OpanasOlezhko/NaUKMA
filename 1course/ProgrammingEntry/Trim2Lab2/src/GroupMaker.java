@@ -49,14 +49,17 @@ public class GroupMaker extends JFrame {
         submitButton.addActionListener(e -> {
             String name = nameField.getText();
             String info = infoField.getText();
-            if (warehouse.getGoodsGroupByName(name) != null) {
+            if (warehouse.isTaken(name)) {
                 JOptionPane.showMessageDialog(GroupMaker.this , "There is already a group with that name");
                 nameField.setBorder(BorderFactory.createLineBorder(Color.RED));
+                nameField.setText("");
             }
-            GoodsGroup group = new GoodsGroup(name, info);
-            warehouse.goodsGroups.add(group);
-            frame.getGroupComboBox().addItem(warehouse.goodsGroups.get(warehouse.goodsGroups.size()-1).getName());
-            dispose();
+            else {
+                GoodsGroup group = new GoodsGroup(name, info);
+                warehouse.goodsGroups.add(group);
+                frame.getGroupComboBox().addItem(warehouse.goodsGroups.get(warehouse.goodsGroups.size() - 1).getName());
+                dispose();
+            }
         });
 
         setLocationRelativeTo(null);
