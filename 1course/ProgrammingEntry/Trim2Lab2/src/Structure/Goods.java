@@ -1,3 +1,5 @@
+package Structure;
+
 public class Goods {
 
     private String name;

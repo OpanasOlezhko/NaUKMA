@@ -1,3 +1,8 @@
+package Frames;
+
+import Structure.GoodsGroup;
+import Structure.Warehouse;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -7,25 +12,27 @@ public class GoodsGroupFrame extends JFrame {
     private JButton addGroupButton;
     private JButton submitButton;
     private JButton infoButton;
+    private JButton editButton;
     private JButton deleteButton;
     static Warehouse warehouse;
 
     /** @author MaxLoshak */
-    public GoodsGroupFrame() {
+    public GoodsGroupFrame(Warehouse warehouse) {
         super("Склад");
         setSize(400, 300);
 
-        groupComboBox = new JComboBox<>(warehouse.getGoodsGroupsNames());
+        groupComboBox = new JComboBox<>(warehouse.getNames());
         addGroupButton = new JButton("Нова Група");
         submitButton = new JButton("Підтвердити");
         infoButton = new JButton("Інформація");
+        editButton = new JButton("Редагувати");
         deleteButton = new JButton("Видалити");
 
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
 
-        gbc.gridx = 0;
+        gbc.gridx = 1;
         gbc.gridy = 0;
         add(groupComboBox, gbc);
 
@@ -33,21 +40,25 @@ public class GoodsGroupFrame extends JFrame {
         gbc.gridy = 1;
         add(addGroupButton, gbc);
 
-        gbc.gridx = 0;
-        gbc.gridy = 2;
+        gbc.gridx = 2;
+        gbc.gridy = 1;
         add(submitButton, gbc);
 
         gbc.gridx = 0;
-        gbc.gridy = 3;
+        gbc.gridy = 2;
         add(infoButton, gbc);
 
-        gbc.gridx = 0;
-        gbc.gridy = 4;
+        gbc.gridx = 2;
+        gbc.gridy = 2;
+        add(editButton, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 2;
         add(deleteButton, gbc);
 
 
         infoButton.addActionListener(e -> {
-            GoodsGroup selectedGroup = warehouse.getGoodsGroupByName((String)groupComboBox.getSelectedItem());
+            GoodsGroup selectedGroup = warehouse.getByName((String)groupComboBox.getSelectedItem());
 
             JOptionPane.showMessageDialog(GoodsGroupFrame.this , selectedGroup.getDescription());
         });
@@ -59,11 +70,19 @@ public class GoodsGroupFrame extends JFrame {
         });
 
         submitButton.addActionListener(e ->{
-            // ......
+            GoodsGroup selectedGroup = warehouse.getByName((String)groupComboBox.getSelectedItem());
+            new GoodsFrame(selectedGroup);
+        });
+
+        editButton.addActionListener(e ->{
+            GoodsGroup selectedGroup = warehouse.getByName((String)groupComboBox.getSelectedItem());
+            GroupMaker frame = new GroupMaker(warehouse, this, selectedGroup);
+            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            frame.setVisible(true);
         });
 
         deleteButton.addActionListener(e ->{
-            GoodsGroup selectedGroup = warehouse.getGoodsGroupByName((String)groupComboBox.getSelectedItem());
+            GoodsGroup selectedGroup = warehouse.getByName((String)groupComboBox.getSelectedItem());
 
             groupComboBox.removeItem(groupComboBox.getSelectedItem());
             warehouse.goodsGroups.remove(selectedGroup);
@@ -72,34 +91,6 @@ public class GoodsGroupFrame extends JFrame {
         setLocationRelativeTo(null);
     }
 
-
-    public static void main(String[] args) {
-        init();
-        GoodsGroupFrame frame = new GoodsGroupFrame();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
-    }
-    /**
-     *                     ⏫⏫⏫⏫⏫⏫⏫
-     * Це я в подальшому перенесу в class Main (psvm, psvi), поки воно тут для зручності
-     *                      ⏬⏬⏬⏬⏬⏬
-     */
-
-    public static void init(){
-        warehouse = new Warehouse();
-        GoodsGroup groceries = new GoodsGroup("Edible", "Goods Group Description");
-        GoodsGroup householdGoods = new GoodsGroup("Household Goods", "Goods Group Description");
-        Goods bread = new Goods("bread", "description", "UkrHlib", 10, 15);
-        Goods wheat = new Goods("wheat", "description", "UkrHlib", 100, 150);
-        Goods soap = new Goods("soap", "description", "UkrHouse", 20, 30);
-        Goods toothbrush = new Goods("toothbrush", "description", "UkrHouse", 20, 20);
-        warehouse.goodsGroups.add(groceries);
-        warehouse.goodsGroups.add(householdGoods);
-        groceries.goods.add(bread);
-        groceries.goods.add(wheat);
-        householdGoods.goods.add(soap);
-        householdGoods.goods.add(toothbrush);
-    }
     /** @author MaxLoshak */
     public void setGroupComboBox(JComboBox<String> groupComboBox) {
         this.groupComboBox = groupComboBox;
