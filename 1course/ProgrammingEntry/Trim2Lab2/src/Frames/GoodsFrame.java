@@ -99,14 +99,14 @@ public class GoodsFrame extends JFrame {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                     String[] items;
                     if(allGroups.isSelected()) {
-                        items = sortStringsBySubstring(warehouse.getAllGoodsNames(), searchTextField.getText());
+                        items = sortStringsBySubstring(warehouse.getAllGoodsNames(), searchTextField.getText().toLowerCase());
                         goodsComboBox.removeAllItems();
                         for (int i = 0; i < items.length; i++) {
                             goodsComboBox.addItem(items[i]);
                         }
                     }
                     else {
-                        items = sortStringsBySubstring(group.getNames(), searchTextField.getText());
+                        items = sortStringsBySubstring(group.getNames(), searchTextField.getText().toLowerCase());
                         goodsComboBox.removeAllItems();
                         for (int i = 0; i < items.length; i++) {
                             goodsComboBox.addItem(items[i]);
