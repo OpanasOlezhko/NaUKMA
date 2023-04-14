@@ -66,6 +66,11 @@ public class Warehouse implements Group<GoodsGroup> {
         }
         return false;
     }
+    public void removeGood(Goods good){
+        for (int i = 0; i < goodsGroups.size(); i++) {
+            goodsGroups.get(i).goods.remove(good);
+        }
+    }
 
     public String[] getAllGoodsNames(){
         ArrayList<String> names = new ArrayList<String>();

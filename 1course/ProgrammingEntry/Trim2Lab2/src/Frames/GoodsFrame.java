@@ -153,7 +153,7 @@ public class GoodsFrame extends JFrame {
             Goods selectedGood = warehouse.getGoodByName((String)goodsComboBox.getSelectedItem());
 
             goodsComboBox.removeItem(goodsComboBox.getSelectedItem());
-            group.goods.remove(selectedGood);
+            warehouse.removeGood(selectedGood);
         });
     }
 

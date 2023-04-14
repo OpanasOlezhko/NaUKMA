@@ -31,8 +31,12 @@ public class GroupMaker extends JFrame implements Setup{
         submitButton.addActionListener(e -> {
             String name = nameField.getText();
             String info = infoField.getText();
-            if (warehouse.isTaken(name)) {
-                JOptionPane.showMessageDialog(GroupMaker.this , "There is already a group with that name");
+            if (warehouse.isTaken(name)||name.equals("")) {
+                if(warehouse.isTaken(name))
+                    JOptionPane.showMessageDialog(GroupMaker.this , "There is already a group with that name");
+                else if (name.equals("")) {
+                    JOptionPane.showMessageDialog(GroupMaker.this , "Enter a name for a group");
+                }
                 nameField.setBorder(BorderFactory.createLineBorder(Color.RED));
                 nameField.setText("");
             }
@@ -61,8 +65,12 @@ public class GroupMaker extends JFrame implements Setup{
         submitButton.addActionListener(e -> {
             String name = nameField.getText();
             String info = infoField.getText();
-            if (warehouse.isTaken(name, group)) {
-                JOptionPane.showMessageDialog(GroupMaker.this , "There is already a group with that name\nwhich is not the group being edited");
+            if (warehouse.isTaken(name, group)||name.equals("")) {
+                if(warehouse.isTaken(name, group))
+                    JOptionPane.showMessageDialog(GroupMaker.this , "There is already a group with that name\nwhich is not the group being edited");
+                else if (name.equals("")) {
+                    JOptionPane.showMessageDialog(GroupMaker.this , "Enter a new name for a group");
+                }
                 nameField.setBorder(BorderFactory.createLineBorder(Color.RED));
                 nameField.setText("");
             }
