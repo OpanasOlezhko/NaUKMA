@@ -19,7 +19,7 @@ public class GoodsGroupFrame extends JFrame {
     /** @author MaxLoshak */
     public GoodsGroupFrame(Warehouse warehouse) {
         super("Склад");
-        setSize(400, 300);
+        setSize(500, 400);
 
         groupComboBox = new JComboBox<>(warehouse.getNames());
         addGroupButton = new JButton("Нова Група");
@@ -28,6 +28,7 @@ public class GoodsGroupFrame extends JFrame {
         editButton = new JButton("Редагувати");
         deleteButton = new JButton("Видалити");
 
+        groupComboBox.setBorder(BorderFactory.createTitledBorder("Групи товарів"));
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
@@ -65,19 +66,19 @@ public class GoodsGroupFrame extends JFrame {
 
         addGroupButton.addActionListener(e -> {
             GroupMaker frame = new GroupMaker(warehouse, this);
-            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            //frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             frame.setVisible(true);
         });
 
         submitButton.addActionListener(e ->{
             GoodsGroup selectedGroup = warehouse.getByName((String)groupComboBox.getSelectedItem());
-            new GoodsFrame(selectedGroup);
+            new GoodsFrame(selectedGroup, warehouse);
         });
 
         editButton.addActionListener(e ->{
             GoodsGroup selectedGroup = warehouse.getByName((String)groupComboBox.getSelectedItem());
             GroupMaker frame = new GroupMaker(warehouse, this, selectedGroup);
-            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            //frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             frame.setVisible(true);
         });
 

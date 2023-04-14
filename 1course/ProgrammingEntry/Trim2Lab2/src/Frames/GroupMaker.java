@@ -6,54 +6,27 @@ import Structure.Warehouse;
 import javax.swing.*;
 import java.awt.*;
 
-public class GroupMaker extends JFrame {
+public class GroupMaker extends JFrame implements Setup{
 
     private JLabel nameLabel;
     private JTextField nameField;
     private JLabel infoLabel;
     private JTextArea infoField;
-    private JButton submitButton;
+    private JButton submitButton, backButton;
 
     /** @author MaxLoshak */
     public GroupMaker(Warehouse warehouse, GoodsGroupFrame frame) {
         super("Створити Групу Товарів");
         setSize(400, 300);
 
-        nameLabel = new JLabel("Назва:");
         nameField = new JTextField(20);
-        infoLabel = new JLabel("Інформація:");
         infoField = new JTextArea();
-        submitButton = new JButton("Submit");
 
-        setLayout(new GridBagLayout());
-        infoField.setPreferredSize(new Dimension(200, 100));
-        infoField.setBorder(BorderFactory.createLineBorder(Color.gray));
-        infoField.setLineWrap(true);
-        infoField.setWrapStyleWord(true);
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 10, 10, 10);
+        setup();
 
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        add(nameLabel, gbc);
-
-        gbc.gridx = 1;
-        gbc.gridy = 0;
-        add(nameField, gbc);
-
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        add(infoLabel, gbc);
-
-        gbc.gridx = 1;
-        gbc.gridy = 1;
-        add(infoField, gbc);
-
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        gbc.gridwidth = 2;
-        gbc.fill = GridBagConstraints.CENTER;
-        add(submitButton, gbc);
+        backButton.addActionListener(e -> {
+            dispose();
+        });
 
         submitButton.addActionListener(e -> {
             String name = nameField.getText();
@@ -76,44 +49,14 @@ public class GroupMaker extends JFrame {
 
     public GroupMaker(Warehouse warehouse, GoodsGroupFrame frame, GoodsGroup group) {
         super("Редагувати Групу Товарів");
-        setSize(400, 300);
-
-        nameLabel = new JLabel("Назва:");
         nameField = new JTextField(group.getName());
-        infoLabel = new JLabel("Інформація:");
         infoField = new JTextArea(group.getDescription());
-        submitButton = new JButton("Submit");
 
-        setLayout(new GridBagLayout());
-        infoField.setPreferredSize(new Dimension(200, 100));
-        infoField.setBorder(BorderFactory.createLineBorder(Color.gray));
-        infoField.setLineWrap(true);
-        infoField.setWrapStyleWord(true);
-        nameField.setColumns(20);
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 10, 10, 10);
+        setup();
 
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        add(nameLabel, gbc);
-
-        gbc.gridx = 1;
-        gbc.gridy = 0;
-        add(nameField, gbc);
-
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        add(infoLabel, gbc);
-
-        gbc.gridx = 1;
-        gbc.gridy = 1;
-        add(infoField, gbc);
-
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        gbc.gridwidth = 2;
-        gbc.fill = GridBagConstraints.CENTER;
-        add(submitButton, gbc);
+        backButton.addActionListener(e -> {
+            dispose();
+        });
 
         submitButton.addActionListener(e -> {
             String name = nameField.getText();
@@ -137,4 +80,55 @@ public class GroupMaker extends JFrame {
         setLocationRelativeTo(null);
     }
 
+    public void setup() {
+        setSize(400, 300);
+
+        nameLabel = new JLabel("Назва:");
+        infoLabel = new JLabel("Інформація:");
+        submitButton = new JButton("Підтвердити");
+        backButton = new JButton("Назад");
+
+        setLayout(new BorderLayout());
+        infoField.setPreferredSize(new Dimension(200, 100));
+        infoField.setBorder(BorderFactory.createLineBorder(Color.gray));
+        infoField.setLineWrap(true);
+        infoField.setWrapStyleWord(true);
+        nameField.setColumns(20);
+        GridBagConstraints gbc = new GridBagConstraints();
+        JPanel formPanel = new JPanel(new GridBagLayout());
+        gbc.insets = new Insets(10, 10, 10, 10);
+
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        formPanel.add(nameLabel, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        formPanel.add(nameField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        formPanel.add(infoLabel, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        formPanel.add(infoField, gbc);
+
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        buttonPanel.add(backButton);
+        buttonPanel.add(submitButton);
+
+
+        JPanel mainPanel = new JPanel(new BorderLayout());
+        mainPanel.add(formPanel, BorderLayout.CENTER);
+        mainPanel.add(buttonPanel, BorderLayout.SOUTH);
+
+        add(mainPanel, BorderLayout.CENTER);
+
+//        gbc.gridx = 0;
+//        gbc.gridy = 2;
+//        gbc.gridwidth = 2;
+//        gbc.fill = GridBagConstraints.CENTER;
+//        add(submitButton, gbc);
+    }
 }

@@ -17,10 +17,10 @@ public class Main {
         warehouse = new Warehouse();
         GoodsGroup groceries = new GoodsGroup("Edible", "Group Description");
         GoodsGroup householdGoods = new GoodsGroup("Household Goods", " Group Description");
-        Goods bread = new Goods("bread", "description", "UkrHlib", 10, 15);
-        Goods wheat = new Goods("wheat", "description", "UkrHlib", 100, 150);
-        Goods soap = new Goods("soap", "description", "UkrHouse", 20, 30);
-        Goods toothbrush = new Goods("toothbrush", "description", "UkrHouse", 20, 20);
+        Goods bread = new Goods("bread", "description bread", "UkrHlib", 10, 15);
+        Goods wheat = new Goods("wheat", "description wheat", "UkrHlib", 100, 150);
+        Goods soap = new Goods("soap", "description soap", "UkrHouse", 20, 30);
+        Goods toothbrush = new Goods("toothbrush", "description toothbrush", "UkrHouse", 20, 20);
         warehouse.goodsGroups.add(groceries);
         warehouse.goodsGroups.add(householdGoods);
         groceries.goods.add(bread);
