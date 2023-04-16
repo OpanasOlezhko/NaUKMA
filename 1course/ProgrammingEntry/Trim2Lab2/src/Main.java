@@ -1,3 +1,4 @@
+import FilesOperations.FilesOperator;
 import Frames.GoodsGroupFrame;
 import Structure.Goods;
 import Structure.GoodsGroup;
@@ -57,6 +58,16 @@ public class Main {
         books.goods.add(cookbook);
         books.goods.add(magazine);
         books.goods.add(historyBook);
+
+////        збереження вищенаведених товарів та їх груп у файли
+////        (якщо ви не завантажували теку "warehouse", створіть одноіменну,
+////        вкажіть її розташування у класі FilesOperator і розкоментуйте
+////        три рядки нижче. Таким чином дані про наведені вище товари та їх
+////        групи збережуться у вказану теку. Потому можете закоментувати
+////        цю частину коду назад)
+//        FilesOperator.addGoodsGroupWithGoodsIncludedFile(fruits);
+//        FilesOperator.addGoodsGroupWithGoodsIncludedFile(electronics);
+//        FilesOperator.addGoodsGroupWithGoodsIncludedFile(books);
 
     }
 }
