@@ -7,6 +7,11 @@ import Structure.Warehouse;
 import javax.swing.*;
 
 public class Main {
+
+//    ПЕРШ НІЖ ЗАПУСТИТИ ПРОГРАМУ, переконайтеся, що у класі FilesOperator
+//    записаний шлях, який відповідає розташуванню файлів магазину на вашому комп'ютері,
+//    після чого розкоментуйте один з методів у методі init (див. нижче)
+
     private static Warehouse warehouse;
     public static void main(String[] args) {
         init();
@@ -16,6 +21,24 @@ public class Main {
     }
     public static void init(){
         warehouse = new Warehouse();
+//        writeInFiles(); // записати інформацію про товари та їх групи у теку warehouse, якщо її там ще немає
+//        writeFromFiles(); // щоразу брати інформацію про товари та їх групи з теки warehouse (зміни зберігаються)
+    }
+
+    private static void writeFromFiles(){
+        warehouse.goodsGroups = FilesOperator.getGoodsGroupsWithGoodsArraysIncludedArrayFromFile();
+    }
+
+    private static void writeInFiles(){
+
+//        Якщо у вас немає теки "warehouse", створіть одноіменну,
+//        вкажіть її розташування у класі FilesOperator і розкоментуйте
+//        виконання цього методу у методі init. Таким чином дані про наведені
+//        вище товари та їх групи збережуться у вказану теку. Після того
+//        закоментуйте цей метод та розкоментуйте метод writeFromFile у методі init.
+//        Надалі програма при кожному запуску братиме інформацію про товари та їх групи
+//        з теки warehouse, отже всі зміни, внесені через програму, зберігатимуться
+
         GoodsGroup fruits = new GoodsGroup("Фрукти", "Свіжі та смачні фрукти");
         GoodsGroup electronics = new GoodsGroup("Електроніка", "Електронні гаджети та пристрої");
         GoodsGroup books = new GoodsGroup("Книги", "Найбільш популярні книги та журнали");
@@ -59,15 +82,9 @@ public class Main {
         books.goods.add(magazine);
         books.goods.add(historyBook);
 
-////        збереження вищенаведених товарів та їх груп у файли
-////        (якщо ви не завантажували теку "warehouse", створіть одноіменну,
-////        вкажіть її розташування у класі FilesOperator і розкоментуйте
-////        три рядки нижче. Таким чином дані про наведені вище товари та їх
-////        групи збережуться у вказану теку. Потому можете закоментувати
-////        цю частину коду назад)
-//        FilesOperator.addGoodsGroupWithGoodsIncludedFile(fruits);
-//        FilesOperator.addGoodsGroupWithGoodsIncludedFile(electronics);
-//        FilesOperator.addGoodsGroupWithGoodsIncludedFile(books);
 
+        FilesOperator.addGoodsGroupWithGoodsIncludedFile(fruits);
+        FilesOperator.addGoodsGroupWithGoodsIncludedFile(electronics);
+        FilesOperator.addGoodsGroupWithGoodsIncludedFile(books);
     }
 }

@@ -1,8 +1,10 @@
 package Frames;
 
+import FilesOperations.FilesOperator;
 import Structure.Goods;
 
 import java.awt.*;
+import java.nio.file.FileVisitOption;
 import javax.swing.*;
 
 public class GoodMaker extends JFrame implements Setup{
@@ -55,6 +57,7 @@ public class GoodMaker extends JFrame implements Setup{
             else {
                 Goods good = new Goods(name, desc, provider, 0, price);
                 basis.getGroup().goods.add(good);
+                FilesOperator.addGoodToFile(good, basis.getGroup()); // додає рядок товару у файл відповідної групи товарів
                 basis.getGoodsComboBox().addItem(good.getName());
                 dispose();
             }
@@ -103,10 +106,12 @@ public class GoodMaker extends JFrame implements Setup{
             else {
                 int index = basis.getGoodsComboBox().getSelectedIndex();
                 basis.getGoodsComboBox().removeItemAt(index);
+                Goods oldGood = good; // створення об'єкту товару, який відповідає товару до редагування, для здійснення пошуку рядку у файлі, який треба редагувати, за (старою) назвою
                 good.setName(name);
                 good.setDescription(desc);
                 good.setProvider(provider);
                 good.setPrice(price);
+                FilesOperator.editGoodInFile(oldGood, good, basis.getGroup()); // редагування рядка товару у файлі відповідної групи товарів
                 basis.getGoodsComboBox().insertItemAt(name, index);
                 basis.getGoodsComboBox().setSelectedIndex(index);
                 dispose();

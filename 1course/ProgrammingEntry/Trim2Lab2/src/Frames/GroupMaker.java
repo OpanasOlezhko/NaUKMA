@@ -1,5 +1,6 @@
 package Frames;
 
+import FilesOperations.FilesOperator;
 import Structure.GoodsGroup;
 import Structure.Warehouse;
 
@@ -43,6 +44,7 @@ public class GroupMaker extends JFrame implements Setup{
             else {
                 GoodsGroup group = new GoodsGroup(name, info);
                 warehouse.goodsGroups.add(group);
+                FilesOperator.addGoodsGroupFile(group); // додавання файлу відповідної групи
                 frame.getGroupComboBox().addItem(warehouse.goodsGroups.get(warehouse.goodsGroups.size() - 1).getName());
                 dispose();
             }
@@ -77,8 +79,10 @@ public class GroupMaker extends JFrame implements Setup{
             else {
                 int index = frame.getGroupComboBox().getSelectedIndex();
                 frame.getGroupComboBox().removeItemAt(index);
+                GoodsGroup oldGroup = new GoodsGroup(group.getName(), group.getDescription() ); // створення об'єкту групи товарів, який відповідає групі товарів до редагування, для здійснення пошуку файлу, який треба редагувати, за (старою) назвою
                 group.setName(name);
                 group.setDescription(info);
+                FilesOperator.editGoodsGroupFile(oldGroup, group); // редагування файлу відповідної групи товарів
                 frame.getGroupComboBox().insertItemAt(name, index);
                 frame.getGroupComboBox().setSelectedIndex(index);
                 dispose();

@@ -60,6 +60,23 @@ public class FilesOperator {
         return groups;
     }
 
+    public static ArrayList<GoodsGroup> getGoodsGroupsWithGoodsArraysIncludedArrayFromFile(){
+        String fileName = pathToWarehouse;
+        ArrayList<GoodsGroup> groups = new ArrayList<GoodsGroup>();
+        File folder = new File(fileName);
+        String[] groupLines = folder.list();
+        for (String line : groupLines) {
+            if (line.contains("!")) {
+                String[] fields = line.split("!");
+                GoodsGroup group = getGoodsGroupFromStringArray (fields);
+                group.goods = getGoodsArrayFromFile(group);
+                groups.add(group);
+            }
+
+        }
+        return groups;
+    }
+
     public static void addGoodToFile (Goods good, GoodsGroup group){//без перевірки, чи вже є такий товар
         String fileName = pathToWarehouse + "\\" + groupToString(group) + ".txt";
         String goodLine = goodToString(good);
@@ -165,6 +182,7 @@ public class FilesOperator {
 
         } else {
             System.out.println("File does not exist.");
+            System.out.println(filePath);
         }
     }
 

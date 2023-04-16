@@ -1,5 +1,6 @@
 package Frames;
 
+import FilesOperations.FilesOperator;
 import Structure.GoodsGroup;
 import Structure.Warehouse;
 
@@ -87,6 +88,8 @@ public class GoodsGroupFrame extends JFrame {
 
             groupComboBox.removeItem(groupComboBox.getSelectedItem());
             warehouse.goodsGroups.remove(selectedGroup);
+
+            FilesOperator.deleteGoodsGroupFile(selectedGroup); // видалення файлу обраної групи
         });
 
         setLocationRelativeTo(null);
