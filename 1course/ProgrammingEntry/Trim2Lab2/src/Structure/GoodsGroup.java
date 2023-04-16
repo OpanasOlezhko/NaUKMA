@@ -1,6 +1,6 @@
 package Structure;
 
-import Structure.Goods;
+import FilesOperations.FilesOperator;
 
 import java.util.ArrayList;
 
@@ -66,4 +66,8 @@ public class GoodsGroup implements Group<Goods>{
     public void setDescription(String description) {this.description = description;}
     public String getName() {return this.name;}
     public String getDescription() {return this.description;}
+
+    public void setGoodsByFiles (){
+        this.goods = FilesOperator.getGoodsArrayFromFile(this);
+    }
 }

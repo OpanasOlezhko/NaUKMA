@@ -1,5 +1,7 @@
 package Structure;
 
+import FilesOperations.FilesOperator;
+
 import java.util.ArrayList;
 
 public class Warehouse implements Group<GoodsGroup> {
@@ -87,6 +89,11 @@ public class Warehouse implements Group<GoodsGroup> {
     public String ignoreNums(String str) {
         str = str.replaceAll("\\d", "");
         return str;
+    }
+
+
+    public void setGoodsGroupsByFiles (){
+        this.goodsGroups = FilesOperator.getGoodsGroupsArrayFromFile();
     }
 
 }
