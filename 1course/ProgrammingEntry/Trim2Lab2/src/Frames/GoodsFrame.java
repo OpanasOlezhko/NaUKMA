@@ -14,7 +14,7 @@ import java.util.Collections;
 
 public class GoodsFrame extends JFrame {
     private JComboBox<String> goodsComboBox;
-    private JButton addGoodButton, submitButton, deleteGoodButton, informationButton, editButton, backButton;
+    private JButton addGoodButton, submitButton, deleteGoodButton, informationButton, editButton, backButton, descriptionButton;
     private JTextField searchTextField;
     private JSpinner addSpinner;
     private JCheckBox allGroups;
@@ -39,6 +39,7 @@ public class GoodsFrame extends JFrame {
         submitButton = new JButton("Підтвердити");
         editButton = new JButton("Редагувати");
         backButton = new JButton("Назад");
+        descriptionButton = new JButton("Опис");
         allGroups = new JCheckBox("Шукати у всіх групах");
 
         searchTextField.setBorder(BorderFactory.createTitledBorder("Search"));
@@ -88,6 +89,10 @@ public class GoodsFrame extends JFrame {
         gbc.gridy = 4;
         add(submitButton, gbc);
 
+        gbc.gridx = 1;
+        gbc.gridy = 5;
+        add(descriptionButton, gbc);
+
         setVisible(true);
         setLocationRelativeTo(null);
 
@@ -128,12 +133,16 @@ public class GoodsFrame extends JFrame {
             }catch (NullPointerException ex) {JOptionPane.showMessageDialog(GoodsFrame.this, "No selected object!");}
         });
 
-        informationButton.addActionListener(e -> {
+        descriptionButton.addActionListener(e -> {
             try {
                 Goods selectedGood = warehouse.getGoodByName((String) goodsComboBox.getSelectedItem());
 
                 JOptionPane.showMessageDialog(GoodsFrame.this, selectedGood.getDescription());
             }catch (NullPointerException ex) {JOptionPane.showMessageDialog(GoodsFrame.this, "No selected object!");}
+        });
+
+        informationButton.addActionListener(e -> {
+            new InformationFrame(group.goods);
         });
 
         submitButton.addActionListener(e -> {

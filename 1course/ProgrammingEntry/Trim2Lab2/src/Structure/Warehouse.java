@@ -29,6 +29,14 @@ public class Warehouse implements Group<GoodsGroup> {
         return null;
     }
 
+    public ArrayList<Goods> getAllGoods() {
+        ArrayList<Goods> goods = new ArrayList<Goods>();
+        for (int i = 0; i < goodsGroups.size(); i++) {
+            goods.addAll(goodsGroups.get(i).goods);
+        }
+        return goods;
+    }
+
     public Goods getGoodByName(String name){
         for (int i = 0; i < goodsGroups.size(); i++) {
             if(goodsGroups.get(i).getByName(name)!=null)

@@ -15,7 +15,7 @@ public class GroupMaker extends JFrame implements Setup{
     private JTextArea infoField;
     private JButton submitButton, backButton;
 
-    /** @author MaxLoshak */
+    /** @author MaxLoshak && OlegKhodko */
     public GroupMaker(Warehouse warehouse, GoodsGroupFrame frame) {
         super("Створити Групу Товарів");
         setSize(400, 300);

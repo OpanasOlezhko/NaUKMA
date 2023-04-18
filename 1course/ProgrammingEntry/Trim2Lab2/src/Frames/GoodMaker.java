@@ -18,7 +18,7 @@ public class GoodMaker extends JFrame implements Setup{
     private JSpinner.NumberEditor priceEditor;
     private JButton submitButton, backButton;
 
-    /** @author MaxLoshak */
+    /** @author MaxLoshak && OlegKhodko */
     public GoodMaker(GoodsFrame basis) {
         super("Додати товар");
 
@@ -35,7 +35,7 @@ public class GoodMaker extends JFrame implements Setup{
         });
 
         submitButton.addActionListener(e -> {
-            String name = nameField.getText();
+            String name = nameField.getText().toLowerCase();
             String desc = descField.getText();
             String provider = providerField.getText();
             double price = (double)priceSpinner.getValue();

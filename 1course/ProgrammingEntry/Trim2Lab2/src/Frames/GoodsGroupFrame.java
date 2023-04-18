@@ -14,13 +14,16 @@ public class GoodsGroupFrame extends JFrame {
     private JButton submitButton;
     private JButton infoButton;
     private JButton editButton;
+    private JButton descriptionButton;
     private JButton deleteButton;
-    static Warehouse warehouse;
-
     /** @author MaxLoshak */
     public GoodsGroupFrame(Warehouse warehouse) {
         super("Склад");
         setSize(500, 400);
+        setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 10, 10, 10);
+
 
         groupComboBox = new JComboBox<>(warehouse.getNames());
         addGroupButton = new JButton("Нова Група");
@@ -28,11 +31,9 @@ public class GoodsGroupFrame extends JFrame {
         infoButton = new JButton("Інформація");
         editButton = new JButton("Редагувати");
         deleteButton = new JButton("Видалити");
+        descriptionButton = new JButton("Опис");
 
         groupComboBox.setBorder(BorderFactory.createTitledBorder("Групи товарів"));
-        setLayout(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 10, 10, 10);
 
         gbc.gridx = 1;
         gbc.gridy = 0;
@@ -58,11 +59,19 @@ public class GoodsGroupFrame extends JFrame {
         gbc.gridy = 2;
         add(deleteButton, gbc);
 
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        add(descriptionButton, gbc);
 
-        infoButton.addActionListener(e -> {
+
+        descriptionButton.addActionListener(e -> {
             GoodsGroup selectedGroup = warehouse.getByName((String)groupComboBox.getSelectedItem());
 
             JOptionPane.showMessageDialog(GoodsGroupFrame.this , selectedGroup.getDescription());
+        });
+
+        infoButton.addActionListener(e -> {
+            new InformationFrame(warehouse.getAllGoods());
         });
 
         addGroupButton.addActionListener(e -> {
