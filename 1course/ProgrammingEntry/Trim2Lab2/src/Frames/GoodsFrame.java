@@ -1,5 +1,6 @@
 package Frames;
 
+import FilesOperations.FilesOperator;
 import Structure.Goods;
 import Structure.GoodsGroup;
 import Structure.Warehouse;
@@ -141,7 +142,9 @@ public class GoodsFrame extends JFrame {
                     Goods selectedGood = warehouse.getGoodByName((String) goodsComboBox.getSelectedItem());
                     int value = (int) addSpinner.getValue();
 
+                    Goods oldGood = selectedGood; // створення об'єкту товару, який відповідає товару до редагування, для здійснення пошуку рядку у файлі, який треба редагувати, за (старою) назвою
                     selectedGood.setAmount(selectedGood.getAmount() + value);
+                    FilesOperator.editGoodInFile(oldGood, selectedGood, group); // // редагування рядка товару у файлі відповідної групи товарів
                     JOptionPane.showMessageDialog(GoodsFrame.this, "Success!\nThe amount of "
                             + selectedGood.getName() + " is " + selectedGood.getAmount());
                     addSpinner.setValue(0);
@@ -154,6 +157,7 @@ public class GoodsFrame extends JFrame {
 
             goodsComboBox.removeItem(goodsComboBox.getSelectedItem());
             warehouse.removeGood(selectedGood);
+            FilesOperator.deleteGoodFromFile(selectedGood, group); // видалення рядка товару із відповідного його групі файлу
         });
     }
 
