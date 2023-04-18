@@ -136,11 +136,5 @@ public class GroupMaker extends JFrame implements Setup{
         mainPanel.add(buttonPanel, BorderLayout.SOUTH);
 
         add(mainPanel, BorderLayout.CENTER);
-
-//        gbc.gridx = 0;
-//        gbc.gridy = 2;
-//        gbc.gridwidth = 2;
-//        gbc.fill = GridBagConstraints.CENTER;
-//        add(submitButton, gbc);
     }
 }

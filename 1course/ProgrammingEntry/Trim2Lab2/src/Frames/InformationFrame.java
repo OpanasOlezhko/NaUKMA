@@ -9,7 +9,6 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -31,7 +30,6 @@ public class InformationFrame extends JFrame {
     }
 
     private void initComponents() {
-        // create table model with column names and data
         String[] columnNames = {"Назва", "Кількість", "Ціна", "Всього"};
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
         double totalValue = 0.0;
@@ -46,12 +44,10 @@ public class InformationFrame extends JFrame {
         tableModel.addRow(space);
         tableModel.addRow(totalRowData);
 
-        // create table with model and add to scroll pane
         table = new JTable(tableModel);
         JScrollPane scrollPane = new JScrollPane(table);
 
-        // create back button and add listener
-        backButton = new JButton("Back");
+        backButton = new JButton("Назад");
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -59,7 +55,6 @@ public class InformationFrame extends JFrame {
             }
         });
 
-        // add components to content pane
         JPanel contentPane = new JPanel(new BorderLayout());
         contentPane.add(scrollPane, BorderLayout.CENTER);
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
