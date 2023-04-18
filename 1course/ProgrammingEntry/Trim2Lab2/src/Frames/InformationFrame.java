@@ -21,7 +21,7 @@ public class InformationFrame extends JFrame {
     private JButton backButton;
 
     public InformationFrame(ArrayList<Goods> goodsList) {
-        super("Goods Information");
+        super("Інформація про товари");
         this.goodsList = goodsList;
         initComponents();
         pack();
