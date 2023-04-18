@@ -10,11 +10,11 @@ import java.util.ArrayList;
 
 public class FilesOperator {
 
-    private static String pathToWarehouse = "C:\\Users\\22\\Desktop\\warehouse";
+    private static String pathToWarehouse = "src\\warehouse";
 
     /**
-     * Для коректної роботи програми з файлами, замінть вказаний вище шлях на той,
-     * що відповідає розташуванню теки "warehouse" на вашому комп'ютері.
+     * Файли, з якими працює програма, зберігаються у теці warehouse,
+     * розташування якої вказано вище
      *
      * Усередині теки зберігаються файли txt, які відповідають групам товарів.
      * Загальний вигляд назви такого файлу:
@@ -214,33 +214,6 @@ public class FilesOperator {
     private static String groupToString(GoodsGroup group) {
         return group.getName() + "!" + group.getDescription() + "!";
     }
-
-
-//    якщо бісять пусті місця у файлах з товарами, їх можна видалити за допомогою цього метода
-//    втім, на роботу програми вони не впливають
-
-//    public static void deleteEmptyLines (String fileName){
-//        try {
-//            File inputFile = new File(fileName);
-//            File outputFile = new File("output.txt");
-//            BufferedReader reader = new BufferedReader(new FileReader(inputFile));
-//            BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile));
-//            String line;
-//            while ((line = reader.readLine()) != null) {
-//                if (!line.trim().isEmpty()) {
-//                    writer.write(line + System.getProperty("line.separator"));
-//                }
-//            }
-//            reader.close();
-//            writer.close();
-//            inputFile.delete();
-//            outputFile.renameTo(inputFile);
-//        } catch (IOException e) {
-//            System.out.println("An error occurred.");
-//            e.printStackTrace();
-//        }
-//
-//    }
 
     private static String goodToString(Goods good){
         return good.getName() + "!" + good.getDescription() + "!" + good.getProvider() + "!"

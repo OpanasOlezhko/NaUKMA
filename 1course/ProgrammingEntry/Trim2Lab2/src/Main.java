@@ -8,10 +8,6 @@ import javax.swing.*;
 
 public class Main {
 
-//    ПЕРШ НІЖ ЗАПУСТИТИ ПРОГРАМУ, переконайтеся, що у класі FilesOperator
-//    записаний шлях, який відповідає розташуванню файлів магазину на вашому комп'ютері,
-//    після чого розкоментуйте один з методів у методі init (див. нижче)
-
     private static Warehouse warehouse;
     public static void main(String[] args) {
         init();
@@ -21,8 +17,7 @@ public class Main {
     }
     public static void init(){
         warehouse = new Warehouse();
-//        writeInFiles(); // записати інформацію про товари та їх групи у теку warehouse, якщо її там ще немає
-//        writeFromFiles(); // щоразу брати інформацію про товари та їх групи з теки warehouse (зміни зберігаються)
+        writeFromFiles(); // щоразу брати інформацію про товари та їх групи з теки warehouse (зміни зберігаються)
     }
 
     private static void writeFromFiles(){
@@ -31,13 +26,14 @@ public class Main {
 
     private static void writeInFiles(){
 
-//        Якщо у вас немає теки "warehouse", створіть одноіменну,
-//        вкажіть її розташування у класі FilesOperator і розкоментуйте
-//        виконання цього методу у методі init. Таким чином дані про наведені
-//        вище товари та їх групи збережуться у вказану теку. Після того
-//        закоментуйте цей метод та розкоментуйте метод writeFromFile у методі init.
-//        Надалі програма при кожному запуску братиме інформацію про товари та їх групи
-//        з теки warehouse, отже всі зміни, внесені через програму, зберігатимуться
+//        Якщо у вас немає теки "warehouse", для коректної роботи програми треба виконати наступні дії:
+//        1) Створити пусту папку з назвою warehouse
+//        2) Вказати шлях до цієї папки у класі FilesOperator
+//        3) Закоментувати метод writeFromFiles() у методі init() у класі Main
+//        4) Розкоментувати цей метод writeInFiles() у методі init() у класі Main
+//        5) Запустити програму
+//        6) Закоментувати цей метод writeInFiles() у методі init() у класі Main
+//        7) Розкоментувати метод writeFromFiles() у методі init() у класі Main
 
         GoodsGroup fruits = new GoodsGroup("Фрукти", "Свіжі та смачні фрукти");
         GoodsGroup electronics = new GoodsGroup("Електроніка", "Електронні гаджети та пристрої");
