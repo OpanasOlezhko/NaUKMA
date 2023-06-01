@@ -253,9 +253,9 @@ public class Board extends JPanel implements KeyListener, MouseListener, MouseMo
 
     @Override
     public void keyReleased(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-            currentShape.speedDown();
-        }
+//        if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+//            currentShape.speedDown();
+//        }
     }
 
     @Override
