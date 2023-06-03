@@ -9,7 +9,7 @@ public class Shape {
 
     private long time, lastTime;
 
-    private int normal = 600, fast = 50;
+    private int normal = 600, fast = 50, hard = 400, extreme = 200;
 
     private int delay;
 
@@ -32,7 +32,12 @@ public class Shape {
         deltaX = 0;
         x = 4;
         y = 0;
-        delay = normal;
+        if(board.level == 1)
+            delay = normal;
+        else if(board.level == 2)
+            delay = hard;
+        else if (board.level == 3)
+            delay = extreme;
         time = 0;
         lastTime = System.currentTimeMillis();
         reference = new int[coords.length][coords[0].length];
@@ -60,7 +65,6 @@ public class Shape {
                 }
             }
             checkLine();
-            board.addScore();
             board.setCurrentShape();
             timePassedFromCollision = -1;
         }
@@ -72,6 +76,8 @@ public class Shape {
                     if (coords[row][col] != 0) {
                         if (board.getBoard()[y + row][x + deltaX + col] != null) {
                             moveX = false;
+
+
                         }
 
                     }
@@ -84,7 +90,6 @@ public class Shape {
 
         }
 
-        // Check position + height(number of row) of shape
         if (timePassedFromCollision == -1) {
             if (!(y + 1 + coords.length > 20)) {
 
@@ -177,6 +182,9 @@ public class Shape {
             }
             if (count < board.getBoard()[0].length) {
                 size--;
+
+            } else {
+                board.addScore();
             }
         }
     }
@@ -242,6 +250,13 @@ public class Shape {
         delay = fast;
     }
 
+    public void modeHard() {
+        delay = hard;
+    }
+
+    public void modeExtreme() {
+        delay = extreme;
+    }
     public void speedDown() {
         delay = normal;
     }

@@ -58,7 +58,9 @@ public class Board extends JPanel implements KeyListener, MouseListener, MouseMo
         }
     });
 
+    public int level = 1; //поки що
     private int score = 0;
+    private int scoreCap = 500;
 
     public Board() {
 
@@ -142,6 +144,11 @@ public class Board extends JPanel implements KeyListener, MouseListener, MouseMo
 
             }
         }
+        g.setColor(Color.WHITE);
+
+        g.setFont(new Font("Georgia", Font.BOLD, 20));
+        g.drawString("NEXT:", WindowGame.WIDTH - 125, 30);
+
         g.setColor(nextShape.getColor());
         for (int row = 0; row < nextShape.getCoords().length; row++) {
             for (int col = 0; col < nextShape.getCoords()[0].length; col++) {
@@ -179,9 +186,11 @@ public class Board extends JPanel implements KeyListener, MouseListener, MouseMo
         }
         g.setColor(Color.WHITE);
 
-        g.setFont(new Font("Georgia", Font.BOLD, 20));
+        g.setFont(new Font("Calibri", Font.BOLD, 25));
 
-        g.drawString("SCORE", WindowGame.WIDTH - 125, WindowGame.HEIGHT / 2);
+        g.drawString("LEVEL: " + level, WindowGame.WIDTH - 125, WindowGame.HEIGHT / 2 - 100);
+
+        g.drawString("SCORE:", WindowGame.WIDTH - 125, WindowGame.HEIGHT / 2);
         g.drawString(score + "", WindowGame.WIDTH - 125, WindowGame.HEIGHT / 2 + 30);
 
         g.setColor(Color.WHITE);
@@ -320,7 +329,11 @@ public class Board extends JPanel implements KeyListener, MouseListener, MouseMo
     }
 
     public void addScore() {
-        score++;
+        score+=100;
+        if (score>=scoreCap && level <3) {
+            level++;
+            scoreCap*=2;
+        }
     }
 
 }
