@@ -17,37 +17,26 @@ import javax.swing.Timer;
 
 public class Board extends JPanel implements KeyListener, MouseListener, MouseMotionListener {
 
-	//Assets
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
 
     private BufferedImage pause, refresh;
 
-	//board dimensions (the playing area)
     private final int boardHeight = 20, boardWidth = 10;
 
-	// block size
     public static final int blockSize = 30;
 
-	// field
     private Color[][] board = new Color[boardHeight][boardWidth];
 
-	// array with all the possible shapes
     private Shape[] shapes = new Shape[7];
 
-	// currentShape
     private static Shape currentShape, nextShape;
 
-	// game loop
     private Timer looper;
 
     private int FPS = 60;
 
     private int delay = 1000 / FPS;
 
-	// mouse events variables
     private int mouseX, mouseY;
 
     private boolean leftClick = false;
@@ -61,7 +50,6 @@ public class Board extends JPanel implements KeyListener, MouseListener, MouseMo
     private Color[] colors = {Color.decode("#ed1c24"), Color.decode("#ff7f27"), Color.decode("#fff200"), 
         Color.decode("#22b14c"), Color.decode("#00a2e8"), Color.decode("#a349a4"), Color.decode("#3f48cc")};
     private Random random = new Random();
-	// buttons press lapse
     private Timer buttonLapse = new Timer(300, new ActionListener() {
 
         @Override
@@ -70,7 +58,6 @@ public class Board extends JPanel implements KeyListener, MouseListener, MouseMo
         }
     });
 
-	// score
     private int score = 0;
 
     public Board() {
@@ -85,10 +72,8 @@ public class Board extends JPanel implements KeyListener, MouseListener, MouseMo
         refreshBounds = new Rectangle(350, 500 - refresh.getHeight() - 20, refresh.getWidth(),
                 refresh.getHeight() + refresh.getHeight() / 2);
 
-		// create game looper
         looper = new Timer(delay, new GameLooper());
 
-		// create shapes
         shapes[0] = new Shape(new int[][]{
             {1, 1, 1, 1} // I shape;
         }, this, colors[0]);
@@ -144,7 +129,7 @@ public class Board extends JPanel implements KeyListener, MouseListener, MouseMo
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        g.setColor(Color.BLACK);
+        g.setColor(Color.GRAY);
         g.fillRect(0, 0, getWidth(), getHeight());
 
         for (int row = 0; row < board.length; row++) {

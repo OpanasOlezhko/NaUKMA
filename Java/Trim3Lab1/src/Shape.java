@@ -21,7 +21,7 @@ public class Shape {
 
     private Board board;
 
-    private boolean collision = false, moveX = false;
+    private boolean collision = false, finalCollision = false, moveX = false;
 
     private int timePassedFromCollision = -1;
 
@@ -50,9 +50,11 @@ public class Shape {
         lastTime = System.currentTimeMillis();
 
         if (collision && timePassedFromCollision > 500) {
+
             for (int row = 0; row < coords.length; row++) {
                 for (int col = 0; col < coords[0].length; col++) {
                     if (coords[row][col] != 0) {
+
                         board.getBoard()[y + row][x + col] = color;
                     }
                 }
@@ -63,7 +65,6 @@ public class Shape {
             timePassedFromCollision = -1;
         }
 
-        // check moving horizontal
         if (!(x + deltaX + coords[0].length > 10) && !(x + deltaX < 0)) {
 
             for (int row = 0; row < coords.length; row++) {
@@ -94,6 +95,7 @@ public class Shape {
                             if (board.getBoard()[y + 1 + row][x + col] != null) {
                                 collision();
                             }
+
                         }
                     }
                 }
@@ -106,9 +108,31 @@ public class Shape {
             }
         } else {
             timePassedFromCollision += deltaTime;
+            if(timePassedFromCollision>=500)
+                checkFinalCollision();
         }
 
         deltaX = 0;
+    }
+    private void checkFinalCollision(){
+        if (!(y + 1 + coords.length > 20))
+            for (int row = 0; row < coords.length; row++) {
+                for (int col = 0; col < coords[row].length; col++) {
+                    if (coords[row][col] != 0) {
+
+                        if (board.getBoard()[y + 1 + row][x + col] != null) {
+                            finalCollision = true;
+                        }
+
+                    }
+                }
+            }
+        if (y + 1 + coords.length > 20)
+            finalCollision = true;
+        if (!finalCollision) {
+            collision = false;
+            timePassedFromCollision = -1;
+        }
     }
 
     private void collision() {
@@ -159,7 +183,7 @@ public class Shape {
 
     public void rotateShape() {
 
-        int[][] rotatedShape = null;
+        int[][] rotatedShape;
 
         rotatedShape = transposeMatrix(coords);
 

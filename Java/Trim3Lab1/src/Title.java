@@ -70,8 +70,6 @@ public class Title extends JPanel implements KeyListener, MouseListener, MouseMo
 			g.drawImage(infobutton, infobounds.x, infobounds.y, null);
 		}
 
-		//g.drawImage(infobutton, 20, 20, null);
-		
                 g.setColor(Color.WHITE);
 		g.drawString("Press space to play!", 150, WindowGame.HEIGHT / 2 + 100);
 
@@ -97,16 +95,6 @@ public class Title extends JPanel implements KeyListener, MouseListener, MouseMo
 
     @Override
     public void keyReleased(KeyEvent e) {}
-
-class GameLooper implements ActionListener {
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		update();
-		repaint();
-	}
-
-}
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
