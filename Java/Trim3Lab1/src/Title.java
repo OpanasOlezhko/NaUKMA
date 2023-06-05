@@ -94,6 +94,12 @@ public class Title extends JPanel implements KeyListener, MouseListener, MouseMo
 			g.drawImage(infobutton, infobounds.x, infobounds.y, null);
 		}
 
+		if (playbounds.contains(mouseX, mouseY)) {
+			g.drawImage(playbutton, 158, 453, this);
+		} else {
+			g.drawImage(playbutton, 155, 450, this);
+		}
+
 	}
 
 	private void update() {
