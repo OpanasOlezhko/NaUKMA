@@ -1,6 +1,4 @@
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Rectangle;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -20,11 +18,13 @@ public class Title extends JPanel implements KeyListener, MouseListener, MouseMo
 	private boolean viewingInfo = false;
 	private int FPS = 60;
 
+	Image holologo, tetrislogo, playbutton;
+
 	private int delay = 1000 / FPS;
 	private static final long serialVersionUID = 1L;
 	private BufferedImage instructions, infobutton;
 	private WindowGame window;
-	private Rectangle infobounds;
+	private Rectangle infobounds, playbounds;
 	private BufferedImage[] playButton = new BufferedImage[2];
 	private Timer timer;
 	private Timer buttonLapse = new Timer(300, new ActionListener() {
@@ -42,7 +42,11 @@ public class Title extends JPanel implements KeyListener, MouseListener, MouseMo
 		addMouseMotionListener(this);
 		instructions = ImageLoader.loadImage("/arrow.png");
 		infobutton = ImageLoader.loadImage("/info.png");
+		holologo = Toolkit.getDefaultToolkit().createImage("holo_logo.png");
+		tetrislogo = Toolkit.getDefaultToolkit().createImage("tetris_logo.gif");
+		playbutton = Toolkit.getDefaultToolkit().createImage("play_button.png");
 		infobounds = new Rectangle(20, 20, infobutton.getWidth(), infobutton.getHeight());
+		playbounds = new Rectangle(155, 450, 150, 50);
 		timer = new Timer(1000/60, e -> {
 			repaint();
 			update();
@@ -54,10 +58,30 @@ public class Title extends JPanel implements KeyListener, MouseListener, MouseMo
 	
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
-		
-		g.setColor(Color.GRAY);
-		
+
+		g.setColor(Color.WHITE);
+
 		g.fillRect(0, 0, WindowGame.WIDTH, WindowGame.HEIGHT);
+
+		if (holologo != null) {
+			g.drawImage(holologo, 125, 50, this);
+		}
+
+		if (tetrislogo != null) {
+			g.drawImage(tetrislogo, -4, 150, this);
+		}
+
+		if (playbutton != null) {
+			g.drawImage(playbutton, 155, 450, this);
+		}
+
+		g.setColor(Color.BLACK);
+		g.drawString("The", 130, 50);
+		g.drawString("team", 290, 120);
+		g.drawString("presents", 200, 140);
+		g.drawString("Maksym Loshak", 180, 337);
+		g.drawString("Oleh Khodko", 187, 357);
+		g.drawString("FI, NaUKMA, 2023", 175, 377);
 
 		if(viewingInfo) {
 			g.drawImage(instructions, WindowGame.WIDTH / 2 - instructions.getWidth() / 2,
@@ -69,9 +93,6 @@ public class Title extends JPanel implements KeyListener, MouseListener, MouseMo
 		} else {
 			g.drawImage(infobutton, infobounds.x, infobounds.y, null);
 		}
-
-                g.setColor(Color.WHITE);
-		g.drawString("Press space to play!", 150, WindowGame.HEIGHT / 2 + 100);
 
 	}
 
@@ -117,6 +138,9 @@ public class Title extends JPanel implements KeyListener, MouseListener, MouseMo
 	public void mousePressed(MouseEvent e) {
 		if (e.getButton() == MouseEvent.BUTTON1) {
 			leftClick = true;
+		}
+		if (playbounds.contains(mouseX, mouseY) && leftClick && !buttonLapse.isRunning()) {
+			window.startTetris();
 		}
 	}
 
