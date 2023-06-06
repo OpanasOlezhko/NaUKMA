@@ -42,7 +42,7 @@ public class Title extends JPanel implements KeyListener, MouseListener, MouseMo
 		addMouseMotionListener(this);
 		instructions = ImageLoader.loadImage("/arrow.png");
 		infobutton = ImageLoader.loadImage("/info.png");
-		holologo = Toolkit.getDefaultToolkit().createImage("holo_logo.png");
+		holologo = Toolkit.getDefaultToolkit().createImage("holo_logo.gif");
 		tetrislogo = Toolkit.getDefaultToolkit().createImage("tetris_logo.gif");
 		playbutton = Toolkit.getDefaultToolkit().createImage("play_button.png");
 		infobounds = new Rectangle(20, 20, infobutton.getWidth(), infobutton.getHeight());
@@ -64,7 +64,7 @@ public class Title extends JPanel implements KeyListener, MouseListener, MouseMo
 		g.fillRect(0, 0, WindowGame.WIDTH, WindowGame.HEIGHT);
 
 		if (holologo != null) {
-			g.drawImage(holologo, 125, 50, this);
+			g.drawImage(holologo, 125, -83, this);
 		}
 
 		if (tetrislogo != null) {
