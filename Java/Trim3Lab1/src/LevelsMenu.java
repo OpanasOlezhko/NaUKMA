@@ -28,9 +28,9 @@ public class LevelsMenu extends JPanel implements KeyListener, MouseListener, Mo
     public LevelsMenu(WindowGame window){
         addMouseListener(this);
         addMouseMotionListener(this);
-        level1Button = Toolkit.getDefaultToolkit().createImage("C:\\Users\\22\\Downloads\\level1.png");
-        level2Button = Toolkit.getDefaultToolkit().createImage("C:\\Users\\22\\Downloads\\level2.png");
-        level3Button = Toolkit.getDefaultToolkit().createImage("C:\\Users\\22\\Downloads\\level3.png");
+        level1Button = Toolkit.getDefaultToolkit().createImage("level1.png");
+        level2Button = Toolkit.getDefaultToolkit().createImage("level2.png");
+        level3Button = Toolkit.getDefaultToolkit().createImage("level3.png");
         level1bounds = new Rectangle(125, 110, 200, 40);
         level2bounds = new Rectangle(125, 260, 200, 40);
         level3bounds = new Rectangle(125, 410, 200, 40);
