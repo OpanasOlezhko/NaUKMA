@@ -10,8 +10,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.Random;
 
+import javax.sound.sampled.Clip;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -20,6 +22,7 @@ public class Board extends JPanel implements KeyListener, MouseListener, MouseMo
     private static final long serialVersionUID = 1L;
 
     private BufferedImage pause, refresh;
+    public MusicPlayer musicPlayer = new MusicPlayer();
 
     private final int boardHeight = 20, boardWidth = 10;
 
@@ -27,7 +30,7 @@ public class Board extends JPanel implements KeyListener, MouseListener, MouseMo
 
     private Color[][] board = new Color[boardHeight][boardWidth];
 
-    private Shape[] shapes = new Shape[7];
+    private ArrayList<Shape> shapes = new ArrayList<>();
 
     private static Shape currentShape, nextShape;
 
@@ -58,7 +61,7 @@ public class Board extends JPanel implements KeyListener, MouseListener, MouseMo
         }
     });
 
-    public int level = 1; //поки що
+    public int level = 2; //поки що
     private int score = 0;
     private int scoreCap = 500;
 
@@ -76,39 +79,45 @@ public class Board extends JPanel implements KeyListener, MouseListener, MouseMo
 
         looper = new Timer(delay, new GameLooper());
 
-        shapes[0] = new Shape(new int[][]{
+        shapes.add(new Shape(new int[][]{
             {1, 1, 1, 1} // I shape;
-        }, this, colors[0]);
+        }, this, colors[0], false));
 
-        shapes[1] = new Shape(new int[][]{
+        shapes.add(new Shape(new int[][]{
             {1, 1, 1},
             {0, 1, 0}, // T shape;
-        }, this, colors[1]);
+        }, this, colors[1], false));
 
-        shapes[2] = new Shape(new int[][]{
+        shapes.add(new Shape(new int[][]{
             {1, 1, 1},
             {1, 0, 0}, // L shape;
-        }, this, colors[2]);
+        }, this, colors[2], false));
 
-        shapes[3] = new Shape(new int[][]{
+        shapes.add(new Shape(new int[][]{
             {1, 1, 1},
             {0, 0, 1}, // J shape;
-        }, this, colors[3]);
+        }, this, colors[3], false));
 
-        shapes[4] = new Shape(new int[][]{
+        shapes.add(new Shape(new int[][]{
             {0, 1, 1},
             {1, 1, 0}, // S shape;
-        }, this, colors[4]);
+        }, this, colors[4], false));
 
-        shapes[5] = new Shape(new int[][]{
+        shapes.add(new Shape(new int[][]{
             {1, 1, 0},
             {0, 1, 1}, // Z shape;
-        }, this, colors[5]);
+        }, this, colors[5], false));
 
-        shapes[6] = new Shape(new int[][]{
+        shapes.add(new Shape(new int[][]{
             {1, 1},
             {1, 1}, // O shape;
-        }, this, colors[6]);
+        }, this, colors[6], false));
+
+        if (level>=2) {
+            shapes.add(new Shape(new int[][]{
+                    {1}, // BONUS;
+            }, this, Color.GREEN, true));
+        }
 
     }
 
@@ -130,8 +139,7 @@ public class Board extends JPanel implements KeyListener, MouseListener, MouseMo
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-
-        g.setColor(Color.GRAY);
+        g.setColor(Color.WHITE);
         g.fillRect(0, 0, getWidth(), getHeight());
 
         for (int row = 0; row < board.length; row++) {
@@ -144,7 +152,7 @@ public class Board extends JPanel implements KeyListener, MouseListener, MouseMo
 
             }
         }
-        g.setColor(Color.WHITE);
+        g.setColor(Color.BLACK);
 
         g.setFont(new Font("Georgia", Font.BOLD, 20));
         g.drawString("NEXT:", WindowGame.WIDTH - 125, 30);
@@ -174,17 +182,17 @@ public class Board extends JPanel implements KeyListener, MouseListener, MouseMo
 
         if (gamePaused) {
             String gamePausedString = "GAME PAUSED";
-            g.setColor(Color.WHITE);
+            g.setColor(Color.BLACK);
             g.setFont(new Font("Georgia", Font.BOLD, 30));
             g.drawString(gamePausedString, 35, WindowGame.HEIGHT / 2);
         }
         if (gameOver) {
             String gameOverString = "GAME OVER";
-            g.setColor(Color.WHITE);
+            g.setColor(Color.BLACK);
             g.setFont(new Font("Georgia", Font.BOLD, 30));
             g.drawString(gameOverString, 50, WindowGame.HEIGHT / 2);
         }
-        g.setColor(Color.WHITE);
+        g.setColor(Color.BLACK);
 
         g.setFont(new Font("Calibri", Font.BOLD, 25));
 
@@ -193,7 +201,7 @@ public class Board extends JPanel implements KeyListener, MouseListener, MouseMo
         g.drawString("SCORE:", WindowGame.WIDTH - 125, WindowGame.HEIGHT / 2);
         g.drawString(score + "", WindowGame.WIDTH - 125, WindowGame.HEIGHT / 2 + 30);
 
-        g.setColor(Color.WHITE);
+        g.setColor(Color.BLACK);
 
         for (int i = 0; i <= boardHeight; i++) {
             g.drawLine(0, i * blockSize, boardWidth * blockSize, i * blockSize);
@@ -204,9 +212,12 @@ public class Board extends JPanel implements KeyListener, MouseListener, MouseMo
     }
 
     public void setNextShape() {
-        int index = random.nextInt(shapes.length);
+        boolean booster = false;
+        int index = random.nextInt(shapes.size());
+        if (index == 7)
+            booster = true;
         int colorIndex = random.nextInt(colors.length);
-        nextShape = new Shape(shapes[index].getCoords(), this, colors[colorIndex]);
+        nextShape = new Shape(shapes.get(index).getCoords(), this, colors[colorIndex], booster);
     }
 
     public void setCurrentShape() {
@@ -329,11 +340,30 @@ public class Board extends JPanel implements KeyListener, MouseListener, MouseMo
     }
 
     public void addScore() {
-        score+=100;
+        score+=500;
         if (score>=scoreCap && level <3) {
             level++;
-            scoreCap*=2;
+            if(level==2)
+                shapes.add(new Shape(new int[][]{
+                        {1}, // BONUS;
+                }, this, Color.GREEN, true));
+            scoreCap=1200;
         }
     }
+
+    public void applyBoost() {
+        int boostX = currentShape.getX();
+        int boostY = currentShape.getY();
+        WindowGame.musicPlayer.playExplosionSound();
+        for (int row = boostY - 2; row <= boostY + 2; row++) {
+            for (int col = boostX - 2; col <= boostX + 2; col++) {
+                if (row >= 0 && row < board.length && col >= 0 && col < board[0].length) {
+                    board[row][col] = null;
+                    score+=10;
+                }
+            }
+        }
+    }
+
 
 }
