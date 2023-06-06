@@ -1,8 +1,9 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.Random;
 
 public class Shape {
-
+    private Random random = new Random();
     private Color color;
 
     private int x, y;
@@ -20,15 +21,19 @@ public class Shape {
     private int deltaX;
 
     private Board board;
+    private boolean booster;
+    long deltaTime;
+
 
     private boolean collision = false, finalCollision = false, moveX = false;
 
     private int timePassedFromCollision = -1;
 
-    public Shape(int[][] coords, Board board, Color color) {
+    public Shape(int[][] coords, Board board, Color color, boolean booster) {
         this.coords = coords;
         this.board = board;
         this.color = color;
+        this.booster = booster;
         deltaX = 0;
         x = 4;
         y = 0;
@@ -46,7 +51,6 @@ public class Shape {
 
     }
 
-    long deltaTime;
 
     public void update() {
         moveX = true;
@@ -59,10 +63,14 @@ public class Shape {
             for (int row = 0; row < coords.length; row++) {
                 for (int col = 0; col < coords[0].length; col++) {
                     if (coords[row][col] != 0) {
-
                         board.getBoard()[y + row][x + col] = color;
                     }
                 }
+            }
+            if(!booster)
+                WindowGame.musicPlayer.playLandingSound();
+            if (booster) {
+                board.applyBoost();
             }
             checkLine();
             board.setCurrentShape();
@@ -76,8 +84,6 @@ public class Shape {
                     if (coords[row][col] != 0) {
                         if (board.getBoard()[y + row][x + deltaX + col] != null) {
                             moveX = false;
-
-
                         }
 
                     }
@@ -100,7 +106,6 @@ public class Shape {
                             if (board.getBoard()[y + 1 + row][x + col] != null) {
                                 collision();
                             }
-
                         }
                     }
                 }
@@ -124,11 +129,9 @@ public class Shape {
             for (int row = 0; row < coords.length; row++) {
                 for (int col = 0; col < coords[row].length; col++) {
                     if (coords[row][col] != 0) {
-
                         if (board.getBoard()[y + 1 + row][x + col] != null) {
                             finalCollision = true;
                         }
-
                     }
                 }
             }
@@ -140,14 +143,20 @@ public class Shape {
         }
     }
 
-    private void collision() {
+    void collision() {
         collision = true;
         timePassedFromCollision = 0;
     }
 
     public void render(Graphics g) {
-
-        g.setColor(color);
+        if (booster) {
+            Color[] colors = {Color.RED, Color.ORANGE, Color.BLACK, Color.YELLOW};
+            int colorIndex = (int) (time / 150) % colors.length;
+            g.setColor(colors[colorIndex]);
+        } else {
+            g.setColor(color);
+        }
+//        g.setColor(color);
         for (int row = 0; row < coords.length; row++) {
             for (int col = 0; col < coords[0].length; col++) {
                 if (coords[row][col] != 0) {
@@ -248,17 +257,6 @@ public class Shape {
 
     public void speedUp() {
         delay = fast;
-    }
-
-    public void modeHard() {
-        delay = hard;
-    }
-
-    public void modeExtreme() {
-        delay = extreme;
-    }
-    public void speedDown() {
-        delay = normal;
     }
 
     public int[][] getCoords() {
