@@ -16,7 +16,7 @@ public class WindowGame {
         window.setLocationRelativeTo(null);
         window.setResizable(false);
 
-        board = new Board();
+        board = new Board(this);
         title = new Title(this);
 
         window.addKeyListener(board);
@@ -37,6 +37,16 @@ public class WindowGame {
         window.revalidate();
         musicPlayer.stopMusic();
         musicPlayer.playMusic("main-soundtrack.wav");
+    }
+
+    public void returnToMenu(){
+//        window.addKeyListener(title);
+//        window.removeMouseMotionListener(board);
+//        window.removeMouseListener(board);
+        window.remove(board);
+        window.add(title);
+        musicPlayer.stopMusic();
+        musicPlayer.playMusic("menu-soundtrack.wav");
     }
 
     public static void main(String[] args) {

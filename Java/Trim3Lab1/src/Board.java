@@ -21,8 +21,7 @@ public class Board extends JPanel implements KeyListener, MouseListener, MouseMo
 
     private static final long serialVersionUID = 1L;
 
-    private BufferedImage pause, refresh;
-    public MusicPlayer musicPlayer = new MusicPlayer();
+    private BufferedImage pause, refresh, menu;
 
     private final int boardHeight = 20, boardWidth = 10;
 
@@ -44,7 +43,7 @@ public class Board extends JPanel implements KeyListener, MouseListener, MouseMo
 
     private boolean leftClick = false;
 
-    private Rectangle stopBounds, refreshBounds;
+    private Rectangle stopBounds, refreshBounds, menuBounds;
 
     private boolean gamePaused = false;
 
@@ -61,21 +60,24 @@ public class Board extends JPanel implements KeyListener, MouseListener, MouseMo
         }
     });
 
-    public int level = 2; //поки що
+    public int level = 1; //поки що
     private int score = 0;
     private int scoreCap = 500;
-
-    public Board() {
+    private WindowGame windowGame;
+    public Board(WindowGame windowGame){
 
         pause = ImageLoader.loadImage("/pause.png");
         refresh = ImageLoader.loadImage("/refresh.png");
+        menu = ImageLoader.loadImage("/menu.png");
 
         mouseX = 0;
         mouseY = 0;
 
+        this.windowGame = windowGame;
         stopBounds = new Rectangle(350, 500, pause.getWidth(), pause.getHeight() + pause.getHeight() / 2);
         refreshBounds = new Rectangle(350, 500 - refresh.getHeight() - 20, refresh.getWidth(),
                 refresh.getHeight() + refresh.getHeight() / 2);
+        menuBounds = new Rectangle(350, 500 - refresh.getHeight() - pause.getHeight() - 40, menu.getWidth(), menu.getHeight() + menu.getHeight() / 2);
 
         looper = new Timer(delay, new GameLooper());
 
@@ -131,6 +133,11 @@ public class Board extends JPanel implements KeyListener, MouseListener, MouseMo
             startGame();
         }
 
+        if(menuBounds.contains(mouseX, mouseY) && leftClick) {
+            stopGame();
+            windowGame.returnToMenu();
+        }
+
         if (gamePaused || gameOver) {
             return;
         }
@@ -179,6 +186,11 @@ public class Board extends JPanel implements KeyListener, MouseListener, MouseMo
         } else {
             g.drawImage(refresh, refreshBounds.x, refreshBounds.y, null);
         }
+        if (menuBounds.contains(mouseX, mouseY)) {
+            g.drawImage(menu.getScaledInstance(menu.getWidth() + 3, menu.getHeight() + 3, BufferedImage.SCALE_DEFAULT), menuBounds.x + 3, menuBounds.y + 3, null);
+        } else {
+            g.drawImage(menu, menuBounds.x, menuBounds.y, null);
+        }
 
         if (gamePaused) {
             String gamePausedString = "GAME PAUSED";
@@ -196,10 +208,10 @@ public class Board extends JPanel implements KeyListener, MouseListener, MouseMo
 
         g.setFont(new Font("Calibri", Font.BOLD, 25));
 
-        g.drawString("LEVEL: " + level, WindowGame.WIDTH - 125, WindowGame.HEIGHT / 2 - 100);
+        g.drawString("LEVEL: " + level, WindowGame.WIDTH - 125, WindowGame.HEIGHT / 2 - 150);
 
-        g.drawString("SCORE:", WindowGame.WIDTH - 125, WindowGame.HEIGHT / 2);
-        g.drawString(score + "", WindowGame.WIDTH - 125, WindowGame.HEIGHT / 2 + 30);
+        g.drawString("SCORE:", WindowGame.WIDTH - 125, WindowGame.HEIGHT / 2-50);
+        g.drawString(score + "", WindowGame.WIDTH - 125, WindowGame.HEIGHT / 2 -20);
 
         g.setColor(Color.BLACK);
 
@@ -340,7 +352,7 @@ public class Board extends JPanel implements KeyListener, MouseListener, MouseMo
     }
 
     public void addScore() {
-        score+=500;
+        score+=100;
         if (score>=scoreCap && level <3) {
             level++;
             if(level==2)

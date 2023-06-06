@@ -17,24 +17,5 @@ public class ImageLoader {
             System.exit(1);
         }
         return null;
-
     }
-    public static void playMusic(String filePath) {
-        try {
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(ImageLoader.class.getResourceAsStream("data"+filePath));
-            clip = AudioSystem.getClip();
-            clip.open(audioInputStream);
-            clip.loop(Clip.LOOP_CONTINUOUSLY);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void stopMusic() {
-        if (clip != null && clip.isRunning()) {
-            clip.stop();
-            clip.close();
-        }
-    }
-
 }
