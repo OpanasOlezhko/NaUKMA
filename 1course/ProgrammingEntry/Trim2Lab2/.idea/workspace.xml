@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="89c66882-ba1f-4833-92ab-4a0bb91febd3" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/out/production/Trim2Lab2/warehouse/Електроніка!Електронні гаджети та пристрої!.txt" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Trim2Lab2/warehouse/Електроніка!Електронні гаджети та пристрої!.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Trim2Lab2/warehouse/Фільми!Кіно, це все якесь кіно!.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/warehouse/Електроніка!Електронні гаджети та пристрої!.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/warehouse/Електроніка!Електронні гаджети та пристрої!.txt" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2OVKqtoXXlqV6ewyTIsakaPUPWj" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/22/Downloads/SyntaxHome",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\22\Documents\GitHub\NaUKMA\1course\ProgrammingEntry\Trim2Lab2\src" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="89c66882-ba1f-4833-92ab-4a0bb91febd3" name="Changes" comment="" />
+      <created>1681640505586</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1681640505586</updated>
+      <workItem from="1681640507346" duration="675000" />
+      <workItem from="1681641236923" duration="54000" />
+      <workItem from="1681642338973" duration="15499000" />
+      <workItem from="1681668307079" duration="594000" />
+      <workItem from="1681798209903" duration="64000" />
+      <workItem from="1681801971610" duration="116000" />
+      <workItem from="1681806944086" duration="1566000" />
+      <workItem from="1681810301300" duration="15000" />
+      <workItem from="1681820443529" duration="37000" />
+      <workItem from="1681825144838" duration="1380000" />
+      <workItem from="1681893486659" duration="934000" />
+      <workItem from="1681894569559" duration="1190000" />
+      <workItem from="1682063424851" duration="147000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
