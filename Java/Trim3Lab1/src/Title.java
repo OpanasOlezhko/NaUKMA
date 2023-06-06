@@ -146,7 +146,7 @@ public class Title extends JPanel implements KeyListener, MouseListener, MouseMo
 			leftClick = true;
 		}
 		if (playbounds.contains(mouseX, mouseY) && leftClick && !buttonLapse.isRunning()) {
-			window.startTetris();
+			window.openLevelsMenu();
 		}
 	}
 

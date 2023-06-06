@@ -5,6 +5,7 @@ public class WindowGame {
 
     private Board board;
     private Title title;
+    private LevelsMenu levelsMenu;
     private JFrame window;
     public static MusicPlayer musicPlayer = new MusicPlayer();
 
@@ -18,6 +19,7 @@ public class WindowGame {
 
         board = new Board();
         title = new Title(this);
+        levelsMenu = new LevelsMenu(this);
 
         window.addKeyListener(board);
         window.addKeyListener(title);
@@ -29,7 +31,7 @@ public class WindowGame {
     }
 
     public void startTetris() {
-        window.remove(title);
+        window.remove(levelsMenu);
         window.addMouseMotionListener(board);
         window.addMouseListener(board);
         window.add(board);
@@ -37,6 +39,14 @@ public class WindowGame {
         window.revalidate();
         musicPlayer.stopMusic();
         musicPlayer.playMusic("main-soundtrack.wav");
+    }
+
+    public void openLevelsMenu(){
+        window.remove(title);
+        window.addMouseMotionListener(levelsMenu);
+        window.addMouseListener(levelsMenu);
+        window.add(levelsMenu);
+        window.revalidate();
     }
 
     public static void main(String[] args) {
