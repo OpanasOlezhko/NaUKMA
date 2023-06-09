@@ -71,7 +71,7 @@ public class YouWinMenu extends JPanel implements KeyListener, MouseListener, Mo
     @Override
     public void keyTyped(KeyEvent e) {
         if(e.getKeyChar() == KeyEvent.VK_SPACE) {
-            window.startTetris();
+            window.startTetris(this);
         }
     }
 
@@ -104,10 +104,10 @@ public class YouWinMenu extends JPanel implements KeyListener, MouseListener, Mo
             leftClick = true;
         }
         if (restartbounds.contains(mouseX, mouseY) && leftClick && !buttonLapse.isRunning()) {
-            window.startTetris();
+            window.startTetris(this);
         }
         if (menubounds.contains(mouseX, mouseY) && leftClick && !buttonLapse.isRunning()) {
-            window.startTetris();
+            window.returnToMenu(this);
         }
     }
 

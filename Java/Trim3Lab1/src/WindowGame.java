@@ -1,4 +1,5 @@
-import javax.swing.JFrame;
+import javax.swing.*;
+import java.lang.reflect.Type;
 
 public class WindowGame {
     public static final int WIDTH = 450, HEIGHT = 635;
@@ -7,6 +8,9 @@ public class WindowGame {
     private Title title;
     private LevelsMenu levelsMenu;
     private JFrame window;
+    private GameOverMenu gameOver;
+    private YouWinMenu youWin;
+    public int startLevel = 1;
     public static MusicPlayer musicPlayer = new MusicPlayer();
 
     public WindowGame() {
@@ -20,6 +24,8 @@ public class WindowGame {
         board = new Board(this);
         title = new Title(this);
         levelsMenu = new LevelsMenu(this);
+        gameOver = new GameOverMenu(this);
+        youWin = new YouWinMenu(this);
 
         window.addKeyListener(board);
         window.addKeyListener(title);
@@ -30,11 +36,12 @@ public class WindowGame {
         musicPlayer.playMusic("menu-soundtrack.wav");
     }
 
-    public void startTetris() {
-        window.remove(levelsMenu);
+    public void startTetris(JPanel panel) {
+        window.remove(panel);
         window.addMouseMotionListener(board);
         window.addMouseListener(board);
         window.add(board);
+        board.level = startLevel;
         board.startGame();
         window.revalidate();
         musicPlayer.stopMusic();
@@ -50,16 +57,26 @@ public class WindowGame {
         window.revalidate();
     }
 
-    public void returnToMenu(){
-//        window.addKeyListener(title);
-//        window.removeMouseMotionListener(board);
-//        window.removeMouseListener(board);
-        window.remove(board);
+    public void returnToMenu(JPanel panel){
+        window.remove(panel);
         window.add(title);
         musicPlayer.stopMusic();
         musicPlayer.playMusic("menu-soundtrack.wav");
-
+        window.revalidate();
     }
+
+    public void gameOver(){
+        window.remove(board);
+        window.add(gameOver);
+        window.revalidate();
+    }
+
+    public void playerWin(){
+        window.remove(board);
+        window.add(youWin);
+        window.revalidate();
+    }
+
 
     public static void main(String[] args) {
         new WindowGame();

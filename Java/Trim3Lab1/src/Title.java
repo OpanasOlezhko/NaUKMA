@@ -106,14 +106,13 @@ public class Title extends JPanel implements KeyListener, MouseListener, MouseMo
 
 	}
 
-    @Override
-    public void keyTyped(KeyEvent e) {
-        if(e.getKeyChar() == KeyEvent.VK_SPACE) {
-            window.startTetris();
-        }
-    }
 
-    @Override
+	@Override
+	public void keyTyped(KeyEvent e) {
+
+	}
+
+	@Override
     public void keyPressed(KeyEvent e) {}
 
     @Override

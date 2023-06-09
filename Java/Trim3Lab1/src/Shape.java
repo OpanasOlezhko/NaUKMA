@@ -58,7 +58,7 @@ public class Shape {
         time += deltaTime;
         lastTime = System.currentTimeMillis();
 
-        if (collision && timePassedFromCollision > 500) {
+        if (collision && timePassedFromCollision > 400) {
 
             for (int row = 0; row < coords.length; row++) {
                 for (int col = 0; col < coords[0].length; col++) {
@@ -118,7 +118,7 @@ public class Shape {
             }
         } else {
             timePassedFromCollision += deltaTime;
-            if(timePassedFromCollision>=500)
+            if(timePassedFromCollision>=400)
                 checkFinalCollision();
         }
 
@@ -156,7 +156,6 @@ public class Shape {
         } else {
             g.setColor(color);
         }
-//        g.setColor(color);
         for (int row = 0; row < coords.length; row++) {
             for (int col = 0; col < coords[0].length; col++) {
                 if (coords[row][col] != 0) {
@@ -164,16 +163,6 @@ public class Shape {
                 }
             }
         }
-
-//        for (int row = 0; row < reference.length; row++) {
-//            for (int col = 0; col < reference[0].length; col++) {
-//                if (reference[row][col] != 0) {
-//                    g.fillRect(col * 30 + 320, row * 30 + 160, Board.blockSize, Board.blockSize);
-//                }
-//
-//            }
-//
-//        }
 
     }
 

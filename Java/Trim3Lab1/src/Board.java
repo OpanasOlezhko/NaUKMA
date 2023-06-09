@@ -10,6 +10,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -19,23 +20,25 @@ import javax.swing.Timer;
 
 public class Board extends JPanel implements KeyListener, MouseListener, MouseMotionListener {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
-    private BufferedImage pause, refresh, menu;
+    private final BufferedImage pause, refresh, menu;
 
     private final int boardHeight = 20, boardWidth = 10;
 
     public static final int blockSize = 30;
 
-    private Color[][] board = new Color[boardHeight][boardWidth];
+    private final Shape booster = new Shape(new int[][]{{1}}, this, Color.GREEN, true);
+    private final Color[][] board = new Color[boardHeight][boardWidth];
 
-    private ArrayList<Shape> shapes = new ArrayList<>();
+    private final ArrayList<Shape> shapes = new ArrayList<>();
 
     private static Shape currentShape, nextShape;
 
-    private Timer looper;
+    private final Timer looper;
 
-    private int FPS = 60;
+    private final int FPS = 60;
 
     private int delay = 1000 / FPS;
 
@@ -43,7 +46,7 @@ public class Board extends JPanel implements KeyListener, MouseListener, MouseMo
 
     private boolean leftClick = false;
 
-    private Rectangle stopBounds, refreshBounds, menuBounds;
+    private final Rectangle stopBounds, refreshBounds, menuBounds;
 
     private boolean gamePaused = false;
 
@@ -60,7 +63,7 @@ public class Board extends JPanel implements KeyListener, MouseListener, MouseMo
         }
     });
 
-    public int level = 1; //поки що
+    public int level = 1;
     private int score = 0;
     private int scoreCap = 500;
     private WindowGame windowGame;
@@ -115,12 +118,6 @@ public class Board extends JPanel implements KeyListener, MouseListener, MouseMo
             {1, 1}, // O shape;
         }, this, colors[6], false));
 
-        if (level>=2) {
-            shapes.add(new Shape(new int[][]{
-                    {1}, // BONUS;
-            }, this, Color.GREEN, true));
-        }
-
     }
 
     private void update() {
@@ -135,12 +132,17 @@ public class Board extends JPanel implements KeyListener, MouseListener, MouseMo
 
         if(menuBounds.contains(mouseX, mouseY) && leftClick) {
             stopGame();
-            windowGame.returnToMenu();
+            windowGame.returnToMenu(this);
         }
 
         if (gamePaused || gameOver) {
             return;
         }
+
+        if (score >=5000){
+
+        }
+
         currentShape.update();
     }
 
@@ -199,10 +201,7 @@ public class Board extends JPanel implements KeyListener, MouseListener, MouseMo
             g.drawString(gamePausedString, 35, WindowGame.HEIGHT / 2);
         }
         if (gameOver) {
-            String gameOverString = "GAME OVER";
-            g.setColor(Color.BLACK);
-            g.setFont(new Font("Georgia", Font.BOLD, 30));
-            g.drawString(gameOverString, 50, WindowGame.HEIGHT / 2);
+            windowGame.gameOver();
         }
         g.setColor(Color.BLACK);
 
@@ -224,12 +223,16 @@ public class Board extends JPanel implements KeyListener, MouseListener, MouseMo
     }
 
     public void setNextShape() {
-        boolean booster = false;
+        boolean boosterShape = false;
         int index = random.nextInt(shapes.size());
         if (index == 7)
-            booster = true;
+            boosterShape = true;
         int colorIndex = random.nextInt(colors.length);
-        nextShape = new Shape(shapes.get(index).getCoords(), this, colors[colorIndex], booster);
+        nextShape = new Shape(shapes.get(index).getCoords(), this, colors[colorIndex], boosterShape);
+        if(level>=2 && !shapes.contains(booster))
+            shapes.add(booster);
+        if (level==1 && shapes.contains(booster))
+            shapes.remove(booster);
     }
 
     public void setCurrentShape() {
@@ -353,12 +356,10 @@ public class Board extends JPanel implements KeyListener, MouseListener, MouseMo
 
     public void addScore() {
         score+=100;
+
         if (score>=scoreCap && level <3) {
             level++;
-            if(level==2)
-                shapes.add(new Shape(new int[][]{
-                        {1}, // BONUS;
-                }, this, Color.GREEN, true));
+
             scoreCap=1200;
         }
     }

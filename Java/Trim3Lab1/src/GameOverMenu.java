@@ -6,7 +6,6 @@ public class GameOverMenu extends JPanel implements KeyListener, MouseListener, 
 
     private int mouseX, mouseY;
     private boolean leftClick = false;
-    private boolean viewingInfo = false;
     private int FPS = 60;
 
     Image gameOverImg, restartButton, menuButton;
@@ -71,7 +70,7 @@ public class GameOverMenu extends JPanel implements KeyListener, MouseListener, 
     @Override
     public void keyTyped(KeyEvent e) {
         if(e.getKeyChar() == KeyEvent.VK_SPACE) {
-            window.startTetris();
+            window.startTetris(this);
         }
     }
 
@@ -104,10 +103,10 @@ public class GameOverMenu extends JPanel implements KeyListener, MouseListener, 
             leftClick = true;
         }
         if (restartbounds.contains(mouseX, mouseY) && leftClick && !buttonLapse.isRunning()) {
-            window.startTetris();
+            window.startTetris(this);
         }
         if (menubounds.contains(mouseX, mouseY) && leftClick && !buttonLapse.isRunning()) {
-            window.startTetris();
+            window.returnToMenu(this);
         }
     }
 

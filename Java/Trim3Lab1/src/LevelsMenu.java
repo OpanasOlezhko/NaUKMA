@@ -6,6 +6,7 @@ public class LevelsMenu extends JPanel implements KeyListener, MouseListener, Mo
 
     private int mouseX, mouseY;
     private boolean leftClick = false;
+    private Board board;
     private boolean viewingInfo = false;
     private int FPS = 60;
 
@@ -39,7 +40,6 @@ public class LevelsMenu extends JPanel implements KeyListener, MouseListener, Mo
         });
 
 
-
         timer.start();
         this.window = window;
     }
@@ -69,15 +69,15 @@ public class LevelsMenu extends JPanel implements KeyListener, MouseListener, Mo
             g.drawImage(level3Button, 125, 400, this);
         }
 
-        g.setColor(Color.WHITE);
-        g.drawString("Press space to play!", 150, WindowGame.HEIGHT / 2 + 100);
+//        g.setColor(Color.WHITE);
+//        g.drawString("Press space to play!", 150, WindowGame.HEIGHT / 2 + 100);
 
     }
 
     @Override
     public void keyTyped(KeyEvent e) {
         if(e.getKeyChar() == KeyEvent.VK_SPACE) {
-            window.startTetris();
+            window.startTetris(this);
         }
     }
 
@@ -110,13 +110,16 @@ public class LevelsMenu extends JPanel implements KeyListener, MouseListener, Mo
             leftClick = true;
         }
         if (level1bounds.contains(mouseX, mouseY) && leftClick && !buttonLapse.isRunning()) {
-            window.startTetris();
+            window.startLevel = 1;
+            window.startTetris(this);
         }
         if (level2bounds.contains(mouseX, mouseY) && leftClick && !buttonLapse.isRunning()) {
-            window.startTetris();
+            window.startLevel = 2;
+            window.startTetris(this);
         }
         if (level3bounds.contains(mouseX, mouseY) && leftClick && !buttonLapse.isRunning()) {
-            window.startTetris();
+            window.startLevel  =3;
+            window.startTetris(this);
         }
     }
 
