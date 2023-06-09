@@ -68,11 +68,7 @@ public class Title extends JPanel implements KeyListener, MouseListener, MouseMo
 		}
 
 		if (tetrislogo != null) {
-			g.drawImage(tetrislogo, -4, 150, this);
-		}
-
-		if (playbutton != null) {
-			g.drawImage(playbutton, 155, 450, this);
+			g.drawImage(tetrislogo, 0, 150, this);
 		}
 
 		g.setColor(Color.BLACK);
