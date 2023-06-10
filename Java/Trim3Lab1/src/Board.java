@@ -149,6 +149,7 @@ public class Board extends JPanel implements KeyListener, MouseListener, MouseMo
         }
 
         if(menuBounds.contains(mouseX, mouseY) && leftClick) {
+            gamePaused = false;
             stopGame();
             windowGame.returnToMenu(this);
         }
