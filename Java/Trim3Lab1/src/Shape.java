@@ -68,7 +68,7 @@ public class Shape {
                 }
             }
             if(!booster)
-                WindowGame.musicPlayer.playLandingSound();
+                WindowGame.musicPlayer.playSound(WindowGame.musicPlayer.landingSound);
             if (booster) {
                 board.applyBoost();
             }

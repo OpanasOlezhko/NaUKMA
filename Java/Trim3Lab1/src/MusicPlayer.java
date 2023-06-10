@@ -7,6 +7,9 @@ public class MusicPlayer {
     private FloatControl gainControl;
     Clip explosionSound = loadSoundEffect("explosion.wav");
     Clip landingSound = loadSoundEffect("landing.wav");
+    Clip gameOverSound = loadSoundEffect("game-over.wav");
+    Clip victorySound = loadSoundEffect("victory.wav");
+    Clip newLevelSound = loadSoundEffect("new-level.wav");
 
     public void playMusic(String filePath) {
         File musicPath= new File(filePath);
@@ -40,17 +43,10 @@ public class MusicPlayer {
         return clip;
     }
 
-    public void playExplosionSound() {
-        if (explosionSound != null) {
-            explosionSound.setFramePosition(0); // Reset the clip to the beginning
-            explosionSound.start();
-        }
-    }
-
-    public void playLandingSound() {
-        if (landingSound != null) {
-            landingSound.setFramePosition(0); // Reset the clip to the beginning
-            landingSound.start();
+    public void playSound(Clip clip) {
+        if (clip != null) {
+            clip.setFramePosition(0);
+            clip.start();
         }
     }
 }

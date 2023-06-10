@@ -33,6 +33,7 @@ public class Board extends JPanel implements KeyListener, MouseListener, MouseMo
     private final Color[][] board = new Color[boardHeight][boardWidth];
 
     private final ArrayList<Shape> shapes = new ArrayList<>();
+    private final ArrayList<Shape> lvl3shapes = new ArrayList<>();
 
     private static Shape currentShape, nextShape;
 
@@ -118,6 +119,23 @@ public class Board extends JPanel implements KeyListener, MouseListener, MouseMo
             {1, 1}, // O shape;
         }, this, colors[6], false));
 
+        lvl3shapes.add(new Shape(new int[][]{
+                {1, 1, 1},
+                {0, 1, 0},
+                {0, 1, 0}
+        }, this, colors[0], false));
+
+        lvl3shapes.add(new Shape(new int[][]{
+                {1, 1, 0},
+                {0, 1, 0},
+                {0, 1, 1}
+        }, this, colors[1], false));
+
+        lvl3shapes.add(new Shape(new int[][]{
+                {1, 1, 1},
+                {1, 1, 1},
+        }, this, colors[6], false));
+
     }
 
     private void update() {
@@ -140,7 +158,8 @@ public class Board extends JPanel implements KeyListener, MouseListener, MouseMo
         }
 
         if (score >=5000){
-
+            stopGame();
+            windowGame.playerWin();
         }
 
         currentShape.update();
@@ -225,13 +244,17 @@ public class Board extends JPanel implements KeyListener, MouseListener, MouseMo
     public void setNextShape() {
         boolean boosterShape = false;
         int index = random.nextInt(shapes.size());
-        if (index == 7)
+        if (shapes.get(index) == booster)
             boosterShape = true;
         int colorIndex = random.nextInt(colors.length);
         nextShape = new Shape(shapes.get(index).getCoords(), this, colors[colorIndex], boosterShape);
+        if(level==3 && !shapes.containsAll(lvl3shapes))
+            shapes.addAll(lvl3shapes);
+        else if (level<3 && shapes.containsAll(lvl3shapes))
+            shapes.removeAll(lvl3shapes);
         if(level>=2 && !shapes.contains(booster))
             shapes.add(booster);
-        if (level==1 && shapes.contains(booster))
+        else if (level==1 && shapes.contains(booster))
             shapes.remove(booster);
     }
 
@@ -359,7 +382,7 @@ public class Board extends JPanel implements KeyListener, MouseListener, MouseMo
 
         if (score>=scoreCap && level <3) {
             level++;
-
+            WindowGame.musicPlayer.playSound(WindowGame.musicPlayer.newLevelSound);
             scoreCap=1200;
         }
     }
@@ -367,7 +390,7 @@ public class Board extends JPanel implements KeyListener, MouseListener, MouseMo
     public void applyBoost() {
         int boostX = currentShape.getX();
         int boostY = currentShape.getY();
-        WindowGame.musicPlayer.playExplosionSound();
+        WindowGame.musicPlayer.playSound(WindowGame.musicPlayer.explosionSound);
         for (int row = boostY - 2; row <= boostY + 2; row++) {
             for (int col = boostX - 2; col <= boostX + 2; col++) {
                 if (row >= 0 && row < board.length && col >= 0 && col < board[0].length) {

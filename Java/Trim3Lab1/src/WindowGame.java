@@ -68,12 +68,18 @@ public class WindowGame {
     public void gameOver(){
         window.remove(board);
         window.add(gameOver);
+        musicPlayer.stopMusic();
+        musicPlayer.playSound(musicPlayer.gameOverSound);
+        musicPlayer.playMusic("menu-soundtrack.wav");
         window.revalidate();
     }
 
     public void playerWin(){
         window.remove(board);
         window.add(youWin);
+        musicPlayer.stopMusic();
+        musicPlayer.playSound(musicPlayer.victorySound);
+        musicPlayer.playMusic("menu-soundtrack.wav");
         window.revalidate();
     }
 
