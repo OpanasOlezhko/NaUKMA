@@ -27,6 +27,7 @@ public class Title extends JPanel implements KeyListener, MouseListener, MouseMo
 	private Rectangle infobounds, playbounds;
 	private BufferedImage[] playButton = new BufferedImage[2];
 	private Timer timer;
+	private Image background = Toolkit.getDefaultToolkit().createImage("menu-background.png");
 	private Timer buttonLapse = new Timer(300, new ActionListener() {
 
 		@Override
@@ -62,6 +63,7 @@ public class Title extends JPanel implements KeyListener, MouseListener, MouseMo
 		g.setColor(Color.WHITE);
 
 		g.fillRect(0, 0, WindowGame.WIDTH, WindowGame.HEIGHT);
+		g.drawImage(background, 0, getHeight()-background.getHeight(this)+100, this);
 
 		if (holologo != null) {
 			g.drawImage(holologo, 125, -83, this);

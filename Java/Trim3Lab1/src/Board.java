@@ -1,7 +1,4 @@
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Rectangle;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -29,6 +26,7 @@ public class Board extends JPanel implements KeyListener, MouseListener, MouseMo
 
     public static final int blockSize = 30;
 
+    private Image background;
     private final Shape booster = new Shape(new int[][]{{1}}, this, Color.GREEN, true);
     private final Color[][] board = new Color[boardHeight][boardWidth];
 
@@ -135,7 +133,6 @@ public class Board extends JPanel implements KeyListener, MouseListener, MouseMo
                 {1, 1, 1},
                 {1, 1, 1},
         }, this, colors[6], false));
-
     }
 
     private void update() {
@@ -149,6 +146,7 @@ public class Board extends JPanel implements KeyListener, MouseListener, MouseMo
         }
 
         if(menuBounds.contains(mouseX, mouseY) && leftClick) {
+            gamePaused = false;
             stopGame();
             windowGame.returnToMenu(this);
         }
@@ -157,7 +155,7 @@ public class Board extends JPanel implements KeyListener, MouseListener, MouseMo
             return;
         }
 
-        if (score >=5000){
+        if (score >=3000){
             stopGame();
             windowGame.playerWin();
         }
@@ -167,8 +165,10 @@ public class Board extends JPanel implements KeyListener, MouseListener, MouseMo
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.setColor(Color.WHITE);
+        g.setColor(Color.white);
         g.fillRect(0, 0, getWidth(), getHeight());
+
+        g.drawImage(background, -7, 0, this);
 
         for (int row = 0; row < board.length; row++) {
             for (int col = 0; col < board[row].length; col++) {
@@ -312,7 +312,7 @@ public class Board extends JPanel implements KeyListener, MouseListener, MouseMo
         setCurrentShape();
         gameOver = false;
         looper.start();
-
+        background = Toolkit.getDefaultToolkit().createImage("lvl"+level+"bgedited.png");
     }
 
     public void stopGame() {
